@@ -1,0 +1,25 @@
+name: CrysDA CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: '0 21 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: crystallang/crystal:latest-alpine
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Dev Dependencies
+      run: apk update && apk add sqlite && apk add sqlite-dev
+    - name: Check format
+      run: crystal tool format --check
+    - name: Install dependencies
+      run: shards install
+    - name: Run tests
+      run: crystal spec --order random --error-on-warnings

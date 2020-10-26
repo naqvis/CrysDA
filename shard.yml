@@ -1,0 +1,19 @@
+name: crysda
+version: 0.1.0
+
+authors:
+  - Ali Naqvi <syed.alinaqvi@gmail.com>
+description: |
+  Crystal Shard for data analysis , wrangling , munging.
+
+crystal: 0.35.1
+
+dependencies:
+  db:
+    github: crystal-lang/crystal-db
+
+development_dependencies:
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+
+license: MIT
