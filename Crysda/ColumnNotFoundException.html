@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="crysda">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="crysda">
+  <title>Crysda::ColumnNotFoundException - crysda master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          crysda
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="crysda/Crysda" data-name="crysda">
+      <a href="../Crysda.html">Crysda</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crysda/Crysda/AggFunc" data-name="crysda::aggfunc">
+      <a href="../Crysda/AggFunc.html">AggFunc</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/AggFuncs" data-name="crysda::aggfuncs">
+      <a href="../Crysda/AggFuncs.html">AggFuncs</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/Any" data-name="crysda::any">
+      <a href="../Crysda/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/AnyCol" data-name="crysda::anycol">
+      <a href="../Crysda/AnyCol.html">AnyCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/AnyVal" data-name="crysda::anyval">
+      <a href="../Crysda/AnyVal.html">AnyVal</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/BoolCol" data-name="crysda::boolcol">
+      <a href="../Crysda/BoolCol.html">BoolCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColNames" data-name="crysda::colnames">
+      <a href="../Crysda/ColNames.html">ColNames</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColSpec" data-name="crysda::colspec">
+      <a href="../Crysda/ColSpec.html">ColSpec</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColumnException" data-name="crysda::columnexception">
+      <a href="../Crysda/ColumnException.html">ColumnException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColumnFormula" data-name="crysda::columnformula">
+      <a href="../Crysda/ColumnFormula.html">ColumnFormula</a>
+      
+    </li>
+  
+  <li class=" current" data-id="crysda/Crysda/ColumnNotFoundException" data-name="crysda::columnnotfoundexception">
+      <a href="../Crysda/ColumnNotFoundException.html">ColumnNotFoundException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColumnSelector" data-name="crysda::columnselector">
+      <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/CrysdaException" data-name="crysda::crysdaexception">
+      <a href="../Crysda/CrysdaException.html">CrysdaException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/CustomColumnValue" data-name="crysda::customcolumnvalue">
+      <a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/DataCol" data-name="crysda::datacol">
+      <a href="../Crysda/DataCol.html">DataCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/DataFrame" data-name="crysda::dataframe">
+      <a href="../Crysda/DataFrame.html">DataFrame</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/DataFrameRow" data-name="crysda::dataframerow">
+      <a href="../Crysda/DataFrameRow.html">DataFrameRow</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/DFCol" data-name="crysda::dfcol">
+      <a href="../Crysda/DFCol.html">DFCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/DuplicateColumnNameException" data-name="crysda::duplicatecolumnnameexception">
+      <a href="../Crysda/DuplicateColumnNameException.html">DuplicateColumnNameException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/Float64Col" data-name="crysda::float64col">
+      <a href="../Crysda/Float64Col.html">Float64Col</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/HashBuilder" data-name="crysda::hashbuilder">
+      <a href="../Crysda/HashBuilder.html">HashBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/Int32Col" data-name="crysda::int32col">
+      <a href="../Crysda/Int32Col.html">Int32Col</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/Int64Col" data-name="crysda::int64col">
+      <a href="../Crysda/Int64Col.html">Int64Col</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/InvalidColumnOperationException" data-name="crysda::invalidcolumnoperationexception">
+      <a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/InvalidColumnSelectException" data-name="crysda::invalidcolumnselectexception">
+      <a href="../Crysda/InvalidColumnSelectException.html">InvalidColumnSelectException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/InvalidSortingPredicateException" data-name="crysda::invalidsortingpredicateexception">
+      <a href="../Crysda/InvalidSortingPredicateException.html">InvalidSortingPredicateException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/List" data-name="crysda::list(t)">
+      <a href="../Crysda/List.html">List</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/MissingValueException" data-name="crysda::missingvalueexception">
+      <a href="../Crysda/MissingValueException.html">MissingValueException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/NonScalarValueException" data-name="crysda::nonscalarvalueexception">
+      <a href="../Crysda/NonScalarValueException.html">NonScalarValueException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/RenamePair" data-name="crysda::renamepair">
+      <a href="../Crysda/RenamePair.html">RenamePair</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/RenameRule" data-name="crysda::renamerule">
+      <a href="../Crysda/RenameRule.html">RenameRule</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/RowPredicate" data-name="crysda::rowpredicate">
+      <a href="../Crysda/RowPredicate.html">RowPredicate</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/SelectException" data-name="crysda::selectexception">
+      <a href="../Crysda/SelectException.html">SelectException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/SortExpression" data-name="crysda::sortexpression">
+      <a href="../Crysda/SortExpression.html">SortExpression</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/StringCol" data-name="crysda::stringcol">
+      <a href="../Crysda/StringCol.html">StringCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/SumFormula" data-name="crysda::sumformula">
+      <a href="../Crysda/SumFormula.html">SumFormula</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/SummarizeFunc" data-name="crysda::summarizefunc">
+      <a href="../Crysda/SummarizeFunc.html">SummarizeFunc</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/TableExpression" data-name="crysda::tableexpression">
+      <a href="../Crysda/TableExpression.html">TableExpression</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/UnSupportedOperationException" data-name="crysda::unsupportedoperationexception">
+      <a href="../Crysda/UnSupportedOperationException.html">UnSupportedOperationException</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Crysda::ColumnNotFoundException
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Crysda/ColumnNotFoundException.html">Crysda::ColumnNotFoundException</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>Exception raised when column is not found inside dataset.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/select.cr#L14" target="_blank">
+        crysda/select.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(name:String)-class-method" class="signature"><strong>.new</strong>(name : String)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(name:String)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(name : String)
+
+        <a class="method-permalink" href="#new(name:String)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/select.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+</div>
+
+</body>
+</html>

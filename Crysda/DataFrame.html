@@ -1,0 +1,3421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="crystal_docs.project_version" content="master">
+<meta name="crystal_docs.project_name" content="crysda">
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+
+  <meta id="repository-name" content="crysda">
+  <title>Crysda::DataFrame - crysda master</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          crysda
+        </a>
+      </h1>
+
+      <span class="project-version">
+        master
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="crysda/Crysda" data-name="crysda">
+      <a href="../Crysda.html">Crysda</a>
+      
+        <ul>
+  
+  <li class=" " data-id="crysda/Crysda/AggFunc" data-name="crysda::aggfunc">
+      <a href="../Crysda/AggFunc.html">AggFunc</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/AggFuncs" data-name="crysda::aggfuncs">
+      <a href="../Crysda/AggFuncs.html">AggFuncs</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/Any" data-name="crysda::any">
+      <a href="../Crysda/Any.html">Any</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/AnyCol" data-name="crysda::anycol">
+      <a href="../Crysda/AnyCol.html">AnyCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/AnyVal" data-name="crysda::anyval">
+      <a href="../Crysda/AnyVal.html">AnyVal</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/BoolCol" data-name="crysda::boolcol">
+      <a href="../Crysda/BoolCol.html">BoolCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColNames" data-name="crysda::colnames">
+      <a href="../Crysda/ColNames.html">ColNames</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColSpec" data-name="crysda::colspec">
+      <a href="../Crysda/ColSpec.html">ColSpec</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColumnException" data-name="crysda::columnexception">
+      <a href="../Crysda/ColumnException.html">ColumnException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColumnFormula" data-name="crysda::columnformula">
+      <a href="../Crysda/ColumnFormula.html">ColumnFormula</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColumnNotFoundException" data-name="crysda::columnnotfoundexception">
+      <a href="../Crysda/ColumnNotFoundException.html">ColumnNotFoundException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/ColumnSelector" data-name="crysda::columnselector">
+      <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/CrysdaException" data-name="crysda::crysdaexception">
+      <a href="../Crysda/CrysdaException.html">CrysdaException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/CustomColumnValue" data-name="crysda::customcolumnvalue">
+      <a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/DataCol" data-name="crysda::datacol">
+      <a href="../Crysda/DataCol.html">DataCol</a>
+      
+    </li>
+  
+  <li class=" current" data-id="crysda/Crysda/DataFrame" data-name="crysda::dataframe">
+      <a href="../Crysda/DataFrame.html">DataFrame</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/DataFrameRow" data-name="crysda::dataframerow">
+      <a href="../Crysda/DataFrameRow.html">DataFrameRow</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/DFCol" data-name="crysda::dfcol">
+      <a href="../Crysda/DFCol.html">DFCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/DuplicateColumnNameException" data-name="crysda::duplicatecolumnnameexception">
+      <a href="../Crysda/DuplicateColumnNameException.html">DuplicateColumnNameException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/Float64Col" data-name="crysda::float64col">
+      <a href="../Crysda/Float64Col.html">Float64Col</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/HashBuilder" data-name="crysda::hashbuilder">
+      <a href="../Crysda/HashBuilder.html">HashBuilder</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/Int32Col" data-name="crysda::int32col">
+      <a href="../Crysda/Int32Col.html">Int32Col</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/Int64Col" data-name="crysda::int64col">
+      <a href="../Crysda/Int64Col.html">Int64Col</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/InvalidColumnOperationException" data-name="crysda::invalidcolumnoperationexception">
+      <a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/InvalidColumnSelectException" data-name="crysda::invalidcolumnselectexception">
+      <a href="../Crysda/InvalidColumnSelectException.html">InvalidColumnSelectException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/InvalidSortingPredicateException" data-name="crysda::invalidsortingpredicateexception">
+      <a href="../Crysda/InvalidSortingPredicateException.html">InvalidSortingPredicateException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/List" data-name="crysda::list(t)">
+      <a href="../Crysda/List.html">List</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/MissingValueException" data-name="crysda::missingvalueexception">
+      <a href="../Crysda/MissingValueException.html">MissingValueException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/NonScalarValueException" data-name="crysda::nonscalarvalueexception">
+      <a href="../Crysda/NonScalarValueException.html">NonScalarValueException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/RenamePair" data-name="crysda::renamepair">
+      <a href="../Crysda/RenamePair.html">RenamePair</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/RenameRule" data-name="crysda::renamerule">
+      <a href="../Crysda/RenameRule.html">RenameRule</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/RowPredicate" data-name="crysda::rowpredicate">
+      <a href="../Crysda/RowPredicate.html">RowPredicate</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/SelectException" data-name="crysda::selectexception">
+      <a href="../Crysda/SelectException.html">SelectException</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/SortExpression" data-name="crysda::sortexpression">
+      <a href="../Crysda/SortExpression.html">SortExpression</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/StringCol" data-name="crysda::stringcol">
+      <a href="../Crysda/StringCol.html">StringCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/SumFormula" data-name="crysda::sumformula">
+      <a href="../Crysda/SumFormula.html">SumFormula</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/SummarizeFunc" data-name="crysda::summarizefunc">
+      <a href="../Crysda/SummarizeFunc.html">SummarizeFunc</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/TableExpression" data-name="crysda::tableexpression">
+      <a href="../Crysda/TableExpression.html">TableExpression</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/UnSupportedOperationException" data-name="crysda::unsupportedoperationexception">
+      <a href="../Crysda/UnSupportedOperationException.html">UnSupportedOperationException</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Crysda::DataFrame
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>A "tabular" data structure representing cases/records (rows), each of which consists of a number of observations or measurements (columns)
+DataFrame is an immutable object, any mutation will return a new object.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L11" target="_blank">
+        crysda/dataframe.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L2" target="_blank">
+        crysda/joins.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L2" target="_blank">
+        crysda/reshape.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="DEF_NEST_COLUMN_NAME">
+        <strong>DEF_NEST_COLUMN_NAME</strong> = <code><span class="s">&quot;data&quot;</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#[](name:String):DataCol-instance-method" class="signature"><strong>#[]</strong>(name : String) : DataCol</a>
+        
+          <div class="summary"><p>Returns a column by name</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#[](index:Int32)-instance-method" class="signature"><strong>#[]</strong>(index : Int32)</a>
+        
+          <div class="summary"><p>Returns a column by index</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_column(col_name:String,&expression:TableExpression):DataFrame-instance-method" class="signature"><strong>#add_column</strong>(col_name : String, &expression : TableExpression) : DataFrame</a>
+        
+          <div class="summary"><p>Add a new column and preserve existing ones.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_column(tf:ColumnFormula):DataFrame-instance-method" class="signature"><strong>#add_column</strong>(tf : ColumnFormula) : DataFrame</a>
+        
+          <div class="summary"><p>Adds new variables and preserves existing</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_columns(cols:Iterable(ColumnFormula)):DataFrame-instance-method" class="signature"><strong>#add_columns</strong>(cols : Iterable(ColumnFormula)) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_columns(*cols:ColumnFormula):DataFrame-instance-method" class="signature"><strong>#add_columns</strong>(*cols : ColumnFormula) : DataFrame</a>
+        
+          <div class="summary"><p>add multiple columns <code></code>`crystal df.add_columns(   "age_plus3".with { |e| e["age"] + 3 },   "initials".with { |e| e["first_name"].map(&.to_s[0]).concatenate(e["last_name"].map(&.to_s[0])) } ) <code></code>`</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_row(*row)-instance-method" class="signature"><strong>#add_row</strong>(*row)</a>
+        
+          <div class="summary"><p>Returns a DataFrame containing the new row.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_row_number(name=&quot;row_number&quot;)-instance-method" class="signature"><strong>#add_row_number</strong>(name = <span class="s">&quot;row_number&quot;</span>)</a>
+        
+          <div class="summary"><p>Add the row-number as column to data-frame</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind_cols(cols:Iterable(DataCol))-instance-method" class="signature"><strong>#bind_cols</strong>(cols : Iterable(DataCol))</a>
+        
+          <div class="summary"><p>Add new columns.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind_rows(df:DataFrame):DataFrame-instance-method" class="signature"><strong>#bind_rows</strong>(df : DataFrame) : DataFrame</a>
+        
+          <div class="summary"><p>Adds new rows.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind_rows(rows:Iterable(Hash(String,Any)))-instance-method" class="signature"><strong>#bind_rows</strong>(rows : Iterable(Hash(String, Any)))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind_rows(dfs:Iterable(DataFrame)):DataFrame-instance-method" class="signature"><strong>#bind_rows</strong>(dfs : Iterable(DataFrame)) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind_rows(*rows:Hash(String,Any))-instance-method" class="signature"><strong>#bind_rows</strong>(*rows : Hash(String, Any))</a>
+        
+          <div class="summary"><p>Add new rows.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind_rows(*df:DataFrame):DataFrame-instance-method" class="signature"><strong>#bind_rows</strong>(*df : DataFrame) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#bind_rows(*rows:DataFrameRow)-instance-method" class="signature"><strong>#bind_rows</strong>(*rows : DataFrameRow)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#cols:Array(DataCol)-instance-method" class="signature"><strong>#cols</strong> : Array(DataCol)</a>
+        
+          <div class="summary"><p>Ordered list of column in this data-frame</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#complete(*column_names:String):DataFrame-instance-method" class="signature"><strong>#complete</strong>(*column_names : String) : DataFrame</a>
+        
+          <div class="summary"><p>Turns implicit missing values into explicit missing values.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#count(selects:Array(String)=[]ofString,name=&quot;n&quot;):DataFrame-instance-method" class="signature"><strong>#count</strong>(selects : Array(String) = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, name = <span class="s">&quot;n&quot;</span>) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#count(*selects:String,name=&quot;n&quot;):DataFrame-instance-method" class="signature"><strong>#count</strong>(*selects : String, name = <span class="s">&quot;n&quot;</span>) : DataFrame</a>
+        
+          <div class="summary"><p>Counts observations by group.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#count_expr(*exprs:TableExpression,name=&quot;n&quot;,table_expression:TableExpression?=nil):DataFrame-instance-method" class="signature"><strong>#count_expr</strong>(*exprs : TableExpression, name = <span class="s">&quot;n&quot;</span>, table_expression : TableExpression? = <span class="n">nil</span>) : DataFrame</a>
+        
+          <div class="summary"><p>Counts expressions</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#distinct(*selects:String):DataFrame-instance-method" class="signature"><strong>#distinct</strong>(*selects : String) : DataFrame</a>
+        
+          <div class="summary"><p>Retains only unique/distinct rows selects : Variables to use when determining uniqueness.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#distinct(selects:Array(String)=self.names):DataFrame-instance-method" class="signature"><strong>#distinct</strong>(selects : Array(String) = <span class="k">self</span>.names) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#expand(*column_names:String):DataFrame-instance-method" class="signature"><strong>#expand</strong>(*column_names : String) : DataFrame</a>
+        
+          <div class="summary"><p><code><a href="../Crysda/DataFrame.html#expand(*column_names:String):DataFrame-instance-method">#expand</a></code> is often useful in conjunction with left_join if you want to convert implicit missing values to explicit missing values.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#filter(&block:RowPredicate):DataFrame-instance-method" class="signature"><strong>#filter</strong>(&block : RowPredicate) : DataFrame</a>
+        
+          <div class="summary"><p>Filter the rows of a table with a single predicate.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#filter(*predicates:DataFrame-%3EArray(Bool)%7CArray(Bool?)):DataFrame-instance-method" class="signature"><strong>#filter</strong>(*predicates : DataFrame -> Array(Bool) | Array(Bool?)) : DataFrame</a>
+        
+          <div class="summary"><p>AND-filter a table with different filters.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#filter_by_row(&row_filter:DataFrameRow-%3EBool):DataFrame-instance-method" class="signature"><strong>#filter_by_row</strong>(&row_filter : DataFrameRow -> Bool) : DataFrame</a>
+        
+          <div class="summary"><p>filter rows by Row predicate, which is invoked on each row of the dataframe <code></code>`crystal df = Crysda.dataframe_of("person", "year", "weight", "sex").values(   "max", 2014, 33.1, "M",   "max", 2016, nil, "M",   "anna", 2015, 39.2, "F",   "anna", 2016, 39.9, "F" ) df.filter_by_row { |f| f["year"].as_i > 2015 }.print <code></code>`</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gather(key:String,value:String,columns:ColumnSelector,convert:Bool=false):DataFrame-instance-method" class="signature"><strong>#gather</strong>(key : String, value : String, columns : ColumnSelector, convert : Bool = <span class="n">false</span>) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#gather(key:String,value:String,columns:Array(String)=self.names,convert:Bool=false):DataFrame-instance-method" class="signature"><strong>#gather</strong>(key : String, value : String, columns : Array(String) = <span class="k">self</span>.names, convert : Bool = <span class="n">false</span>) : DataFrame</a>
+        
+          <div class="summary"><p>gather takes multiple columns and collapses into key-value pairs, duplicating all other columns as needed.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#group_by(by:Iterable(String)):DataFrame-instance-method" class="signature"><strong>#group_by</strong>(by : Iterable(String)) : DataFrame</a>
+        
+          <div class="summary"><p>Creates a grouped data-frame given a list of grouping attributes.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#group_by(*by:String):DataFrame-instance-method" class="signature"><strong>#group_by</strong>(*by : String) : DataFrame</a>
+        
+          <div class="summary"><p>Creates a grouped data-frame given a list of grouping attributes.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#group_by(&col_selector:ColumnSelector):DataFrame-instance-method" class="signature"><strong>#group_by</strong>(&col_selector : ColumnSelector) : DataFrame</a>
+        
+          <div class="summary"><p>Creates a grouped data-frame from a column selector function.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#group_by_expr(table_expression:TableExpression?=nil):DataFrame-instance-method" class="signature"><strong>#group_by_expr</strong>(table_expression : TableExpression? = <span class="n">nil</span>) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#group_by_expr(exprs:Iterable(TableExpression),table_expression:TableExpression?=nil):DataFrame-instance-method" class="signature"><strong>#group_by_expr</strong>(exprs : Iterable(TableExpression), table_expression : TableExpression? = <span class="n">nil</span>) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#group_by_expr(*exprs:TableExpression,table_expression:TableExpression?=nil):DataFrame-instance-method" class="signature"><strong>#group_by_expr</strong>(*exprs : TableExpression, table_expression : TableExpression? = <span class="n">nil</span>) : DataFrame</a>
+        
+          <div class="summary"><p>Creates a grouped data-frame from one or more table expressions.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#grouped_by:DataFrame-instance-method" class="signature"><strong>#grouped_by</strong> : DataFrame</a>
+        
+          <div class="summary"><p>Returns a data-frame of distinct grouping variable tuples for a grouped data-frame.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#groups:Array(DataFrame)-instance-method" class="signature"><strong>#groups</strong> : Array(DataFrame)</a>
+        
+          <div class="summary"><p>Returns the groups of a grouped data frame or just a reference to self</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#head(rows=5)-instance-method" class="signature"><strong>#head</strong>(rows = <span class="n">5</span>)</a>
+        
+          <div class="summary"><p>return the top rows from dataframe.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#inner_join(right:DataFrame,by:Iterable(Tuple(String,String)),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#inner_join</strong>(right : DataFrame, by : Iterable(Tuple(String, String)), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#inner_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#inner_join</strong>(right : DataFrame, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#inner_join(right:DataFrame,by:String,suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#inner_join</strong>(right : DataFrame, by : String, suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#left_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#left_join</strong>(right : DataFrame, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#left_join(right:DataFrame,by:String,suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#left_join</strong>(right : DataFrame, by : String, suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_left(*col_names:String):DataFrame-instance-method" class="signature"><strong>#move_left</strong>(*col_names : String) : DataFrame</a>
+        
+          <div class="summary"><p>Push some columns to the left end of a data-frame</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#move_right(*col_names:String):DataFrame-instance-method" class="signature"><strong>#move_right</strong>(*col_names : String) : DataFrame</a>
+        
+          <div class="summary"><p>Push some columns to the right end of a data-frame</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#names:Array(String)-instance-method" class="signature"><strong>#names</strong> : Array(String)</a>
+        
+          <div class="summary"><p>Ordered list of column names of this data-frame</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nest(col_select:ColumnSelector=ColumnSelector.newdo%7Cc%7C%0Ac.except(grouped_by().names)%0Aend,column_name:String=DEF_NEST_COLUMN_NAME):DataFrame-instance-method" class="signature"><strong>#nest</strong>(col_select : ColumnSelector = <span class="t">ColumnSelector</span>.<span class="k">new</span> <span class="k">do</span> <span class="o">|</span>c<span class="o">|</span>
+  c.except(grouped_by().names)
+<span class="k">end</span>, column_name : String = <span class="t">DEF_NEST_COLUMN_NAME</span>) : DataFrame</a>
+        
+          <div class="summary"><p>Nest repeated values in a list-variable.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#num_col:Int32-instance-method" class="signature"><strong>#num_col</strong> : Int32</a>
+        
+          <div class="summary"><p>Number of columns in this dataframe</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#num_row:Int32-instance-method" class="signature"><strong>#num_row</strong> : Int32</a>
+        
+          <div class="summary"><p>Number of rows in this dataframe</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#outer_join(right:DataFrame,by:String,suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#outer_join</strong>(right : DataFrame, by : String, suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#outer_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#outer_join</strong>(right : DataFrame, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#print(title=&quot;ADataFrame&quot;,col_names=true,max_rows=PRINT_MAX_ROWS,max_width=PRINT_MAX_WIDTH,max_digits=PRINT_MAX_DIGITS,row_numbers=PRINT_ROW_NUMBERS,output=STDOUT)-instance-method" class="signature"><strong>#print</strong>(title = <span class="s">&quot;A DataFrame&quot;</span>, col_names = <span class="n">true</span>, max_rows = <span class="t">PRINT_MAX_ROWS</span>, max_width = <span class="t">PRINT_MAX_WIDTH</span>, max_digits = <span class="t">PRINT_MAX_DIGITS</span>, row_numbers = <span class="t">PRINT_ROW_NUMBERS</span>, output = <span class="t">STDOUT</span>)</a>
+        
+          <div class="summary"><p>Prints a dataframe to output (defaults to STDOUT).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject(columns:Iterable(String)):DataFrame-instance-method" class="signature"><strong>#reject</strong>(columns : Iterable(String)) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject(*col_sels:ColumnSelector):DataFrame-instance-method" class="signature"><strong>#reject</strong>(*col_sels : ColumnSelector) : DataFrame</a>
+        
+          <div class="summary"><p>remove selected columns</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject(&col_sel:ColumnSelector):DataFrame-instance-method" class="signature"><strong>#reject</strong>(&col_sel : ColumnSelector) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject(*columns:String):DataFrame-instance-method" class="signature"><strong>#reject</strong>(*columns : String) : DataFrame</a>
+        
+          <div class="summary"><p>reject selected columns</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject(col_type:DataCol.class):DataFrame-instance-method" class="signature"><strong>#reject</strong>(col_type : <span class="t">DataCol</span>.<span class="k">class</span>) : DataFrame</a>
+        
+          <div class="summary"><p>reject column by column type</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reject?(&pred:DataCol-%3EBool):DataFrame-instance-method" class="signature"><strong>#reject?</strong>(&pred : DataCol -> Bool) : DataFrame</a>
+        
+          <div class="summary"><p>Select or reject columns by predicate</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rename(cols:Array(RenamePair)):DataFrame-instance-method" class="signature"><strong>#rename</strong>(cols : Array(RenamePair)) : DataFrame</a>
+        
+          <div class="summary"><p>Rename one or several columns.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rename(rules:Array(RenameRule)):DataFrame-instance-method" class="signature"><strong>#rename</strong>(rules : Array(RenameRule)) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rename(*cols:RenamePair):DataFrame-instance-method" class="signature"><strong>#rename</strong>(*cols : RenamePair) : DataFrame</a>
+        
+          <div class="summary"><p>Rename one or several columns.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rename(*rules:RenameRule):DataFrame-instance-method" class="signature"><strong>#rename</strong>(*rules : RenameRule) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#right_join</strong>(right : DataFrame, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#right_join(right:DataFrame,by:String,suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#right_join</strong>(right : DataFrame, by : String, suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#row(index:Int32):DataFrameRow-instance-method" class="signature"><strong>#row</strong>(index : Int32) : DataFrameRow</a>
+        
+          <div class="summary"><p>Returns a row by index</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#row_number:Array(Int32)-instance-method" class="signature"><strong>#row_number</strong> : Array(Int32)</a>
+        
+          <div class="summary"><p>Returns array of row numbers starting from 1</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rows:Iterator(DataFrameRow)-instance-method" class="signature"><strong>#rows</strong> : Iterator(DataFrameRow)</a>
+        
+          <div class="summary"><p>Returns an Iterator over all rows.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rowwise:DataFrame-instance-method" class="signature"><strong>#rowwise</strong> : DataFrame</a>
+        
+          <div class="summary"><p>Creates a grouped data-frame where each group consists of exactly one line.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sample_frac(fraction:Float64,replace=false):DataFrame-instance-method" class="signature"><strong>#sample_frac</strong>(fraction : Float64, replace = <span class="n">false</span>) : DataFrame</a>
+        
+          <div class="summary"><p>Select random rows from a table.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sample_n(n:Int32,replace=false):DataFrame-instance-method" class="signature"><strong>#sample_n</strong>(n : Int32, replace = <span class="n">false</span>) : DataFrame</a>
+        
+          <div class="summary"><p>Select random rows from a table.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#schema(max_digits=3,max_width=PRINT_MAX_WIDTH,output=STDOUT)-instance-method" class="signature"><strong>#schema</strong>(max_digits = <span class="n">3</span>, max_width = <span class="t">PRINT_MAX_WIDTH</span>, output = <span class="t">STDOUT</span>)</a>
+        
+          <div class="summary"><p>Prints the schema (that is column names, types, and the first few values per column) of a dataframe to output (defaults to STDOUT).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select(which:Array(Bool?)):DataFrame-instance-method" class="signature"><strong>#select</strong>(which : Array(Bool?)) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select(*col_sels:ColumnSelector):DataFrame-instance-method" class="signature"><strong>#select</strong>(*col_sels : ColumnSelector) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select(*columns:String):DataFrame-instance-method" class="signature"><strong>#select</strong>(*columns : String) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select(&col_sel:ColumnSelector):DataFrame-instance-method" class="signature"><strong>#select</strong>(&col_sel : ColumnSelector) : DataFrame</a>
+        
+          <div class="summary"><p>Keeps only the variables that match any of the given expression</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select(columns:Iterable(String)):DataFrame-instance-method" class="signature"><strong>#select</strong>(columns : Iterable(String)) : DataFrame</a>
+        
+          <div class="summary"><p>Create a new data frame with only selected columns</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select(col_type:DataCol.class):DataFrame-instance-method" class="signature"><strong>#select</strong>(col_type : <span class="t">DataCol</span>.<span class="k">class</span>) : DataFrame</a>
+        
+          <div class="summary"><p>Select column by column type</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#select?(&pred:DataCol-%3EBool):DataFrame-instance-method" class="signature"><strong>#select?</strong>(&pred : DataCol -> Bool) : DataFrame</a>
+        
+          <div class="summary"><p>Select or reject columns by predicate</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#semi_join(right:DataFrame,by:String):DataFrame-instance-method" class="signature"><strong>#semi_join</strong>(right : DataFrame, by : String) : DataFrame</a>
+        
+          <div class="summary"><p>Special case of inner join against distinct right side</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#semi_join(right:DataFrame,by:Iterable(Tuple(String,String))):DataFrame-instance-method" class="signature"><strong>#semi_join</strong>(right : DataFrame, by : Iterable(Tuple(String, String))) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#semi_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method" class="signature"><strong>#semi_join</strong>(right : DataFrame, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#separate(column:String,into:Array(String),sep:Regex%7CString=/[%5E%5Cw]/,remove:Bool=true,convert:Bool=false):DataFrame-instance-method" class="signature"><strong>#separate</strong>(column : String, into : Array(String), sep : Regex | String = <span class="s">/[^\w]/</span>, remove : Bool = <span class="n">true</span>, convert : Bool = <span class="n">false</span>) : DataFrame</a>
+        
+          <div class="summary"><p>Given either regular expression or a vector of character positions, separate() turns a single character column into multiple columns.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_names(*new_name:String):DataFrame-instance-method" class="signature"><strong>#set_names</strong>(*new_name : String) : DataFrame</a>
+        
+          <div class="summary"><p>Replace current column names with new ones.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_names(new_names:Array(String)):DataFrame-instance-method" class="signature"><strong>#set_names</strong>(new_names : Array(String)) : DataFrame</a>
+        
+          <div class="summary"><p>Replace current column names with new ones.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#shuffle:DataFrame-instance-method" class="signature"><strong>#shuffle</strong> : DataFrame</a>
+        
+          <div class="summary"><p>Randomize the row order of a data-frame.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#slice(*slices:Int32)-instance-method" class="signature"><strong>#slice</strong>(*slices : Int32)</a>
+        
+          <div class="summary"><p>Select rows by position while taking into account grouping in a data-frame.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#slice(slices:Range)-instance-method" class="signature"><strong>#slice</strong>(slices : Range)</a>
+        
+          <div class="summary"><p>Select rows by position while taking into account grouping in a data-frame.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sort_by(exp:Iterable(SortExpression))-instance-method" class="signature"><strong>#sort_by</strong>(exp : Iterable(SortExpression))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sort_by(&exp:SortExpression)-instance-method" class="signature"><strong>#sort_by</strong>(&exp : SortExpression)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sort_by(*by:String):DataFrame-instance-method" class="signature"><strong>#sort_by</strong>(*by : String) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sort_by:DataFrame-instance-method" class="signature"><strong>#sort_by</strong> : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sort_by(by:Iterable(String)):DataFrame-instance-method" class="signature"><strong>#sort_by</strong>(by : Iterable(String)) : DataFrame</a>
+        
+          <div class="summary"><p>Resorts the receiver in ascending order (small values to go top of table).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#sort_desc_by(*by:String):DataFrame-instance-method" class="signature"><strong>#sort_desc_by</strong>(*by : String) : DataFrame</a>
+        
+          <div class="summary"><p>Resorts the receiver in descending order (small values to go bottom of table).</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#spread(key:String,value:String,fill=nil,convert=false):DataFrame-instance-method" class="signature"><strong>#spread</strong>(key : String, value : String, fill = <span class="n">nil</span>, convert = <span class="n">false</span>) : DataFrame</a>
+        
+          <div class="summary"><p>spread a key-value pair across multiple columns.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#summarize(name:String,&block:TableExpression):DataFrame-instance-method" class="signature"><strong>#summarize</strong>(name : String, &block : TableExpression) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#summarize(*sum_rules:ColumnFormula):DataFrame-instance-method" class="signature"><strong>#summarize</strong>(*sum_rules : ColumnFormula) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#summarize(sum_rules:Array(ColumnFormula)):DataFrame-instance-method" class="signature"><strong>#summarize</strong>(sum_rules : Array(ColumnFormula)) : DataFrame</a>
+        
+          <div class="summary"><p>Creates a summary of a table or a group.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#summarize(name:String,block:TableExpression):DataFrame-instance-method" class="signature"><strong>#summarize</strong>(name : String, block : TableExpression) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#summarize_at(&col_sel:ColumnSelector):DataFrame-instance-method" class="signature"><strong>#summarize_at</strong>(&col_sel : ColumnSelector) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#summarize_at(col_sel:ColumnSelector,aggfuns:Array(AggFunc)):DataFrame-instance-method" class="signature"><strong>#summarize_at</strong>(col_sel : ColumnSelector, aggfuns : Array(AggFunc)) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#summarize_at(col_sel:ColumnSelector,op:SummarizeFunc?=nil):DataFrame-instance-method" class="signature"><strong>#summarize_at</strong>(col_sel : ColumnSelector, op : SummarizeFunc? = <span class="n">nil</span>) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#summarize_at(col_sel:ColumnSelector,*aggfuns:AggFunc):DataFrame-instance-method" class="signature"><strong>#summarize_at</strong>(col_sel : ColumnSelector, *aggfuns : AggFunc) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#tail(rows=5)-instance-method" class="signature"><strong>#tail</strong>(rows = <span class="n">5</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#take(rows=5)-instance-method" class="signature"><strong>#take</strong>(rows = <span class="n">5</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#take_last(rows:Int32)-instance-method" class="signature"><strong>#take_last</strong>(rows : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_h-instance-method" class="signature"><strong>#to_h</strong></a>
+        
+          <div class="summary"><p>Expose a view on the data as Hash from column names to nullable arrays.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s(io:Nil)-instance-method" class="signature"><strong>#to_s</strong>(io : Nil)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_string(title=&quot;ADataFrame&quot;,col_names=true,max_rows=PRINT_MAX_ROWS,max_width=PRINT_MAX_WIDTH,max_digits=PRINT_MAX_DIGITS,row_numbers=PRINT_ROW_NUMBERS)-instance-method" class="signature"><strong>#to_string</strong>(title = <span class="s">&quot;A DataFrame&quot;</span>, col_names = <span class="n">true</span>, max_rows = <span class="t">PRINT_MAX_ROWS</span>, max_width = <span class="t">PRINT_MAX_WIDTH</span>, max_digits = <span class="t">PRINT_MAX_DIGITS</span>, row_numbers = <span class="t">PRINT_ROW_NUMBERS</span>)</a>
+        
+          <div class="summary"><p>Converts dataframe to its string representation.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#transmute(*formula:ColumnFormula)-instance-method" class="signature"><strong>#transmute</strong>(*formula : ColumnFormula)</a>
+        
+          <div class="summary"><p>Create a new dataframe based on a list of column-formulas which are evaluated in the context of the this instance.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ungroup:DataFrame-instance-method" class="signature"><strong>#ungroup</strong> : DataFrame</a>
+        
+          <div class="summary"><p>Removes the grouping (if present from a data frame)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unite(col_name:String,which:Array(String),sep:String=&quot;_&quot;,remove:Bool=true):DataFrame-instance-method" class="signature"><strong>#unite</strong>(col_name : String, which : Array(String), sep : String = <span class="s">&quot;_&quot;</span>, remove : Bool = <span class="n">true</span>) : DataFrame</a>
+        
+          <div class="summary"><p>Convenience function to paste together multiple columns into one.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unite(col_name:String,*which:ColumnSelector,sep:String=&quot;_&quot;,remove:Bool=true):DataFrame-instance-method" class="signature"><strong>#unite</strong>(col_name : String, *which : ColumnSelector, sep : String = <span class="s">&quot;_&quot;</span>, remove : Bool = <span class="n">true</span>) : DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unnest(column_name:String):DataFrame-instance-method" class="signature"><strong>#unnest</strong>(column_name : String) : DataFrame</a>
+        
+          <div class="summary"><p>If you have a list-column, this makes each element of the list its own row.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_csv(filename:String,separator:Char=&#39;,&#39;,quote_char:Char=&#39;&quot;&#39;):Nil-instance-method" class="signature"><strong>#write_csv</strong>(filename : String, separator : Char = <span class="s">&#39;,&#39;</span>, quote_char : Char = <span class="s">&#39;&quot;&#39;</span>) : Nil</a>
+        
+          <div class="summary"><p>Save the current dataframe to <code>separator</code> delimited file.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_csv(io:IO,separator:Char=&#39;,&#39;,quote_char:Char=&#39;&quot;&#39;):Nil-instance-method" class="signature"><strong>#write_csv</strong>(io : IO, separator : Char = <span class="s">&#39;,&#39;</span>, quote_char : Char = <span class="s">&#39;&quot;&#39;</span>) : Nil</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="[](name:String):DataCol-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>[]</strong>(name : String) : <a href="../Crysda/DataCol.html">DataCol</a>
+
+        <a class="method-permalink" href="#[](name:String):DataCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a column by name</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L22" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[](index:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>[]</strong>(index : Int32)
+
+        <a class="method-permalink" href="#[](index:Int32)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a column by index</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L62" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_column(col_name:String,&expression:TableExpression):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>add_column</strong>(col_name : String, &expression : <a href="../Crysda/TableExpression.html">TableExpression</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#add_column(col_name:String,&expression:TableExpression):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add a new column and preserve existing ones.</p>
+
+<pre><code class="language-crystal">df.add_column(<span class="s">&quot;salary_category&quot;</span>) { <span class="n">3</span> }             <span class="c"># with constant value</span>
+df.add_column(<span class="s">&quot;age_3y_later&quot;</span>) { <span class="o">|</span>e<span class="o">|</span> e[<span class="s">&quot;age&quot;</span>] <span class="o">+</span> <span class="n">3</span> } <span class="c"># by doing basic column arithmetics</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L71" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_column(tf:ColumnFormula):DataFrame-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>add_column</strong>(tf : <a href="../Crysda/ColumnFormula.html">ColumnFormula</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#add_column(tf:ColumnFormula):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Adds new variables and preserves existing</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L34" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_columns(cols:Iterable(ColumnFormula)):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>add_columns</strong>(cols : Iterable(<a href="../Crysda/ColumnFormula.html">ColumnFormula</a>)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#add_columns(cols:Iterable(ColumnFormula)):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L86" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_columns(*cols:ColumnFormula):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>add_columns</strong>(*cols : <a href="../Crysda/ColumnFormula.html">ColumnFormula</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#add_columns(*cols:ColumnFormula):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>add multiple columns</p>
+
+<pre><code class="language-crystal">df.add_columns(
+  <span class="s">&quot;age_plus3&quot;</span>.<span class="k">with</span> { <span class="o">|</span>e<span class="o">|</span> e[<span class="s">&quot;age&quot;</span>] <span class="o">+</span> <span class="n">3</span> },
+  <span class="s">&quot;initials&quot;</span>.<span class="k">with</span> { <span class="o">|</span>e<span class="o">|</span> e[<span class="s">&quot;first_name&quot;</span>].map(<span class="o">&amp;</span>.to_s[<span class="n">0</span>]).concatenate(e[<span class="s">&quot;last_name&quot;</span>].map(<span class="o">&amp;</span>.to_s[<span class="n">0</span>])) }
+)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L82" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_row(*row)-instance-method">
+      <div class="signature">
+        
+        def <strong>add_row</strong>(*row)
+
+        <a class="method-permalink" href="#add_row(*row)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a DataFrame containing the new row.
+The new row length must match the number of columns in the DataFrame</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L92" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_row_number(name=&quot;row_number&quot;)-instance-method">
+      <div class="signature">
+        
+        def <strong>add_row_number</strong>(name = <span class="s">&quot;row_number&quot;</span>)
+
+        <a class="method-permalink" href="#add_row_number(name=&quot;row_number&quot;)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add the row-number as column to data-frame</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L100" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind_cols(cols:Iterable(DataCol))-instance-method">
+      <div class="signature">
+        
+        def <strong>bind_cols</strong>(cols : Iterable(<a href="../Crysda/DataCol.html">DataCol</a>))
+
+        <a class="method-permalink" href="#bind_cols(cols:Iterable(DataCol))-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add new columns. rows are matched by position, so all data frames must have the same number of rows.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L163" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind_rows(df:DataFrame):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>bind_rows</strong>(df : <a href="../Crysda/DataFrame.html">DataFrame</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#bind_rows(df:DataFrame):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Adds new rows. Missing entries are set to null. The output of bind_rows will contain a column if that column appears in any of the inputs.
+When row-binding, columns are matched by name, and any missing columns will be filled with NA.
+Grouping will be discarded when binding rows</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L107" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind_rows(rows:Iterable(Hash(String,Any)))-instance-method">
+      <div class="signature">
+        
+        def <strong>bind_rows</strong>(rows : Iterable(Hash(String, <a href="../Crysda/Any.html">Any</a>)))
+
+        <a class="method-permalink" href="#bind_rows(rows:Iterable(Hash(String,Any)))-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L134" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind_rows(dfs:Iterable(DataFrame)):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>bind_rows</strong>(dfs : Iterable(<a href="../Crysda/DataFrame.html">DataFrame</a>)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#bind_rows(dfs:Iterable(DataFrame)):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L146" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind_rows(*rows:Hash(String,Any))-instance-method">
+      <div class="signature">
+        
+        def <strong>bind_rows</strong>(*rows : Hash(String, <a href="../Crysda/Any.html">Any</a>))
+
+        <a class="method-permalink" href="#bind_rows(*rows:Hash(String,Any))-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add new rows. Missing entries are set to nil. The output of <code><a href="../Crysda/DataFrame.html#bind_rows(df:DataFrame):DataFrame-instance-method">#bind_rows</a></code> will contain a column if that column appears in any of the inputs.
+when row-binding, columns are matched by name, and any missing column will be filled with NA
+Grouping will be discarded when binding rows</p>
+
+<pre><code class="language-crystal">row1 <span class="o">=</span> {
+  <span class="s">&quot;person&quot;</span> => <span class="s">&quot;james&quot;</span>,
+  <span class="s">&quot;year&quot;</span>   => <span class="n">1996</span>,
+  <span class="s">&quot;weight&quot;</span> => <span class="n">54.0</span>,
+  <span class="s">&quot;sex&quot;</span>    => <span class="s">&quot;M&quot;</span>,
+} <span class="k">of</span> <span class="t">String</span> => <span class="t">Any</span>
+
+row2 <span class="o">=</span> {
+  <span class="s">&quot;person&quot;</span> => <span class="s">&quot;nell&quot;</span>,
+  <span class="s">&quot;year&quot;</span>   => <span class="n">1997</span>,
+  <span class="s">&quot;weight&quot;</span> => <span class="n">48.1</span>,
+  <span class="s">&quot;sex&quot;</span>    => <span class="s">&quot;F&quot;</span>,
+} <span class="k">of</span> <span class="t">String</span> => <span class="t">Any</span>
+df.bind_rows(row1, row2)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L130" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind_rows(*df:DataFrame):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>bind_rows</strong>(*df : <a href="../Crysda/DataFrame.html">DataFrame</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#bind_rows(*df:DataFrame):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L142" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="bind_rows(*rows:DataFrameRow)-instance-method">
+      <div class="signature">
+        
+        def <strong>bind_rows</strong>(*rows : <a href="../Crysda/DataFrameRow.html">DataFrameRow</a>)
+
+        <a class="method-permalink" href="#bind_rows(*rows:DataFrameRow)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L138" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="cols:Array(DataCol)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>cols</strong> : Array(<a href="../Crysda/DataCol.html">DataCol</a>)
+
+        <a class="method-permalink" href="#cols:Array(DataCol)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Ordered list of column in this data-frame</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L19" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="complete(*column_names:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>complete</strong>(*column_names : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#complete(*column_names:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Turns implicit missing values into explicit missing values. This is a wrapper around <code><a href="../Crysda/DataFrame.html#expand(*column_names:String):DataFrame-instance-method">#expand</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L215" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="count(selects:Array(String)=[]ofString,name=&quot;n&quot;):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>count</strong>(selects : Array(String) = <span class="o">[]</span> <span class="k">of</span> <span class="t">String</span>, name = <span class="s">&quot;n&quot;</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#count(selects:Array(String)=[]ofString,name=&quot;n&quot;):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L198" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="count(*selects:String,name=&quot;n&quot;):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>count</strong>(*selects : String, name = <span class="s">&quot;n&quot;</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#count(*selects:String,name=&quot;n&quot;):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Counts observations by group.</p>
+
+<p>If no grouping attributes are provided the method will respect the grouping of the receiver, or in cases of an
+ungrouped receiver will simply count the rows in the data.frame</p>
+
+<p>selects : The variables to to be used for cross-tabulation.
+name  : The name of the count column resulting table.</p>
+
+<pre><code class="language-crystal">df.count(<span class="s">&quot;column name&quot;</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L194" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="count_expr(*exprs:TableExpression,name=&quot;n&quot;,table_expression:TableExpression?=nil):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>count_expr</strong>(*exprs : <a href="../Crysda/TableExpression.html">TableExpression</a>, name = <span class="s">&quot;n&quot;</span>, table_expression : <a href="../Crysda/TableExpression.html">TableExpression</a>? = <span class="n">nil</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#count_expr(*exprs:TableExpression,name=&quot;n&quot;,table_expression:TableExpression?=nil):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Counts expressions</p>
+
+<p>If no grouping attributes are provided the method will respect the grouping of the receiver, or in cases of an
+ungrouped receiver will simply count the rows in the data.frame</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L210" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="distinct(*selects:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>distinct</strong>(*selects : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#distinct(*selects:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Retains only unique/distinct rows
+selects : Variables to use when determining uniqueness. If there are multiple rows for a given combination of inputs, only the first row will be preserved.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L217" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="distinct(selects:Array(String)=self.names):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>distinct</strong>(selects : Array(String) = <span class="k">self</span>.names) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#distinct(selects:Array(String)=self.names):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L221" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="expand(*column_names:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>expand</strong>(*column_names : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#expand(*column_names:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p><code><a href="../Crysda/DataFrame.html#expand(*column_names:String):DataFrame-instance-method">#expand</a></code> is often useful in conjunction with left_join if you want to convert implicit missing values to explicit
+missing values.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L221" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="filter(&block:RowPredicate):DataFrame-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>filter</strong>(&block : <a href="../Crysda/RowPredicate.html">RowPredicate</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#filter(&block:RowPredicate):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Filter the rows of a table with a single predicate.
+the filter() function is used to subset a data frame, retaining all rows that satisfy your conditions.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L32" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="filter(*predicates:DataFrame->Array(Bool)|Array(Bool?)):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>filter</strong>(*predicates : <a href="../Crysda/DataFrame.html">DataFrame</a> -> Array(Bool) | Array(Bool?)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#filter(*predicates:DataFrame-%3EArray(Bool)%7CArray(Bool?)):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>AND-filter a table with different filters.
+Subset rows with filter</p>
+
+<pre><code class="language-crystal">df.filter { <span class="o">|</span>e<span class="o">|</span> e.[<span class="s">&quot;age&quot;</span>] <span class="o">==</span> <span class="n">23</span> }
+df.filter { <span class="o">|</span>e<span class="o">|</span> e.[<span class="s">&quot;weight&quot;</span>] <span class="o">&gt;</span> <span class="n">50</span> }
+df.filter { <span class="o">|</span>e<span class="o">|</span> e[<span class="s">&quot;first_name&quot;</span>].matching { <span class="o">|</span>e<span class="o">|</span> e.starts_with?(<span class="s">&quot;Ho&quot;</span>) } }</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L238" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="filter_by_row(&row_filter:DataFrameRow->Bool):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>filter_by_row</strong>(&row_filter : <a href="../Crysda/DataFrameRow.html">DataFrameRow</a> -> Bool) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#filter_by_row(&row_filter:DataFrameRow-%3EBool):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>filter rows by Row predicate, which is invoked on each row of the dataframe</p>
+
+<pre><code class="language-crystal">df <span class="o">=</span> <span class="t">Crysda</span>.dataframe_of(<span class="s">&quot;person&quot;</span>, <span class="s">&quot;year&quot;</span>, <span class="s">&quot;weight&quot;</span>, <span class="s">&quot;sex&quot;</span>).values(
+  <span class="s">&quot;max&quot;</span>, <span class="n">2014</span>, <span class="n">33.1</span>, <span class="s">&quot;M&quot;</span>,
+  <span class="s">&quot;max&quot;</span>, <span class="n">2016</span>, <span class="n">nil</span>, <span class="s">&quot;M&quot;</span>,
+  <span class="s">&quot;anna&quot;</span>, <span class="n">2015</span>, <span class="n">39.2</span>, <span class="s">&quot;F&quot;</span>,
+  <span class="s">&quot;anna&quot;</span>, <span class="n">2016</span>, <span class="n">39.9</span>, <span class="s">&quot;F&quot;</span>
+)
+df.filter_by_row { <span class="o">|</span>f<span class="o">|</span> f[<span class="s">&quot;year&quot;</span>].as_i <span class="o">&gt;</span> <span class="n">2015</span> }.print</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L252" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gather(key:String,value:String,columns:ColumnSelector,convert:Bool=false):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>gather</strong>(key : String, value : String, columns : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>, convert : Bool = <span class="n">false</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#gather(key:String,value:String,columns:ColumnSelector,convert:Bool=false):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L97" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="gather(key:String,value:String,columns:Array(String)=self.names,convert:Bool=false):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>gather</strong>(key : String, value : String, columns : Array(String) = <span class="k">self</span>.names, convert : Bool = <span class="n">false</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#gather(key:String,value:String,columns:Array(String)=self.names,convert:Bool=false):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>gather takes multiple columns and collapses into key-value pairs, duplicating all other columns as needed. You use
+gather() when you notice that you have columns that are not variables.</p>
+
+<p>key Name of the key column to create in output.
+value Name of the value column to create in output.
+columns The colums to gather. The same selectar syntax as for <code>krangl::select</code> is supported here
+convert If TRUE will automatically run <code>convertType</code> on the key column. This is useful if the</p>
+
+<pre><code>           column names are actually numeric, integer, or logical.</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L73" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="group_by(by:Iterable(String)):DataFrame-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>group_by</strong>(by : Iterable(String)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#group_by(by:Iterable(String)):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a grouped data-frame given a list of grouping attributes.
+Most data operations are done on groups defined by variables. <code>group_by()</code> takes the receiver data-frame and
+converts it into a grouped data-frame where operations are performed "by group". <code>ungroup()</code> removes grouping.</p>
+
+<p>Most verbs like <code>add_column()</code>, <code>summarize()</code>, etc. will be executed per group if a grouping is present.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L45" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="group_by(*by:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>group_by</strong>(*by : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#group_by(*by:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a grouped data-frame given a list of grouping attributes.
+Most data operations are done on groups defined by variables. <code>group_by()</code> takes the receiver data-frame and
+converts it into a grouped data-frame where operations are performed "by group". <code>ungroup()</code> removes grouping.</p>
+
+<p>Most verbs like <code>add_column()</code>, <code>summarize()</code>, etc. will be executed per group if a grouping is present.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L264" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="group_by(&col_selector:ColumnSelector):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>group_by</strong>(&col_selector : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#group_by(&col_selector:ColumnSelector):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a grouped data-frame from a column selector function. See <code>select()</code> for details about column selection.</p>
+
+<p>Most data operations are done on groups defined by variables. <code>group_by()</code> takes the receiver data-frame and
+converts it into a grouped data-frame where operations are performed "by group". <code>ungroup()</code> removes grouping.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L277" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="group_by_expr(table_expression:TableExpression?=nil):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>group_by_expr</strong>(table_expression : <a href="../Crysda/TableExpression.html">TableExpression</a>? = <span class="n">nil</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#group_by_expr(table_expression:TableExpression?=nil):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L289" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="group_by_expr(exprs:Iterable(TableExpression),table_expression:TableExpression?=nil):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>group_by_expr</strong>(exprs : Iterable(<a href="../Crysda/TableExpression.html">TableExpression</a>), table_expression : <a href="../Crysda/TableExpression.html">TableExpression</a>? = <span class="n">nil</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#group_by_expr(exprs:Iterable(TableExpression),table_expression:TableExpression?=nil):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L293" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="group_by_expr(*exprs:TableExpression,table_expression:TableExpression?=nil):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>group_by_expr</strong>(*exprs : <a href="../Crysda/TableExpression.html">TableExpression</a>, table_expression : <a href="../Crysda/TableExpression.html">TableExpression</a>? = <span class="n">nil</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#group_by_expr(*exprs:TableExpression,table_expression:TableExpression?=nil):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a grouped data-frame from one or more table expressions. See <code>add_column()</code> for details about table expressions.</p>
+
+<p>Most data operations are done on groups defined by variables. <code>group_by()</code> takes the receiver data-frame and
+converts it into a grouped data-frame where operations are performed "by group". <code>ungroup()</code> removes grouping.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L285" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="grouped_by:DataFrame-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>grouped_by</strong> : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#grouped_by:DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a data-frame of distinct grouping variable tuples for a grouped data-frame.
+An empty data-frame for ungrouped data</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L52" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="groups:Array(DataFrame)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>groups</strong> : Array(<a href="../Crysda/DataFrame.html">DataFrame</a>)
+
+        <a class="method-permalink" href="#groups:Array(DataFrame)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns the groups of a grouped data frame or just a reference to self</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L55" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="head(rows=5)-instance-method">
+      <div class="signature">
+        
+        def <strong>head</strong>(rows = <span class="n">5</span>)
+
+        <a class="method-permalink" href="#head(rows=5)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>return the top rows from dataframe. default to 5</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L301" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="inner_join(right:DataFrame,by:Iterable(Tuple(String,String)),suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>inner_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : Iterable(Tuple(String, String)), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#inner_join(right:DataFrame,by:Iterable(Tuple(String,String)),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L34" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="inner_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>inner_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#inner_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="inner_join(right:DataFrame,by:String,suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>inner_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : String, suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#inner_join(right:DataFrame,by:String,suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L26" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="left_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>left_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#left_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L14" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="left_join(right:DataFrame,by:String,suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>left_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : String, suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#left_join(right:DataFrame,by:String,suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_left(*col_names:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>move_left</strong>(*col_names : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#move_left(*col_names:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Push some columns to the left end of a data-frame</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L312" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="move_right(*col_names:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>move_right</strong>(*col_names : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#move_right(*col_names:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Push some columns to the right end of a data-frame</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L306" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="names:Array(String)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>names</strong> : Array(String)
+
+        <a class="method-permalink" href="#names:Array(String)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Ordered list of column names of this data-frame</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L17" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nest(col_select:ColumnSelector=ColumnSelector.newdo|c|
+c.except(grouped_by().names)
+end,column_name:String=DEF_NEST_COLUMN_NAME):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>nest</strong>(col_select : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a> = <span class="t">ColumnSelector</span>.<span class="k">new</span> <span class="k">do</span> <span class="o">|</span>c<span class="o">|</span>
+  c.except(grouped_by().names)
+<span class="k">end</span>, column_name : String = <span class="t">DEF_NEST_COLUMN_NAME</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#nest(col_select:ColumnSelector=ColumnSelector.newdo%7Cc%7C%0Ac.except(grouped_by().names)%0Aend,column_name:String=DEF_NEST_COLUMN_NAME):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Nest repeated values in a list-variable.</p>
+
+<p>There are many possible ways one could choose to nest colSelect inside a data frame. nest() creates a list of data
+frames containing all the nested variables: this seems to be the most useful form in practice.</p>
+
+<p>Usage</p>
+
+<pre><code>nest(data, ..., column_name <span class="o">=</span> <span class="s">&quot;data&quot;</span>)</code></pre>
+
+<p>col_select - A selection of col_select. If not provided, all except the grouping variables are selected.
+column_name - The name of the new column, as a string or symbol.
+also see https://github.com/tidyverse/tidyr/blob/master/R/nest.R</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L169" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="num_col:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>num_col</strong> : Int32
+
+        <a class="method-permalink" href="#num_col:Int32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Number of columns in this dataframe</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="num_row:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>num_row</strong> : Int32
+
+        <a class="method-permalink" href="#num_row:Int32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Number of rows in this dataframe</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L13" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="outer_join(right:DataFrame,by:String,suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>outer_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : String, suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#outer_join(right:DataFrame,by:String,suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L57" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="outer_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>outer_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#outer_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L61" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="print(title=&quot;ADataFrame&quot;,col_names=true,max_rows=PRINT_MAX_ROWS,max_width=PRINT_MAX_WIDTH,max_digits=PRINT_MAX_DIGITS,row_numbers=PRINT_ROW_NUMBERS,output=STDOUT)-instance-method">
+      <div class="signature">
+        
+        def <strong>print</strong>(title = <span class="s">&quot;A DataFrame&quot;</span>, col_names = <span class="n">true</span>, max_rows = <span class="t">PRINT_MAX_ROWS</span>, max_width = <span class="t">PRINT_MAX_WIDTH</span>, max_digits = <span class="t">PRINT_MAX_DIGITS</span>, row_numbers = <span class="t">PRINT_ROW_NUMBERS</span>, output = <span class="t">STDOUT</span>)
+
+        <a class="method-permalink" href="#print(title=&quot;ADataFrame&quot;,col_names=true,max_rows=PRINT_MAX_ROWS,max_width=PRINT_MAX_WIDTH,max_digits=PRINT_MAX_DIGITS,row_numbers=PRINT_ROW_NUMBERS,output=STDOUT)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Prints a dataframe to output (defaults to STDOUT). df.to_s will also work but has no options</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L318" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject(columns:Iterable(String)):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>reject</strong>(columns : Iterable(String)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#reject(columns:Iterable(String)):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L334" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject(*col_sels:ColumnSelector):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>reject</strong>(*col_sels : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#reject(*col_sels:ColumnSelector):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>remove selected columns</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L348" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject(&col_sel:ColumnSelector):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>reject</strong>(&col_sel : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#reject(&col_sel:ColumnSelector):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L343" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject(*columns:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>reject</strong>(*columns : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#reject(*columns:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>reject selected columns</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L330" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject(col_type:DataCol.class):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>reject</strong>(col_type : <span class="t">DataCol</span>.<span class="k">class</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#reject(col_type:DataCol.class):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>reject column by column type</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L339" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reject?(&pred:DataCol->Bool):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>reject?</strong>(&pred : <a href="../Crysda/DataCol.html">DataCol</a> -> Bool) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#reject?(&pred:DataCol-%3EBool):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Select or reject columns by predicate</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L325" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rename(cols:Array(RenamePair)):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>rename</strong>(cols : Array(<a href="../Crysda/RenamePair.html">RenamePair</a>)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#rename(cols:Array(RenamePair)):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Rename one or several columns. Positions should be preserved.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L358" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rename(rules:Array(RenameRule)):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>rename</strong>(rules : Array(<a href="../Crysda/RenameRule.html">RenameRule</a>)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#rename(rules:Array(RenameRule)):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L366" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rename(*cols:RenamePair):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>rename</strong>(*cols : <a href="../Crysda/RenamePair.html">RenamePair</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#rename(*cols:RenamePair):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Rename one or several columns. Positions should be preserved.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L353" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rename(*rules:RenameRule):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>rename</strong>(*rules : <a href="../Crysda/RenameRule.html">RenameRule</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#rename(*rules:RenameRule):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L362" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>right_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#right_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L22" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="right_join(right:DataFrame,by:String,suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>right_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : String, suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#right_join(right:DataFrame,by:String,suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L18" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="row(index:Int32):DataFrameRow-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>row</strong>(index : Int32) : <a href="../Crysda/DataFrameRow.html">DataFrameRow</a>
+
+        <a class="method-permalink" href="#row(index:Int32):DataFrameRow-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns a row by index</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="row_number:Array(Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>row_number</strong> : Array(Int32)
+
+        <a class="method-permalink" href="#row_number:Array(Int32)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns array of row numbers starting from 1</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L384" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rows:Iterator(DataFrameRow)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>rows</strong> : Iterator(<a href="../Crysda/DataFrameRow.html">DataFrameRow</a>)
+
+        <a class="method-permalink" href="#rows:Iterator(DataFrameRow)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Returns an Iterator over all rows. Per row data is represented as <code><a href="../Crysda/DataFrameRow.html">DataFrameRow</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L27" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rowwise:DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>rowwise</strong> : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#rowwise:DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a grouped data-frame where each group consists of exactly one line.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L389" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sample_frac(fraction:Float64,replace=false):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>sample_frac</strong>(fraction : Float64, replace = <span class="n">false</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#sample_frac(fraction:Float64,replace=false):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Select random rows from a table.  If receiver is grouped, sampling is done per group.
+fraction - Fraction of rows to sample
+replace - Sample with or without replacement</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L400" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sample_n(n:Int32,replace=false):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>sample_n</strong>(n : Int32, replace = <span class="n">false</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#sample_n(n:Int32,replace=false):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Select random rows from a table. If receiver is grouped, sampling is done per group.
+n - Number of rows to sample
+replace - Sample with or without replacement</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L407" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="schema(max_digits=3,max_width=PRINT_MAX_WIDTH,output=STDOUT)-instance-method">
+      <div class="signature">
+        
+        def <strong>schema</strong>(max_digits = <span class="n">3</span>, max_width = <span class="t">PRINT_MAX_WIDTH</span>, output = <span class="t">STDOUT</span>)
+
+        <a class="method-permalink" href="#schema(max_digits=3,max_width=PRINT_MAX_WIDTH,output=STDOUT)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Prints the schema (that is column names, types, and the first few values per column) of a dataframe to output (defaults to STDOUT).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L426" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(which:Array(Bool?)):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(which : Array(Bool?)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#select(which:Array(Bool?)):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L466" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(*col_sels:ColumnSelector):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(*col_sels : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#select(*col_sels:ColumnSelector):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L462" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(*columns:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(*columns : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#select(*columns:String):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L448" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(&col_sel:ColumnSelector):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(&col_sel : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#select(&col_sel:ColumnSelector):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Keeps only the variables that match any of the given expression</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L458" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(columns:Iterable(String)):DataFrame-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>select</strong>(columns : Iterable(String)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#select(columns:Iterable(String)):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a new data frame with only selected columns</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L29" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select(col_type:DataCol.class):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>select</strong>(col_type : <span class="t">DataCol</span>.<span class="k">class</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#select(col_type:DataCol.class):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Select column by column type</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L453" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="select?(&pred:DataCol->Bool):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>select?</strong>(&pred : <a href="../Crysda/DataCol.html">DataCol</a> -> Bool) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#select?(&pred:DataCol-%3EBool):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Select or reject columns by predicate</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L444" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="semi_join(right:DataFrame,by:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>semi_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#semi_join(right:DataFrame,by:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Special case of inner join against distinct right side</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L39" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="semi_join(right:DataFrame,by:Iterable(Tuple(String,String))):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>semi_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : Iterable(Tuple(String, String))) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#semi_join(right:DataFrame,by:Iterable(Tuple(String,String))):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L43" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="semi_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)={&quot;.x&quot;,&quot;.y&quot;}):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>semi_join</strong>(right : <a href="../Crysda/DataFrame.html">DataFrame</a>, by : Iterable(String) = default_by(<span class="k">self</span>, right), suffices : Tuple(String, String) = {<span class="s">&quot;.x&quot;</span>, <span class="s">&quot;.y&quot;</span>}) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#semi_join(right:DataFrame,by:Iterable(String)=default_by(self,right),suffices:Tuple(String,String)=%7B&quot;.x&quot;,&quot;.y&quot;%7D):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/joins.cr#L47" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="separate(column:String,into:Array(String),sep:Regex|String=/[^\w]/,remove:Bool=true,convert:Bool=false):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>separate</strong>(column : String, into : Array(String), sep : Regex | String = <span class="s">/[^\w]/</span>, remove : Bool = <span class="n">true</span>, convert : Bool = <span class="n">false</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#separate(column:String,into:Array(String),sep:Regex%7CString=/[%5E%5Cw]/,remove:Bool=true,convert:Bool=false):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Given either regular expression or a vector of character positions, separate() turns a single character column into multiple columns.</p>
+
+<p>column - Bare column name.
+into - Names of new variables to create as character vector.
+sep - Separator between columns. If String, is interpreted as a regular expression. The default value is a regular expression that matches any sequence of non-alphanumeric values.
+remove - If true, remove input column from output data frame.
+convert - If set, attempt to do a type conversion will be run on all new columns. This is useful if the value column was a mix of variables that was coerced to a string.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L131" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set_names(*new_name:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>set_names</strong>(*new_name : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#set_names(*new_name:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Replace current column names with new ones. The number of provided names must match the number of columns.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L471" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set_names(new_names:Array(String)):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>set_names</strong>(new_names : Array(String)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#set_names(new_names:Array(String)):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Replace current column names with new ones. The number of provided names must match the number of columns.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L476" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="shuffle:DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>shuffle</strong> : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#shuffle:DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Randomize the row order of a data-frame.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L481" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="slice(*slices:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>slice</strong>(*slices : Int32)
+
+        <a class="method-permalink" href="#slice(*slices:Int32)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Select rows by position while taking into account grouping in a data-frame.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L486" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="slice(slices:Range)-instance-method">
+      <div class="signature">
+        
+        def <strong>slice</strong>(slices : Range)
+
+        <a class="method-permalink" href="#slice(slices:Range)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Select rows by position while taking into account grouping in a data-frame.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L491" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sort_by(exp:Iterable(SortExpression))-instance-method">
+      <div class="signature">
+        
+        def <strong>sort_by</strong>(exp : Iterable(<a href="../Crysda/SortExpression.html">SortExpression</a>))
+
+        <a class="method-permalink" href="#sort_by(exp:Iterable(SortExpression))-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L517" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sort_by(&exp:SortExpression)-instance-method">
+      <div class="signature">
+        
+        def <strong>sort_by</strong>(&exp : <a href="../Crysda/SortExpression.html">SortExpression</a>)
+
+        <a class="method-permalink" href="#sort_by(&exp:SortExpression)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L513" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sort_by(*by:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>sort_by</strong>(*by : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#sort_by(*by:String):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L509" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sort_by:DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>sort_by</strong> : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#sort_by:DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L505" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sort_by(by:Iterable(String)):DataFrame-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>sort_by</strong>(by : Iterable(String)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#sort_by(by:Iterable(String)):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Resorts the receiver in ascending order (small values to go top of table). The first argument defines the
+primary attribute to sort by. Additional ones are used to resolve ties.</p>
+
+<p>Missing values will come last in the sorted table.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L39" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="sort_desc_by(*by:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>sort_desc_by</strong>(*by : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#sort_desc_by(*by:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Resorts the receiver in descending order (small values to go bottom of table). The first argument defines the
+primary attribute to sort by. Additional ones are used to resolve ties.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L497" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="spread(key:String,value:String,fill=nil,convert=false):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>spread</strong>(key : String, value : String, fill = <span class="n">nil</span>, convert = <span class="n">false</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#spread(key:String,value:String,fill=nil,convert=false):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>spread a key-value pair across multiple columns.</p>
+
+<p>key The bare (unquoted) name of the column whose values will be used as column headings.
+value The bare (unquoted) name of the column whose values will populate the cells.
+fill If set, missing values will be replaced with this value -  <strong>NOT IMPLEMENTED</strong>
+convert If set, attempt to do a type conversion will be run on all new columns. This is useful if the value column
+was a mix of variables that was coerced to a string.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L12" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="summarize(name:String,&block:TableExpression):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>summarize</strong>(name : String, &block : <a href="../Crysda/TableExpression.html">TableExpression</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#summarize(name:String,&block:TableExpression):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L540" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="summarize(*sum_rules:ColumnFormula):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>summarize</strong>(*sum_rules : <a href="../Crysda/ColumnFormula.html">ColumnFormula</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#summarize(*sum_rules:ColumnFormula):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L532" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="summarize(sum_rules:Array(ColumnFormula)):DataFrame-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>summarize</strong>(sum_rules : Array(<a href="../Crysda/ColumnFormula.html">ColumnFormula</a>)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#summarize(sum_rules:Array(ColumnFormula)):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Creates a summary of a table or a group. The provided expression is expected to evaluate to a scalar value and not into a column.
+<code>summarize()</code> is typically used on grouped data created by group_by(). The output will have one row for each group.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L59" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="summarize(name:String,block:TableExpression):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>summarize</strong>(name : String, block : <a href="../Crysda/TableExpression.html">TableExpression</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#summarize(name:String,block:TableExpression):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L536" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="summarize_at(&col_sel:ColumnSelector):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>summarize_at</strong>(&col_sel : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#summarize_at(&col_sel:ColumnSelector):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L544" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="summarize_at(col_sel:ColumnSelector,aggfuns:Array(AggFunc)):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>summarize_at</strong>(col_sel : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>, aggfuns : Array(<a href="../Crysda/AggFunc.html">AggFunc</a>)) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#summarize_at(col_sel:ColumnSelector,aggfuns:Array(AggFunc)):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L552" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="summarize_at(col_sel:ColumnSelector,op:SummarizeFunc?=nil):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>summarize_at</strong>(col_sel : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>, op : <a href="../Crysda/SummarizeFunc.html">SummarizeFunc</a>? = <span class="n">nil</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#summarize_at(col_sel:ColumnSelector,op:SummarizeFunc?=nil):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L556" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="summarize_at(col_sel:ColumnSelector,*aggfuns:AggFunc):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>summarize_at</strong>(col_sel : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>, *aggfuns : <a href="../Crysda/AggFunc.html">AggFunc</a>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#summarize_at(col_sel:ColumnSelector,*aggfuns:AggFunc):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L548" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="tail(rows=5)-instance-method">
+      <div class="signature">
+        
+        def <strong>tail</strong>(rows = <span class="n">5</span>)
+
+        <a class="method-permalink" href="#tail(rows=5)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L572" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="take(rows=5)-instance-method">
+      <div class="signature">
+        
+        def <strong>take</strong>(rows = <span class="n">5</span>)
+
+        <a class="method-permalink" href="#take(rows=5)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L564" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="take_last(rows:Int32)-instance-method">
+      <div class="signature">
+        
+        def <strong>take_last</strong>(rows : Int32)
+
+        <a class="method-permalink" href="#take_last(rows:Int32)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L568" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_h-instance-method">
+      <div class="signature">
+        
+        def <strong>to_h</strong>
+
+        <a class="method-permalink" href="#to_h-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Expose a view on the data as Hash from column names to nullable arrays.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L582" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_s(io:Nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>to_s</strong>(io : Nil)
+
+        <a class="method-permalink" href="#to_s(io:Nil)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L653" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_s-instance-method">
+      <div class="signature">
+        
+        def <strong>to_s</strong>
+
+        <a class="method-permalink" href="#to_s-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L649" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_string(title=&quot;ADataFrame&quot;,col_names=true,max_rows=PRINT_MAX_ROWS,max_width=PRINT_MAX_WIDTH,max_digits=PRINT_MAX_DIGITS,row_numbers=PRINT_ROW_NUMBERS)-instance-method">
+      <div class="signature">
+        
+        def <strong>to_string</strong>(title = <span class="s">&quot;A DataFrame&quot;</span>, col_names = <span class="n">true</span>, max_rows = <span class="t">PRINT_MAX_ROWS</span>, max_width = <span class="t">PRINT_MAX_WIDTH</span>, max_digits = <span class="t">PRINT_MAX_DIGITS</span>, row_numbers = <span class="t">PRINT_ROW_NUMBERS</span>)
+
+        <a class="method-permalink" href="#to_string(title=&quot;ADataFrame&quot;,col_names=true,max_rows=PRINT_MAX_ROWS,max_width=PRINT_MAX_WIDTH,max_digits=PRINT_MAX_DIGITS,row_numbers=PRINT_ROW_NUMBERS)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Converts dataframe to its string representation. This is being invoked via <code><a href="../Crysda/DataFrame.html#print(title=&quot;ADataFrame&quot;,col_names=true,max_rows=PRINT_MAX_ROWS,max_width=PRINT_MAX_WIDTH,max_digits=PRINT_MAX_DIGITS,row_numbers=PRINT_ROW_NUMBERS,output=STDOUT)-instance-method">#print</a></code> and <code><a href="../Crysda/DataFrame.html#to_s-instance-method">#to_s</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L587" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="transmute(*formula:ColumnFormula)-instance-method">
+      <div class="signature">
+        
+        def <strong>transmute</strong>(*formula : <a href="../Crysda/ColumnFormula.html">ColumnFormula</a>)
+
+        <a class="method-permalink" href="#transmute(*formula:ColumnFormula)-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create a new dataframe based on a list of column-formulas which are evaluated in the context of the this instance.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L577" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ungroup:DataFrame-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>ungroup</strong> : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#ungroup:DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Removes the grouping (if present from a data frame)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L48" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="unite(col_name:String,which:Array(String),sep:String=&quot;_&quot;,remove:Bool=true):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>unite</strong>(col_name : String, which : Array(String), sep : String = <span class="s">&quot;_&quot;</span>, remove : Bool = <span class="n">true</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#unite(col_name:String,which:Array(String),sep:String=&quot;_&quot;,remove:Bool=true):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convenience function to paste together multiple columns into one.</p>
+
+<p>colName - Name of the column to add
+which - Names of columns which should be concatenated together
+sep - Separator to use between values.
+remove - If true, remove input columns from output data frame.</p>
+
+<p>see <code><a href="../Crysda/DataFrame.html#separate(column:String,into:Array(String),sep:Regex%7CString=/[%5E%5Cw]/,remove:Bool=true,convert:Bool=false):DataFrame-instance-method">#separate</a></code></p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L109" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="unite(col_name:String,*which:ColumnSelector,sep:String=&quot;_&quot;,remove:Bool=true):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>unite</strong>(col_name : String, *which : <a href="../Crysda/ColumnSelector.html">ColumnSelector</a>, sep : String = <span class="s">&quot;_&quot;</span>, remove : Bool = <span class="n">true</span>) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#unite(col_name:String,*which:ColumnSelector,sep:String=&quot;_&quot;,remove:Bool=true):DataFrame-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L120" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="unnest(column_name:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>unnest</strong>(column_name : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#unnest(column_name:String):DataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>If you have a list-column, this makes each element of the list its own row. It unfolds data vertically. unnest() can handle list-columns that can atomic vectors, lists, or data frames (but not a mixture of the different types).</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/reshape.cr#L188" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="write_csv(filename:String,separator:Char=&#39;,&#39;,quote_char:Char=&#39;&quot;&#39;):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>write_csv</strong>(filename : String, separator : Char = <span class="s">&#39;,&#39;</span>, quote_char : Char = <span class="s">&#39;&quot;&#39;</span>) : Nil
+
+        <a class="method-permalink" href="#write_csv(filename:String,separator:Char=&#39;,&#39;,quote_char:Char=&#39;&quot;&#39;):Nil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Save the current dataframe to <code>separator</code> delimited file.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L658" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="write_csv(io:IO,separator:Char=&#39;,&#39;,quote_char:Char=&#39;&quot;&#39;):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>write_csv</strong>(io : IO, separator : Char = <span class="s">&#39;,&#39;</span>, quote_char : Char = <span class="s">&#39;&quot;&#39;</span>) : Nil
+
+        <a class="method-permalink" href="#write_csv(io:IO,separator:Char=&#39;,&#39;,quote_char:Char=&#39;&quot;&#39;):Nil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/693fb847ec71ad02a7a7a1f6a77f5556beb5a4e2/src/crysda/dataframe.cr#L664" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
