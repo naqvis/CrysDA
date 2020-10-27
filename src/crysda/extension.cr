@@ -25,12 +25,12 @@ class Array(T)
   end
 
   def not
-    {% raise Crysda::CrysdaException.new ("method '{{@def.name}}' only applicable to Bool types") unless T <= Bool? %}
+    {% raise "method '{{@def.name}}' only applicable to Bool types" unless T <= Bool? %}
     self.map { |v| v.try &.! }
   end
 
   def and(other : Array(Bool?))
-    {% raise Crysda::CrysdaException.new ("method '{{@def.name}}' only applicable to Bool types") unless T <= Bool? %}
+    {% raise "method '{{@def.name}}' only applicable to Bool types" unless T <= Bool? %}
     self.zip(other).map do |first, second|
       if first.nil? && second.nil?
         nil
@@ -43,7 +43,7 @@ class Array(T)
   end
 
   def or(other : Array(Bool?))
-    {% raise Crysda::CrysdaException.new ("method '{{@def.name}}' only applicable to Bool types") unless T <= Bool? %}
+    {% raise "method '{{@def.name}}' only applicable to Bool types" unless T <= Bool? %}
     self.zip(other).map do |first, second|
       if first.nil? && second.nil?
         nil
@@ -56,12 +56,12 @@ class Array(T)
   end
 
   def concatenate(right : Array)
-    raise Crysda::CrysdaException.new ("method '{{@def.name}}' requires both to be of same size") unless size == right.size
+    raise "method '{{@def.name}}' requires both to be of same size" unless size == right.size
     self.zip(right).map { |f, s| f.to_s + " " + s.to_s }
   end
 
   def mean
-    {% raise Crysda::CrysdaException.new ("method '{{@def.name}}' only applicable to Number types") unless T <= Number %}
+    {% raise "method '{{@def.name}}' only applicable to Number types" unless T <= Number %}
     return nil if empty?
     val = self
     unless T.is_a?(Float64)
@@ -71,7 +71,7 @@ class Array(T)
   end
 
   def median
-    {% raise Crysda::CrysdaException.new ("method '{{@def.name}}' only applicable to Number types") unless T <= Number %}
+    {% raise "method '{{@def.name}}' only applicable to Number types" unless T <= Number %}
     return nil if empty?
     val = self
     unless T.is_a?(Float64)
@@ -84,7 +84,7 @@ class Array(T)
   end
 
   def sd
-    {% raise Crysda::CrysdaException.new ("method '{{@def.name}}' only applicable to Number types") unless T <= Number %}
+    {% raise "method '{{@def.name}}' only applicable to Number types" unless T <= Number %}
     return nil if size <= 1
     val = self
     unless T.is_a?(Float64)
@@ -94,7 +94,7 @@ class Array(T)
   end
 
   def sv
-    {% raise Crysda::CrysdaException.new ("method '{{@def.name}}' only applicable to Number types") unless T <= Number %}
+    {% raise "method '{{@def.name}}' only applicable to Number types" unless T <= Number %}
     return nil if empty?
     val = self
     unless T.is_a?(Float64)
@@ -106,7 +106,7 @@ class Array(T)
   end
 
   def cumsum
-    {% raise Crysda::CrysdaException.new ("method '{{@def.name}}' only applicable to Number types") unless T <= Number %}
+    {% raise "method '{{@def.name}}' only applicable to Number types" unless T <= Number %}
     skip(1).reduce([first.to_f64]) { |list, val| list + [list.last.to_f64 + val.to_f64] }
   end
 
@@ -144,7 +144,7 @@ module Enumerable(T)
   end
 
   def unzip
-    {% raise Crysda::CrysdaException.new ("method '{{@def.name}}' require type to be Tuple(K,V)") unless T <= Tuple %}
+    {% raise "method '{{@def.name}}' require type to be Tuple(K,V)" unless T <= Tuple %}
     return ([] of T) unless size > 0
     p1 = Array(typeof(self[0][0])).new(self.size)
     p2 = Array(typeof(self[0][1])).new(self.size)
