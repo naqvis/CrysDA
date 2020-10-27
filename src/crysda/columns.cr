@@ -232,18 +232,16 @@ module Crysda
     # raises `MissingValueException` if `remove_na` is `false` but the data contains missing values
     # raises `InvalidColumnOperationException` If the type of the column is not numeric
     def mean(remove_na = false)
-      val = case e = self
-            when Int32Col
-              remove_na ? NAOps(Int32).filter_not_nil(e.values) : NAOps(Int32).force_not_nil!(e.values)
-            when Int64Col
-              remove_na ? NAOps(Int64).filter_not_nil(e.values) : NAOps(Int64).force_not_nil!(e.values)
-            when Float64Col
-              remove_na ? NAOps(Float64).filter_not_nil(e.values) : NAOps(Float64).force_not_nil!(e.values)
-            else
-              raise InvalidColumnOperationException.new
-            end.mean
-
-      # self.is_a?(Float64Col) ? val / self.values.size : val // self.values.size
+      case e = self
+      when Int32Col
+        remove_na ? NAOps(Int32).filter_not_nil(e.values) : NAOps(Int32).force_not_nil!(e.values)
+      when Int64Col
+        remove_na ? NAOps(Int64).filter_not_nil(e.values) : NAOps(Int64).force_not_nil!(e.values)
+      when Float64Col
+        remove_na ? NAOps(Float64).filter_not_nil(e.values) : NAOps(Float64).force_not_nil!(e.values)
+      else
+        raise InvalidColumnOperationException.new
+      end.mean
     end
 
     # Calculates the sum of the column values.

@@ -115,7 +115,6 @@ module Crysda
 
     # make sure that by-NA groups come last here (see specs)
     def hash_sorted
-      # sorted = @data_groups.sort{ |a,b| a.group_key.sort_key <=> b.group_key.sort_key }
       GroupedDataFrame.new(by, @data_groups.sort_by { |v| v.group_key.sort_key })
     end
 
