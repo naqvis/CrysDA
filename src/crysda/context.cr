@@ -23,7 +23,7 @@ module Crysda
   # each and every invocation. It is advised to override `to_s` methods, so that you see useful information when data is printed to console
   # via `schema` and/or `print` method.
   # **Sample Usage**
-  # ```crystal
+  # ```
   # class Address < CustomColumnValue
   #   getter street : String
   #   getter city : String

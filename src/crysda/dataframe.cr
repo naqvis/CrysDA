@@ -64,7 +64,7 @@ module Crysda
     end
 
     # Add a new column and preserve existing ones.
-    # ```crystal
+    # ```
     # df.add_column("salary_category") { 3 }             # with constant value
     # df.add_column("age_3y_later") { |e| e["age"] + 3 } # by doing basic column arithmetics
     # ```
@@ -73,7 +73,7 @@ module Crysda
     end
 
     # add multiple columns
-    # ```crystal
+    # ```
     # df.add_columns(
     #   "age_plus3".with { |e| e["age"] + 3 },
     #   "initials".with { |e| e["first_name"].map(&.to_s[0]).concatenate(e["last_name"].map(&.to_s[0])) }
@@ -111,7 +111,7 @@ module Crysda
     # Add new rows. Missing entries are set to nil. The output of `bind_rows` will contain a column if that column appears in any of the inputs.
     # when row-binding, columns are matched by name, and any missing column will be filled with NA
     # Grouping will be discarded when binding rows
-    # ```crystal
+    # ```
     # row1 = {
     #   "person" => "james",
     #   "year"   => 1996,
@@ -188,7 +188,7 @@ module Crysda
     #
     # selects : The variables to to be used for cross-tabulation.
     # name  : The name of the count column resulting table.
-    # ```crystal
+    # ```
     # df.count("column name")
     # ```
     def count(*selects : String, name = "n") : DataFrame
@@ -230,7 +230,7 @@ module Crysda
 
     # AND-filter a table with different filters.
     # Subset rows with filter
-    # ```crystal
+    # ```
     # df.filter { |e| e.["age"] == 23 }
     # df.filter { |e| e.["weight"] > 50 }
     # df.filter { |e| e["first_name"].matching { |e| e.starts_with?("Ho") } }
@@ -240,7 +240,7 @@ module Crysda
     end
 
     # filter rows by Row predicate, which is invoked on each row of the dataframe
-    # ```crystal
+    # ```
     # df = Crysda.dataframe_of("person", "year", "weight", "sex").values(
     #   "max", 2014, 33.1, "M",
     #   "max", 2016, nil, "M",
@@ -760,20 +760,18 @@ module Crysda
 
     class DFIterator
       include Iterator(Array(AnyVal))
-      @col_iters : Array(Iterator(Any | DataFrame))
 
-      def initialize(cols : Array(DataCol))
-        @col_iters = Array(Iterator(Any | DataFrame)).new
-        cols.each { |c| @col_iters << c.values.each }
+      def initialize(@cols : Array(DataCol))
+        @index = 0
       end
 
       def next
         arr = Array(AnyVal).new
-        @col_iters.each do |v|
-          val = v.next
-          return stop if val.is_a?(Iterator::Stop)
-          arr << AnyVal[val]
+        @cols.each do |v|
+          return stop if @index >= v.size
+          arr << AnyVal[v[@index]]
         end
+        @index += 1
         arr.empty? ? stop : arr
       end
     end

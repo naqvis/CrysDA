@@ -14,7 +14,7 @@
 # - [X] Functional API inspired by [dplyr](http://dplyr.tidyverse.org/), [pandas](http://pandas.pydata.org/)
 # - [X] many more...
 module Crysda
-  VERSION = "0.1.0"
+  VERSION = "0.1.1"
 
   # reads a comma separated value file/io into a dataframe.
   # `file` could be local file path or a URL. It will read compressed(gz, gzip) files.
@@ -54,7 +54,7 @@ module Crysda
   # Creates a new dataframe in place.
   # header - pass headers as variadic parameter
   # call `values` after this call to pass the values
-  # ```crystal
+  # ```
   # df = dataframe_of("quarter", "sales", "location").values(1, 300.01, "london", 2, 290, "chicago")
   # ```
   def self.dataframe_of(*header : String)

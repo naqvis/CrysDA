@@ -40,7 +40,7 @@ flights
   "mean_arr_delay".with {|s| s["arr_delay"].mean(remove_na: true)},
   "mean_dep_delay".with {|s| s["dep_delay"].mean(true)})
 .filter {|f| (f["mean_arr_delay"] > 30) .or (f["mean_dep_delay"] > 30)}
-.print("Flights mean delay of arrival and departure)
+.print("Flights mean delay of arrival and departure")
 ```
 **output**
 ```shell
