@@ -3,21 +3,16 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.34.0">
+<meta name="generator" content="Crystal Docs 0.35.1">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="crysda">
+
 
 
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/doc.js"></script>
 
-<svg class="hidden">
-  <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
-  </symbol>
-</svg>
-
-  <meta id="repository-name" content="crysda">
+  <meta name="repository-name" content="crysda">
   <title>crysda master</title>
   <script type="text/javascript">
   CrystalDocs.base_path = "";
@@ -25,6 +20,11 @@
 </head>
 <body>
 
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <div class="search-results" class="hidden">
+  <div class="search-results hidden">
     <ul class="search-list"></ul>
   </div>
 
@@ -269,13 +269,13 @@
   </svg>
 </a>CrysDA</h1>
 
-<p><a href="https://github.com/naqvis/CrysDA/actions?query=workflow%3ACrysDA%20CI" target="_blank"><img src="https://github.com/naqvis/CrysDA/workflows/CrysDA%20CI/badge.svg" alt="CI"/></a>
-<a href="https://github.com/naqvis/CrysDA/releases" target="_blank"><img src="https://img.shields.io/github/release/naqvis/CrysDA.svg" alt="Latest release"/></a>
-<a href="https://naqvis.github.io/CrysDA/" target="_blank"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"/></a></p>
+<p><a href="https://github.com/naqvis/CrysDA/actions?query=workflow%3ACrysDA%20CI"><img src="https://github.com/naqvis/CrysDA/workflows/CrysDA%20CI/badge.svg" alt="CI"/></a>
+<a href="https://github.com/naqvis/CrysDA/releases"><img src="https://img.shields.io/github/release/naqvis/CrysDA.svg" alt="Latest release"/></a>
+<a href="https://naqvis.github.io/CrysDA/"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"/></a></p>
 
 <p><code>CrysDA</code> is a <strong>Crys</strong>tal shard for <strong>D</strong>ata <strong>A</strong>nalysis. Provides you modern functional-style API for data manipulation to filter, transform, aggregate and reshape tabular data. Core of the library is <code><a href="Crysda/DataFrame.html">Crysda::DataFrame</a></code> an immutable data structure interface.</p>
 
-<p><code>CrysDA</code> is heavily inspired by the amazing <a href="https://github.com/hadley/dplyr" target="_blank"><code>dplyr</code></a> for <a href="https://www.r-project.org/" target="_blank">R</a>. <code>CrysDA</code> is written in pure Crystal and have no external dependencies. It is mimicking the API of <code>dplyr</code>, while carefully adding more typed constructs where possible.</p>
+<p><code>CrysDA</code> is heavily inspired by the amazing <a href="https://github.com/hadley/dplyr"><code>dplyr</code></a> for <a href="https://www.r-project.org/">R</a>. <code>CrysDA</code> is written in pure Crystal and have no external dependencies. It is mimicking the API of <code>dplyr</code>, while carefully adding more typed constructs where possible.</p>
 
 <h2><a id="features" class="anchor" href="#features">
   <svg class="octicon-link" aria-hidden="true">
@@ -283,7 +283,7 @@
   </svg>
 </a>Features</h2>
 
-<ul><li>[X] Filter, transform, aggregate and reshape tabular data</li><li>[X] Modern, user-friendly and easy-to-learn data-science API</li><li>[X] Reads from plain and compressed tsv, csv, json, or any delimited format with or without header from local or remote with auto inferring the types of data.</li><li>[X] Supports reading data from DB</li><li>[X] Supports grouped operations</li><li>[X] Tables can contain atomic columns (Number, Float, Bool, String) as well as object columns</li><li>[X] Reshape tables from wide to long and back</li><li>[X] Table joins (left, right, semi, inner, outer)</li><li>[X] Cross tabulation</li><li>[X] Descriptive statistics (mean, min, max, median, ...)</li><li>[X] Functional API inspired by <a href="http://dplyr.tidyverse.org/" target="_blank">dplyr</a>, <a href="http://pandas.pydata.org/" target="_blank">pandas</a></li></ul>
+<ul><li>[X] Filter, transform, aggregate and reshape tabular data</li><li>[X] Modern, user-friendly and easy-to-learn data-science API</li><li>[X] Reads from plain and compressed tsv, csv, json, or any delimited format with or without header from local or remote with auto inferring the types of data.</li><li>[X] Supports reading data from DB</li><li>[X] Supports grouped operations</li><li>[X] Tables can contain atomic columns (Number, Float, Bool, String) as well as object columns</li><li>[X] Reshape tables from wide to long and back</li><li>[X] Table joins (left, right, semi, inner, outer)</li><li>[X] Cross tabulation</li><li>[X] Descriptive statistics (mean, min, max, median, ...)</li><li>[X] Functional API inspired by <a href="http://dplyr.tidyverse.org/">dplyr</a>, <a href="http://pandas.pydata.org/">pandas</a></li></ul>
 
 <ul><li>[X] many more...</li></ul>
 
@@ -304,7 +304,7 @@ flights
   <span class="s">&quot;mean_arr_delay&quot;</span>.<span class="k">with</span> {<span class="o">|</span>s<span class="o">|</span> s[<span class="s">&quot;arr_delay&quot;</span>].mean(remove_na: <span class="n">true</span>)},
   <span class="s">&quot;mean_dep_delay&quot;</span>.<span class="k">with</span> {<span class="o">|</span>s<span class="o">|</span> s[<span class="s">&quot;dep_delay&quot;</span>].mean(<span class="n">true</span>)})
 .filter {<span class="o">|</span>f<span class="o">|</span> (f[<span class="s">&quot;mean_arr_delay&quot;</span>] <span class="o">&gt;</span> <span class="n">30</span>) .or (f[<span class="s">&quot;mean_dep_delay&quot;</span>] <span class="o">&gt;</span> <span class="n">30</span>)}
-.print(<span class="s">&quot;Flights mean delay of arrival and departure)</span></code></pre>
+.print(<span class="s">&quot;Flights mean delay of arrival and departure&quot;</span>)</code></pre>
 
 <p><strong>output</strong></p>
 
@@ -339,7 +339,7 @@ and 39 more rows</code></pre>
   </svg>
 </a>Tutorial - Short 1 minute Introduction</h2>
 
-<p>For this quick and short tutorial, we will be using <a href="https://www.kaggle.com/residentmario/ramen-ratings" target="_blank">ramen-ratings</a> dataset from kaggle. You are free to use any of your choice.</p>
+<p>For this quick and short tutorial, we will be using <a href="https://www.kaggle.com/residentmario/ramen-ratings">ramen-ratings</a> dataset from kaggle. You are free to use any of your choice.</p>
 
 <pre><code class="language-crystal"><span class="c"># load dataset</span>
 df <span class="o">=</span> <span class="t">Crysda</span>.read_csv(<span class="s">&quot;./spec/data/ramen-ratings.csv&quot;</span>)</code></pre>
@@ -948,7 +948,7 @@ wide_df.gather(<span class="s">&quot;property&quot;</span>, <span class="s">&quo
 
 <p>To run all tests:</p>
 
-<pre><code>crystal spec</code></pre>
+<pre><code class="language-crystal">crystal spec</code></pre>
 
 <h2><a id="contributing" class="anchor" href="#contributing">
   <svg class="octicon-link" aria-hidden="true">
@@ -964,7 +964,7 @@ wide_df.gather(<span class="s">&quot;property&quot;</span>, <span class="s">&quo
   </svg>
 </a>Contributors</h2>
 
-<ul><li><a href="https://github.com/naqvis" target="_blank">Ali Naqvi</a> - creator and maintainer</li></ul>
+<ul><li><a href="https://github.com/naqvis">Ali Naqvi</a> - creator and maintainer</li></ul>
 
 
 </div>
