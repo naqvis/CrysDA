@@ -1,12 +1,12 @@
 name: crysda
-version: 0.1.1
+version: 0.1.2
 
 authors:
   - Ali Naqvi <syed.alinaqvi@gmail.com>
 description: |
   Crystal Shard for data analysis , wrangling , munging.
 
-crystal: 0.36.0
+crystal: ">= 0.36.0, < 2.0.0"
 
 dependencies:
   db:

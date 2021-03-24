@@ -14,7 +14,7 @@
 # - [X] Functional API inspired by [dplyr](http://dplyr.tidyverse.org/), [pandas](http://pandas.pydata.org/)
 # - [X] many more...
 module Crysda
-  VERSION = "0.1.1"
+  VERSION = "0.1.2"
 
   # reads a comma separated value file/io into a dataframe.
   # `file` could be local file path or a URL. It will read compressed(gz, gzip) files.
