@@ -261,6 +261,10 @@ module Crysda
       def each
         DSFIterator.new(@iter.each, @names)
       end
+
+      def each_with_index
+        DSFIterator.new(@iter.each_with_index, @names)
+      end
     end
 
     class DSFIterator
