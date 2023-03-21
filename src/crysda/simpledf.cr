@@ -71,8 +71,8 @@ module Crysda
       mut = tf.expression.call(self.ec)
       col = Utils.any_as_column(mut, tf.name, num_row)
 
-      raise ColumnException.new("new column has inconsistent length") unless col.values.size == num_row
-      raise ColumnException.new("missing name in new columns") if col.name.starts_with?("temp_col_")
+      raise ColumnException.new("New column #{col.name} has inconsistent length #{col.values.size }, against #{num_row}") unless col.values.size == num_row
+      raise ColumnException.new("Missing name in new columns") if col.name.starts_with?("temp_col_")
 
       names.includes?(col.name) ? replace_column(col) : add_column(col)
     end
