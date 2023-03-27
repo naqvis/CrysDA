@@ -164,7 +164,7 @@ module Crysda
     end
 
     def handle_union(col : DataCol, name : String, arr : Array)
-      case (col)
+      case col
       when Int32Col
         Int32Col.new(name, Array(Int32?).new(arr.size) { |i| arr[i].as?(Int32) })
       when Int64Col
@@ -207,7 +207,7 @@ module Crysda
     end
 
     def any_as_column(mutation, name : String, nrow : Int32) : DataCol
-      arrified_mutation = case (mutation)
+      arrified_mutation = case mutation
                           when Int32   then Array(Int32).new(nrow, mutation)
                           when Int64   then Array(Int64).new(nrow, mutation)
                           when Float32 then Array(Float64).new(nrow, mutation.to_f64)
@@ -218,9 +218,9 @@ module Crysda
                             mutation
                           end
 
-      case (arrified_mutation)
+      case arrified_mutation
       when DataCol
-        case (arrified_mutation)
+        case arrified_mutation
         when Float64Col then Float64Col.new(name, arrified_mutation.values)
         when Int32Col   then Int32Col.new(name, arrified_mutation.values)
         when Int64Col   then Int64Col.new(name, arrified_mutation.values)
@@ -258,7 +258,7 @@ module Crysda
         when Nil       then "<NA>"
         when String    then v
         when AnyVal
-          case (a = v.raw)
+          case a = v.raw
           when Float     then a.format(decimal_places: max_digits)
           when DataFrame then "<DataFrame [#{a.num_row} x #{a.num_col}]>"
           when .nil?     then "<NA>"
@@ -356,7 +356,7 @@ module Crysda
 
     private def as_bool?(val, t_vals, f_vals)
       return nil if val.nil?
-      if (cval = val)
+      if cval = val
         cval = cval.upcase
         return true if cval.in?(t_vals)
         return false if cval.in?(f_vals)
@@ -511,7 +511,7 @@ module Crysda
       {x, exp}
     end
 
-    private def float_normalize_wrap(value)
+    private def float_normalize_wrap(value, &)
       return HASH_NAN if value.nan?
       if value.infinite?
         return value > 0 ? HASH_INF_PLUS : HASH_INF_MINUS

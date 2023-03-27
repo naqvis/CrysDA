@@ -35,23 +35,23 @@ module Crysda
     extend self
 
     def mean
-      AggFunc.new(SumFormula.new { |c| c.mean }, "mean")
+      AggFunc.new(SumFormula.new(&.mean), "mean")
     end
 
     def median
-      AggFunc.new(SumFormula.new { |c| c.median }, "median")
+      AggFunc.new(SumFormula.new(&.median), "median")
     end
 
     def sd
-      AggFunc.new(SumFormula.new { |c| c.sd }, "sd")
+      AggFunc.new(SumFormula.new(&.sd), "sd")
     end
 
     def n
-      AggFunc.new(SumFormula.new { |c| c.size }, "n")
+      AggFunc.new(SumFormula.new(&.size), "n")
     end
 
     def na
-      AggFunc.new(SumFormula.new { |c| c.is_na.filter { |_| true }.size }, "na")
+      AggFunc.new(SumFormula.new(&.is_na.filter { |_| true }.size), "na")
     end
   end
 
@@ -99,7 +99,7 @@ module Crysda
     end
 
     def +(val : String)
-      res = case (self)
+      res = case self
             when StringCol then self.values.map { |v| self.na_aware_plus(v.as?(String), val) }
             else
               self.values.map { |v| (v.nil? ? MISSING_VALUE : v.to_s) + val }
@@ -155,7 +155,7 @@ module Crysda
     # y.rank # => [7, 1, 4, 2, 8, 9, 5, 6, 0, 3]
     # ```
     def rank(na_last = true)
-      order(na_last).map_with_index { |v, i| {i, v} }.sort_by { |a| a[1] }.map(&.[0])
+      order(na_last).map_with_index { |v, i| {i, v} }.sort_by!(&.[1]).map(&.[0])
     end
 
     # Creates a sorting attribute that inverts the order of the argument
@@ -164,10 +164,10 @@ module Crysda
     end
 
     def has_nulls?
-      values.any? { |v| v.nil? }
+      values.any?(Nil)
     end
 
-    def map(&block)
+    def map(&)
       values.map do |v|
         if v.nil?
           nil
@@ -356,7 +356,7 @@ module Crysda
     end
 
     # Match a text column in a NA-aware manner to create a predicate vector for filtering.
-    def matching(missing_as = false, &block) : Array(Bool)
+    def matching(missing_as = false, &) : Array(Bool)
       map { |e| yield e.to_s }.map { |e| e.nil? ? missing_as : e.not_nil! }
     end
 
@@ -756,7 +756,7 @@ module Crysda
       when a.nil? then null_last ? 1 : -1
       when b.nil? then null_last ? -1 : 1
       else
-        (a != b) ? (a) ? -1 : 1 : 0
+        (a != b) ? a ? -1 : 1 : 0
       end
     end
   end
@@ -780,7 +780,7 @@ module Crysda
       when a.nil? then null_last ? 1 : -1
       when b.nil? then null_last ? -1 : 1
       else
-        (a != b) ? (a) ? -1 : 1 : 0
+        (a != b) ? a ? -1 : 1 : 0
       end
     end
   end
@@ -804,7 +804,7 @@ module Crysda
       when a.nil? then null_last ? 1 : -1
       when b.nil? then null_last ? -1 : 1
       else
-        (a != b) ? (a) ? -1 : 1 : 0
+        (a != b) ? a ? -1 : 1 : 0
       end
     end
   end

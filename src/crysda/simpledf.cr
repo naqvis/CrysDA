@@ -9,7 +9,7 @@ module Crysda
     def initialize(vals : Array(DataCol))
       @cols = vals
       # validate input columns
-      @cols.map { |c| c.name }.tap do |v|
+      @cols.map(&.name).tap do |v|
         raise DuplicateColumnNameException.new(v) unless v.to_set.size == v.size
       end
     end
@@ -38,7 +38,7 @@ module Crysda
     end
 
     def names : Array(String)
-      @cols.map { |v| v.name }
+      @cols.map(&.name)
     end
 
     def [](name : String) : DataCol
@@ -60,7 +60,7 @@ module Crysda
     end
 
     def select(columns : Iterable(String)) : DataFrame
-      unless columns.all? { |e| e.in? names }
+      unless columns.all?(&.in? names)
         raise SelectException.new("not all selected columns (#{columns.to_a.join(",")}) are contained in table")
       end
       raise SelectException.new("Columns must not be selected more than once") unless columns.to_a.uniq.size == columns.size
@@ -71,7 +71,7 @@ module Crysda
       mut = tf.expression.call(self.ec)
       col = Utils.any_as_column(mut, tf.name, num_row)
 
-      raise ColumnException.new("New column #{col.name} has inconsistent length #{col.values.size }, against #{num_row}") unless col.values.size == num_row
+      raise ColumnException.new("New column #{col.name} has inconsistent length #{col.values.size}, against #{num_row}") unless col.values.size == num_row
       raise ColumnException.new("Missing name in new columns") if col.name.starts_with?("temp_col_")
 
       names.includes?(col.name) ? replace_column(col) : add_column(col)
@@ -147,14 +147,6 @@ module Crysda
     end
 
     def sort_by(by : Iterable(String)) : DataFrame
-      # comp_chain = by.to_a.map{|v| self[v].comparator}.reduce{|a,b| a.try &.then(b)}
-      # comp_chain = by.map { |v| self[v].comparator }.reduce { |a, b| a.then(b) }
-
-      # comparators = by.map { |v| self[v].comparator }
-      # comp_chain = comparators.shift
-      # comparators.reduce(comp_chain){ |a, b| a.then(b) }
-
-      # permutation = (0..(num_row - 1)).to_a.sort { |a, b| comp_chain.compare(a, b) }
       permutation = (0..(num_row - 1)).to_a.sort { |a, b| compare(by, a, b) }
 
       # apply permutation to all columns

@@ -25,28 +25,28 @@ module Crysda
     end
 
     it "should select with regex" do
-      SLEEP_DATA.select { |v| v.ends_with?("wt") }.num_col.should eq(2)
-      SLEEP_DATA.select { |v| v.starts_with?("sleep") }.num_col.should eq(3)
-      SLEEP_DATA.select { |v| v.list_of("conservation", "foobar", "order") }.num_col.should eq(2)
+      SLEEP_DATA.select(&.ends_with?("wt")).num_col.should eq(2)
+      SLEEP_DATA.select(&.starts_with?("sleep")).num_col.should eq(3)
+      SLEEP_DATA.select(&.list_of("conservation", "foobar", "order")).num_col.should eq(2)
 
       SLEEP_DATA.select(Int32Col)
-      SLEEP_DATA.select? { |v| v.is_a?(Int32Col) }
-      SLEEP_DATA.select? { |v| v.name.starts_with?("foo") }
+      SLEEP_DATA.select?(&.is_a?(Int32Col))
+      SLEEP_DATA.select?(&.name.starts_with?("foo"))
 
       IRIS_DATA.select(StringCol).names.should eq(["Species"])
     end
 
     it "should allow to remove columns" do
-      SLEEP_DATA.reject { |v| v.ends_with?("wt") }.num_col.should eq(9)
-      SLEEP_DATA.reject { |v| v.starts_with?("sleep") }.num_col.should eq(8)
-      SLEEP_DATA.reject { |v| v.list_of("conservation", "foobar", "order") }.num_col.should eq(9)
+      SLEEP_DATA.reject(&.ends_with?("wt")).num_col.should eq(9)
+      SLEEP_DATA.reject(&.starts_with?("sleep")).num_col.should eq(8)
+      SLEEP_DATA.reject(&.list_of("conservation", "foobar", "order")).num_col.should eq(9)
 
       IRIS_DATA.reject(StringCol).num_col.should eq(4)
-      IRIS_DATA.reject? { |v| v.is_a?(StringCol) }.num_col.should eq(4)
-      IRIS_DATA.reject? { |v| v.name.starts_with?("Sepal") }.num_col.should eq(3)
+      IRIS_DATA.reject?(&.is_a?(StringCol)).num_col.should eq(4)
+      IRIS_DATA.reject?(&.name.starts_with?("Sepal")).num_col.should eq(3)
 
       # also allow for negative selection (like in the context of gather)
-      IRIS_DATA.select { |e| e.except { |c| c.starts_with?("Sepal") } }.num_col.should eq(3)
+      IRIS_DATA.select(&.except(&.starts_with?("Sepal"))).num_col.should eq(3)
     end
 
     it "should not allow to select non-existing column" do
@@ -57,7 +57,7 @@ module Crysda
 
     it "should  allow to select no column" do
       SLEEP_DATA.select([] of String).num_col.should eq(0)
-      IRIS_DATA.select { |e| e.starts_with?("bla") }.num_col.should eq(0)
+      IRIS_DATA.select(&.starts_with?("bla")).num_col.should eq(0)
     end
 
     it "should not allow to select columns twice" do
@@ -76,13 +76,13 @@ module Crysda
         (SLEEP_DATA.names - ["name", "vore"]).should eq(df.names)
       end
 
-      IRIS_DATA.select { |e| e.starts_with?("Sepal").not }.names.should eq(["Petal.Length", "Petal.Width", "Species"])
+      IRIS_DATA.select(&.starts_with?("Sepal").not).names.should eq(["Petal.Length", "Petal.Width", "Species"])
     end
 
     it "it should not allow a mixed negative and positive selection" do
       # note: typically the user would perform a positive selection but in context like gather he needs a negative selection api as well
       column_types(IRIS_DATA.select { |e| e.except("Species").and e.starts_with?("Sepal").not }).size.should eq(2)
-      column_types(IRIS_DATA.select { |e| e.except("Species").and e.except { |c| c.starts_with?("Sepal") } }).size.should eq(2)
+      column_types(IRIS_DATA.select { |e| e.except("Species").and e.except(&.starts_with?("Sepal")) }).size.should eq(2)
 
       # but one must never mix positive and negative selection
       expect_raises(InvalidColumnSelectException, "Mixing positive and negative selection does not have meaningful semantics and is not supported") do
@@ -91,12 +91,12 @@ module Crysda
     end
 
     it "should handle empty negative selections gracefully" do
-      IRIS_DATA.select { |e| e.except("") }
+      IRIS_DATA.select(&.except(""))
     end
 
     it "should allow to select with matchers in grouped df" do
       IRIS_DATA.group_by("Species")
-        .select { |e| e.ends_with?("Length") }
+        .select(&.ends_with?("Length"))
         .tap do |df|
           df.names.should eq(["Species", "Sepal.Length", "Petal.Length"])
         end
@@ -130,7 +130,7 @@ module Crysda
     it "it should  allow to use a new column in the same mutate call" do
       SLEEP_DATA.add_columns(
         "vore_new".with { |e| e["vore"] },
-        "vore_first_char".with { |e| e["vore"].map { |c| c.to_s[0].to_s } }
+        "vore_first_char".with { |e| e["vore"].map(&.to_s[0].to_s) }
       )
     end
 
@@ -145,7 +145,7 @@ module Crysda
 
     it "it should gracefully reject incorrect type casts" do
       expect_raises(Exception) do
-        SLEEP_DATA.add_column("foo") { |e| e["vore"].as_i }
+        SLEEP_DATA.add_column("foo", &.["vore"].as_i)
       end
     end
 
@@ -237,16 +237,16 @@ module Crysda
         .sample_frac(0.5)
         .count("vore")
         .filter { |e| e["vore"] == "omni" }
-        .tap { |e| e["n"].as_i.first.should eq(10) }
+        .tap(&.["n"].as_i.first.should eq(10))
     end
 
     it "should filter rows with text matching helpers" do
-      SLEEP_DATA.filter { |e| e["vore"].matching { |m| m == "insecti" } }.num_row.should eq(5)
-      SLEEP_DATA.filter { |e| e["vore"].matching { |m| m.starts_with?("ins") } }.num_row.should eq(5)
+      SLEEP_DATA.filter { |e| e["vore"].matching(&.== "insecti") }.num_row.should eq(5)
+      SLEEP_DATA.filter { |e| e["vore"].matching(&.starts_with?("ins")) }.num_row.should eq(5)
 
       df = dataframe_of("x").values(1, 2, 3, 4, 5, nil)
       df.filter { |e| e["x"] > 2 }.tap do |fi|
-        fi.filter { |a| a.is_na("x") }.num_row.should eq(0)
+        fi.filter(&.is_na("x")).num_row.should eq(0)
         fi.num_row.should eq(3)
       end
 
@@ -349,23 +349,23 @@ module Crysda
     end
 
     it "count should work with function literals" do
-      SLEEP_DATA.add_columns("sleep_na".with { |e| e["sleep_rem"].is_na }).count("sleep_na")
+      SLEEP_DATA.add_columns("sleep_na".with(&.["sleep_rem"].is_na)).count("sleep_na")
 
       # should be equivalent to
-      SLEEP_DATA.group_by_expr(TableExpression.new { |e| e["sleep_rem"].is_na }).count.print
+      SLEEP_DATA.group_by_expr(TableExpression.new(&.["sleep_rem"].is_na)).count.print
       SLEEP_DATA.group_by_expr(
-        TableExpression.new { |e| e["sleep_rem"].is_na },
-        TableExpression.new { |e| e["sleep_rem"].is_na },
+        TableExpression.new(&.["sleep_rem"].is_na),
+        TableExpression.new(&.["sleep_rem"].is_na),
       ).count.print
       SLEEP_DATA.group_by_expr.count.print
     end
 
     it "summarize multiple columns at once with summarize_at" do
       IRIS_DATA.summarize_at(
-        ColumnSelector.new { |e| e.starts_with?("Sepal") },
+        ColumnSelector.new(&.starts_with?("Sepal")),
         SummarizeFunc.new do |s|
-          s.add(SumFormula.new { |e| e.mean }, "mean")
-          s.add(SumFormula.new { |e| e.median }, "median")
+          s.add(SumFormula.new(&.mean), "mean")
+          s.add(SumFormula.new(&.median), "median")
         end
       ).tap do |df|
         df.print
@@ -375,10 +375,10 @@ module Crysda
 
       # using variadic arguments
       IRIS_DATA.summarize_at(
-        ColumnSelector.new { |e| e.ends_with?("Length") },
+        ColumnSelector.new(&.ends_with?("Length")),
         AggFuncs.mean,
         # AggFuncs.median,
-        AggFunc.new(SumFormula.new { |c| c.median }, "median")
+        AggFunc.new(SumFormula.new(&.median), "median")
       ).tap do |df|
         df.print
         df.num_row.should eq(1)
@@ -389,7 +389,7 @@ module Crysda
     it "summarize multiple columns in grouped data frame with summarize_at" do
       IRIS_DATA.group_by("Species")
         .summarize_at(
-          ColumnSelector.new { |e| e.ends_with?("Length") },
+          ColumnSelector.new(&.ends_with?("Length")),
           AggFuncs.mean
         ).tap do |df|
         df.print
@@ -538,7 +538,7 @@ STR
       dfb = df.select("age", "last_name", "weight", "first_name")
 
       # by joining with multiple attributes we inherentily group (which is the actual test
-      df.left_join(dfb, by: ["last_name", "first_name"]).tap { |v| v.num_row.should eq(3) }
+      df.left_join(dfb, by: ["last_name", "first_name"]).tap(&.num_row.should eq(3))
     end
 
     it "it should group tables with object columns and by object column" do

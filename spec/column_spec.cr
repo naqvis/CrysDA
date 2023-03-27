@@ -68,7 +68,7 @@ module Crysda
         "B", 2.5
       )
 
-      cumsum_grp = sales.group_by("product").add_column("cum_sales".with { |v| v["sales"].cumsum })
+      cumsum_grp = sales.group_by("product").add_column("cum_sales".with(&.["sales"].cumsum))
       cumsum_grp.tap do |grp|
         grp.num_row.should eq(sales.num_row)
         grp["cum_sales"][1].should eq(44.5)
@@ -91,8 +91,8 @@ module Crysda
       )
 
       pct_chng = sales.group_by("product")
-        .add_column("sales_pct_change".with { |v| v["sales"].pct_change })
-        .add_column("price_pct_change".with { |v| v["price"].pct_change })
+        .add_column("sales_pct_change".with(&.["sales"].pct_change))
+        .add_column("price_pct_change".with(&.["price"].pct_change))
 
       pct_chng.tap do |df|
         df.num_row.should eq(sales.num_row)
@@ -113,8 +113,8 @@ module Crysda
       )
 
       lead_lag = sales
-        .add_column("sales_lead".with { |v| v["sales"].lead })
-        .add_column("price_lag".with { |v| v["price"].lag(n: 2) })
+        .add_column("sales_lead".with(&.["sales"].lead))
+        .add_column("price_lag".with(&.["price"].lag(n: 2)))
 
       lead_lag.tap do |df|
         df.num_row.should eq(sales.num_row)
@@ -162,12 +162,12 @@ module Crysda
         3, nil, "berlin",
         4, 75, "berlin"
       )
-      sales.add_column("lagged".with { |v| v["store"].lead(n: 1, default: "bla") })
+      sales.add_column("lagged".with(&.["store"].lead(n: 1, default: "bla")))
         .tap do |df|
           df["lagged"][-1].should eq("bla")
         end
       # test numeric (with int default to add a bit complexity)
-      sales.add_column("lagged".with { |v| v["quarter"].lead(default: 42) })
+      sales.add_column("lagged".with(&.["quarter"].lead(default: 42)))
         .tap do |df|
           df["lagged"][-1].should eq(42)
         end
@@ -178,13 +178,13 @@ module Crysda
         UUID.random,
         UUID.random
       )
-      df.add_column("prev_uuid".with { |v| v["uuid"].lag(default: "foo") })
+      df.add_column("prev_uuid".with(&.["uuid"].lag(default: "foo")))
         .tap do |v|
           v["prev_uuid"][0].should eq("foo")
         end
 
       uuid = UUID.random
-      df.add_column("prev_uuid".with { |v| v["uuid"].lag(default: uuid) })
+      df.add_column("prev_uuid".with(&.["uuid"].lag(default: uuid)))
         .tap do |v|
           v["prev_uuid"][0].should eq(uuid)
         end

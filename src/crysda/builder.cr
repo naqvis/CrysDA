@@ -7,7 +7,7 @@ require "db"
 module Crysda
   # :nodoc:
   def self.get_col_type(col : DataCol, wrap_squares = false)
-    val = case (col)
+    val = case col
           when Int32Col   then "Int32"
           when Int64Col   then "Int64"
           when Float64Col then "Float64"
@@ -60,11 +60,11 @@ module Crysda
       records = CSV.parse(io, separator, quote_char)
       records = records.reject(&.empty?) if skip_blank_lines
       records = records[skip..]
-      if (chr = comment)
-        records = records.reject { |row| row[0].starts_with?(chr) }
+      if chr = comment
+        records = records.reject(&.[0].starts_with?(chr))
       end
 
-      if (hdr_row = header)
+      if hdr_row = header
         raise CrysdaException.new("Unable to read header at row #{hdr_row}. Total records count : #{records.size}") unless hdr_row < records.size
         colnames = records[hdr_row]
         row_index = hdr_row + 1
@@ -75,7 +75,7 @@ module Crysda
 
       cols = Array(DataCol).new
       colnames.each_with_index do |cname, index|
-        rows = records[row_index..].map { |r| r[index].na_as_nil(na_value) }
+        rows = records[row_index..].map(&.[index].na_as_nil(na_value))
         cols << Utils.get_col(cname, rows, true_values, false_values)
       end
 
@@ -131,7 +131,7 @@ module Crysda
               else
                 val.as_h.map { |k, v| AnyCol.new(k, [v]).as(DataCol) }
                   .try { |ac| Crysda.dataframe_of(ac) }
-                  .add_column(col_id) { |a| a.df.names }
+                  .add_column(col_id, &.df.names)
               end
             else
               raise CrysdaException.new("invalid json or unable to parse json to dataframe")
@@ -169,7 +169,7 @@ module Crysda
     end
 
     private def parse_json_array(records : Array(JSON::Any))
-      col_names = records.map { |v| v.as_h.keys }.reverse.reduce { |acc, right| acc + (right - acc) }
+      col_names = records.map(&.as_h.keys).reverse!.reduce { |acc, right| acc + (right - acc) }
       col_names.map do |name|
         elems = records.first(5).map_with_index { |_, idx| records[idx].as_h[name]? || JSON::Any.new(nil) }
         values = records.map { |h| h[name]? || JSON::Any.new(nil) }.to_a
@@ -234,11 +234,11 @@ module Crysda
     end
 
     def self.new(rows : Iterable(Hash(String, Any)))
-      new(rows.map { |r| r.map { |k, v| {k, AnyVal[v]} }.to_h })
+      new(rows.map(&.map { |k, v| {k, AnyVal[v]} }.to_h))
     end
 
     def self.new(rows : Iterable(DataFrameRow))
-      new(rows.first.keys.map { |cn| Utils.handle_union(cn, rows.map { |r| r[cn].raw }) })
+      new(rows.first.keys.map { |cn| Utils.handle_union(cn, rows.map(&.[cn].raw)) })
     end
 
     def values(*args)
@@ -255,7 +255,7 @@ module Crysda
 
       # infer column type by peeking into column data
       table_cols = @header.zip(raw_cols).map { |k, v| Utils.handle_union(k, v) }
-      raise CrysdaException.new("Provided data does not coerce to tabular shape") unless table_cols.map { |c| c.size }.to_set.size == 1
+      raise CrysdaException.new("Provided data does not coerce to tabular shape") unless table_cols.map(&.size).to_set.size == 1
       SimpleDataFrame.new(table_cols)
     end
   end
@@ -290,7 +290,7 @@ module Crysda
   end
 
   private def self.guess_any_type(col : AnyCol)
-    first_el = col.values.reject(&.nil?).first?
+    first_el = col.values.reject(Nil).first?
     return "Any" if first_el.nil?
     val = first_el.class.name.lstrip(self.name + "::")
     val = val.in?(["SimpleDataFrame", "GroupedDataFrame"]) ? "DataFrame" : val

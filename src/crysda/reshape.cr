@@ -11,7 +11,7 @@ module Crysda
     # was a mix of variables that was coerced to a string.
     def spread(key : String, value : String, fill = nil, convert = false) : DataFrame
       # create new columns
-      new_cols = self[key].values.uniq
+      new_cols = self[key].values.dup.uniq!
 
       # make sure that new column names do not exist already
       if new_cols.is_a?(Array(Any))
@@ -40,19 +40,19 @@ module Crysda
       spread_with_ghashes = spread_grp.bind_rows
 
       # coerce types of string field columns
-      type_coerced = new_cols.map(&.to_s).reverse
+      type_coerced = new_cols.map(&.to_s).reverse!
         .reduce(spread_with_ghashes) do |df, spread_col|
           df.add_column(spread_col) { |_| Utils.handle_union(spread_col, df[spread_col].values) }
         end
 
-      if (convert)
+      if convert
         type_coerced = new_cols
           # stringify spread column names
           .map(&.to_s)
           # select for string-type columns
           .select { |s| type_coerced[s].is_a?(StringCol) }
           # attempt conversion
-          .reverse
+          .reverse!
           .reduce(type_coerced) { |df, spread_col| convert_type(df, spread_col) }
       end
 
@@ -110,7 +110,7 @@ module Crysda
       raise CrysdaException.new("the column selection to be `unite`ed must not be empty") if which.empty?
 
       unite_blk = self.select(which)
-      unite_res = unite_blk.rows.to_a.map { |r| r.values.map(&.to_s).join(sep) }
+      unite_res = unite_blk.rows.to_a.map(&.values.map(&.to_s).join(sep))
 
       rest = remove ? reject(unite_blk.names) : self
 
@@ -133,7 +133,7 @@ module Crysda
       str_sep = sep.is_a?(String) ? sep.to_regex : sep
       # split column by given delimiter and keep NAs
       split_data = sep_col.as_s.map { |v| v.try &.split(str_sep) || [] of String }
-      split_widths = split_data.map { |d| d.try &.size }.reject(&.nil?).uniq
+      split_widths = split_data.map { |d| d.try &.size }.reject(Nil).uniq!
       num_splits = split_widths.first || 0
 
       raise CrysdaException.new("unequal splits are not yet supported") unless split_widths.size == 1
@@ -166,7 +166,7 @@ module Crysda
     # col_select - A selection of col_select. If not provided, all except the grouping variables are selected.
     # column_name - The name of the new column, as a string or symbol.
     # also see https://github.com/tidyverse/tidyr/blob/master/R/nest.R
-    def nest(col_select : ColumnSelector = ColumnSelector.new { |c| c.except(grouped_by().names) },
+    def nest(col_select : ColumnSelector = ColumnSelector.new(&.except(grouped_by().names)),
              column_name : String = DEF_NEST_COLUMN_NAME) : DataFrame
       nest_cols = col_select_as_names(col_select)
 
@@ -174,19 +174,19 @@ module Crysda
       when GroupedDataFrame
         raise CrysdaException.new("can not nest grouping columns") unless (nest_cols & self.by).empty?
 
-        list_col = groups.map { |g| g.select { |c| c.list_of(nest_cols) } }
+        list_col = groups.map { |g| g.select(&.list_of(nest_cols)) }
         df_cols = Array(DataFrame).new(list_col.size) { |i| list_col[i] }
         grouped_by.add_column(column_name) { |_| df_cols }.ungroup
       when nest_cols.size == names.size # are all columns nested away
         Crysda.dataframe_of(column_name).values(self)
       else
-        group_by { |c| c.except(nest_cols) }.nest(col_select)
+        group_by(&.except(nest_cols)).nest(col_select)
       end
     end
 
     # If you have a list-column, this makes each element of the list its own row. It unfolds data vertically. unnest() can handle list-columns that can atomic vectors, lists, or data frames (but not a mixture of the different types).
     def unnest(column_name : String) : DataFrame
-      first_or_nil = self[column_name].values.reject(&.nil?).first
+      first_or_nil = self[column_name].values.reject(Nil).first
 
       # if the list column is a list we repackage into a single column data-frame with the same name
       if (col = first_or_nil) && !col.is_a?(DataFrame)

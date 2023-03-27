@@ -86,17 +86,17 @@ module Crysda
         ret = loop do
           break if right_group.nil?
 
-          if (left_group.group_key.sort_key < right_group.group_key.sort_key) # right is ahead of left
-            if (type.in? [JoinType::LEFT, JoinType::OUTER])
+          if left_group.group_key.sort_key < right_group.group_key.sort_key # right is ahead of left
+            if type.in? [JoinType::LEFT, JoinType::OUTER]
               group_pairs << {left_group.df, right_nil}
             end
             break true
-          elsif (left_group.group_key == right_group.group_key) # left and right are in sync
+          elsif left_group.group_key == right_group.group_key # left and right are in sync
             group_pairs << {left_group.df, right_group.df}
             right_group = next_or_nil(right_it)
             break true
           else # left is ahead of right
-            if (type.in? [JoinType::RIGHT, JoinType::OUTER])
+            if type.in? [JoinType::RIGHT, JoinType::OUTER]
               group_pairs << {left_nil, right_group.df}
             end
             right_group = next_or_nil(right_it)
@@ -106,7 +106,7 @@ module Crysda
         next if ret
 
         # consume unpaired left blocks
-        if (type.in? [JoinType::LEFT, JoinType::OUTER])
+        if type.in? [JoinType::LEFT, JoinType::OUTER]
           group_pairs << {left_group.df, right_nil}
         else
           break # no more right blocks -> nothing to do with the remaining left blocks for right and inner joins

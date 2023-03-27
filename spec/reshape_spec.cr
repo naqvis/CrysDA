@@ -71,7 +71,7 @@ module Crysda
       wide_data = data.map_with_index { |d, i| Float64Col.new(i.to_s, d).as(DataCol) }.bind_cols
         .add_row_number("y")
 
-      wide_data.gather("x", "pixel_value", ColumnSelector.new { |x| x.except("y") }).tap do |df|
+      wide_data.gather("x", "pixel_value", ColumnSelector.new(&.except("y"))).tap do |df|
         df.print
         column_types(df)[2].type.should eq("Float64")
         df.names.should eq(["y", "x", "pixel_value"])
@@ -84,7 +84,7 @@ module Crysda
         "Anna", Address.new("Mueller Street", "New York"),
         Address.new("Stresemannplatz", "Munich")
       )
-      data.gather("type", "address", ColumnSelector.new { |x| x.ends_with?("address") }).tap do |df|
+      data.gather("type", "address", ColumnSelector.new(&.ends_with?("address"))).tap do |df|
         df.schema
         df.num_col.should eq(3)
         df.names.should eq(["name", "type", "address"])
@@ -103,9 +103,9 @@ module Crysda
 
       wide_df.gather("property", "value", ColumnSelector.new { |x| (x.except("person")).and x.starts_with?("person") })
 
-      wide_df.gather("property", "value", ColumnSelector.new { |x| x.except("person") })
+      wide_df.gather("property", "value", ColumnSelector.new(&.except("person")))
 
-      wide_df.gather("property", "value", ColumnSelector.new { |x| x.except("person") })
+      wide_df.gather("property", "value", ColumnSelector.new(&.except("person")))
         .tap do |wf|
           wf.print
           annual_salary = wf.filter { |x| (x["person"] == "anna").and(x["property"] == "salary") }
@@ -152,7 +152,7 @@ ERR
       df["test"].size.should eq(df.num_row)
     end
 
-    united = SLEEP_DATA.unite("test", ColumnSelector.new { |c| c.list_of(["name", "sleep_rem"]) }, sep: ",")
+    united = SLEEP_DATA.unite("test", ColumnSelector.new(&.list_of(["name", "sleep_rem"])), sep: ",")
 
     united.separate("test", ["new_name", "new_sleep_rem"], convert: true, sep: ",").tap do |df|
       df.take.print
@@ -182,7 +182,7 @@ ERR
   end
 
   it "nest selected columns only" do
-    IRIS_DATA.nest(ColumnSelector.new { |c| c.except("Species") }).tap do |df|
+    IRIS_DATA.nest(ColumnSelector.new(&.except("Species"))).tap do |df|
       df.schema
       df.num_row.should eq 3
       df.num_col.should eq 2
@@ -193,7 +193,7 @@ ERR
   it "should unnest data" do
     # use other small but NA-heavy data set here
     restored = SLEEP_DATA
-      .nest(ColumnSelector.new { |c| c.except("order") })
+      .nest(ColumnSelector.new(&.except("order")))
       .unnest(DataFrame::DEF_NEST_COLUMN_NAME)
       .sort_by("order")
       .move_left("name", "genus", "vore")
@@ -237,7 +237,7 @@ ERR
       d.print
       d.num_row.should eq(6)
       d.num_col.should eq(4)
-      d.filter { |f| f["weight"].is_na }.num_row.should eq(3)
+      d.filter(&.["weight"].is_na).num_row.should eq(3)
     end
 
     # next steps in here: implement test nesting support ...

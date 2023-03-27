@@ -29,7 +29,7 @@ module Crysda
     abstract def select(columns : Iterable(String)) : DataFrame
     # Filter the rows of a table with a single predicate.
     # the filter() function is used to subset a data frame, retaining all rows that satisfy your conditions.
-    abstract def filter(&block : RowPredicate) : DataFrame
+    abstract def filter(& : RowPredicate) : DataFrame
     # Adds new variables and preserves existing
     abstract def add_column(tf : ColumnFormula) : DataFrame
     # Resorts the receiver in ascending order (small values to go top of table). The first argument defines the
@@ -197,8 +197,8 @@ module Crysda
 
     def count(selects : Array(String) = [] of String, name = "n") : DataFrame
       case
-      when selects.size > 0             then self.select(selects).group_by(selects).summarize(name, TableExpression.new { |ec| ec.df.num_row })
-      when self.is_a?(GroupedDataFrame) then self.select(selects).summarize(name, TableExpression.new { |ec| ec.df.num_row })
+      when selects.size > 0             then self.select(selects).group_by(selects).summarize(name, TableExpression.new(&.df.num_row))
+      when self.is_a?(GroupedDataFrame) then self.select(selects).summarize(name, TableExpression.new(&.df.num_row))
       else                                   DataFrameBuilder.new(name).values(num_row)
       end
     end
@@ -358,12 +358,12 @@ module Crysda
     end
 
     def reject(&col_sel : ColumnSelector) : DataFrame
-      self.select { |e| e.except(&col_sel) }
+      self.select(&.except(&col_sel))
     end
 
     # remove selected columns
     def reject(*col_sels : ColumnSelector) : DataFrame
-      self.select(*col_sels.map { |v| ColumnSelector.new { |x| x.except(&v) } })
+      self.select(*col_sels.map { |v| ColumnSelector.new(&.except(&v)) })
     end
 
     # Rename one or several columns. Positions should be preserved.
@@ -415,14 +415,14 @@ module Crysda
     # fraction - Fraction of rows to sample
     # replace - Sample with or without replacement
     def sample_frac(fraction : Float64, replace = false) : DataFrame
-      self.is_a?(GroupedDataFrame) ? self.transform_groups { |df| df.sample_frac(fraction, replace) } : sample_n((fraction * num_row).round.to_i, replace)
+      self.is_a?(GroupedDataFrame) ? self.transform_groups(&.sample_frac(fraction, replace)) : sample_n((fraction * num_row).round.to_i, replace)
     end
 
     # Select random rows from a table. If receiver is grouped, sampling is done per group.
     # n - Number of rows to sample
     # replace - Sample with or without replacement
     def sample_n(n : Int32, replace = false) : DataFrame
-      return self.transform_groups { |df| df.sample_n(n, replace) } if self.is_a?(GroupedDataFrame)
+      return self.transform_groups(&.sample_n(n, replace)) if self.is_a?(GroupedDataFrame)
 
       raise CrysdaException.new("can not over-sample data without replace (num_row<#{n})") unless replace || n <= num_row
       raise CrysdaException.new("Sample size must be greater equal than 0 but was #{n}") unless n >= 0
@@ -432,7 +432,7 @@ module Crysda
       sampling = if replace
                    Array(Int32).new(n) { |_| rnd.rand(num_row) }
                  else
-                   shuf_idx = (0..(num_row - 1)).to_a.tap { |arr| arr.shuffle!(rnd) }
+                   shuf_idx = (0..(num_row - 1)).to_a.tap(&.shuffle!(rnd))
                    shuf_idx[...n]
                  end
 
@@ -501,7 +501,7 @@ module Crysda
 
     # Select rows by position while taking into account grouping in a data-frame.
     def slice(*slices : Int32)
-      filter &->(ec : ExpressionContext) { ec.df.row_number.map { |e| e.in?(slices) } }
+      filter &->(ec : ExpressionContext) { ec.df.row_number.map(&.in?(slices)) }
     end
 
     # Select rows by position while taking into account grouping in a data-frame.
@@ -514,7 +514,7 @@ module Crysda
     def sort_desc_by(*by : String) : DataFrame
       sort_by(
         by.map do |s|
-          SortExpression.new { |e| e.desc(s) }
+          SortExpression.new(&.desc(s))
         end
       )
     end
@@ -612,7 +612,7 @@ module Crysda
         .try do |pd|
           # optionally add rownames
           if row_numbers && pd.num_row > 0
-            pd.add_column(" ") { |c| c.row_num }.move_left(" ")
+            pd.add_column(" ", &.row_num).move_left(" ")
           else
             pd
           end
@@ -640,7 +640,7 @@ module Crysda
 
         width_trimmed = print_data.select(print_data.names.first(num_print_cols))
 
-        if (col_names)
+        if col_names
           sb << width_trimmed.cols.map_with_index { |col, idx| col.name.pad_start(padding[idx]) }.join << "\n"
         end
         width_trimmed.rows.to_a.map(&.values).map do |row_data|
@@ -651,11 +651,11 @@ module Crysda
         # similar to dplyr render a summary below the table
         and = Array(String).new
 
-        if (max_rows_or_inf < df.num_row)
+        if max_rows_or_inf < df.num_row
           and << "and #{df.num_row - max_rows_or_inf} more rows"
         end
 
-        if (num_print_cols < print_data.num_col)
+        if num_print_cols < print_data.num_col
           left_out_cols = print_data.select(names[num_print_cols..])
           and << "#{print_data.num_col - num_print_cols} more variables: #{left_out_cols.names.join(", ")}"
         end
@@ -692,7 +692,7 @@ module Crysda
     end
 
     private def self.bind_col_data(dfs : Array(DataFrame), col_name : String)
-      total_rows = dfs.map(&.num_row).sum
+      total_rows = dfs.sum(&.num_row)
       list = Array(Any | DataFrame).new(total_rows) { |_| nil }
       return list unless total_rows > 0
       iter = 0
@@ -714,7 +714,7 @@ module Crysda
     end
 
     private def reduce_col_selectors(which : Array(ColumnSelector)) : ColumnSelector
-      which.map { |n| n.call(ColNames.new(names)) }
+      which.map(&.call(ColNames.new(names)))
         .reduce { |a, b| a.and(b) }
         .try { |c| ColumnSelector.new { |_| c } }
     end
@@ -732,7 +732,7 @@ module Crysda
 
     private def validate_column_selector(selector : ColumnSelector)
       which = selector.call(ColNames.new(names))
-      if which.select { |v| !v.nil? }.uniq.size > 1
+      if which.select { |v| !v.nil? }.uniq!.size > 1
         raise InvalidColumnSelectException.new(names, which)
       end
     end

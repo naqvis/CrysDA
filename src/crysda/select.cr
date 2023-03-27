@@ -62,15 +62,15 @@ module Crysda
     end
 
     def starts_with?(prefix : String)
-      names.map { |n| n.starts_with?(prefix) }.false_as_nil
+      names.map(&.starts_with?(prefix)).false_as_nil
     end
 
     def ends_with?(prefix : String)
-      names.map { |n| n.ends_with?(prefix) }.false_as_nil
+      names.map(&.ends_with?(prefix)).false_as_nil
     end
 
     def list_of(*col_names : String)
-      names.map { |n| n.in?(col_names) }.false_as_nil
+      names.map(&.in?(col_names)).false_as_nil
     end
 
     def list_of(col_names : Array(String))

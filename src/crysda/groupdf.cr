@@ -30,7 +30,7 @@ module Crysda
     end
 
     def num_row : Int32
-      @data_groups.map(&.df.num_row).sum
+      @data_groups.sum(&.df.num_row)
     end
 
     def num_col : Int32
@@ -115,7 +115,7 @@ module Crysda
 
     # make sure that by-NA groups come last here (see specs)
     def hash_sorted
-      GroupedDataFrame.new(by, @data_groups.sort_by { |v| v.group_key.sort_key })
+      GroupedDataFrame.new(by, @data_groups.sort_by(&.group_key.sort_key))
     end
 
     private class GDFIterator

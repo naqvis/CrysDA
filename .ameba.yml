@@ -3,3 +3,7 @@ Metrics/CyclomaticComplexity:
   MaxComplexity: 30
   Enabled: true
   Severity: Convention
+Lint/NotNil:
+  Enabled: false
+Style/VerboseBlock:
+  Enabled: false

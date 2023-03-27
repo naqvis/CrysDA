@@ -1,6 +1,6 @@
 # :nodoc:
 class Array(T)
-  def map_non_nil(&block : T -> U) forall U
+  def map_non_nil(& : T -> U) forall U
     Array(U?).new(size) do |i|
       val = @buffer[i]
       next nil if val.nil?
@@ -129,13 +129,13 @@ end
 
 # :nodoc:
 module Enumerable(T)
-  def select_with_index(&block : T ->)
+  def select_with_index(& : T ->)
     ary = [] of T
     each_with_index { |e, i| ary << e if yield e, i }
     ary
   end
 
-  def scan_left(memo)
+  def scan_left(memo, &)
     reduce([memo]) { |list, curval| list + [yield list.last, curval] }
   end
 

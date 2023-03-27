@@ -132,4 +132,3 @@ module Crysda
 end
 
 require "./**"
-
