@@ -256,6 +256,23 @@ module Crysda
       filter { index }
     end
 
+    # filter rows by Row predicate, which is invoked on each row of the dataframe
+    # ```
+    # df = Crysda.dataframe_of("person", "year", "weight", "sex").values(
+    #   "max", 2014, 33.1, "M",
+    #   "max", 2016, nil, "M",
+    #   "anna", 2015, 39.2, "F",
+    #   "anna", 2016, 39.9, "F"
+    # )
+    # df.filter_by_row_with_index { |f, i| f["year"].as_i > 2015 || i % 2 != 0 }.print
+    # ```
+    def filter_by_row_with_index(&row_filter : (DataFrameRow, Int32) -> Bool) : DataFrame
+      index = Array(Bool).new.tap do |arr|
+        rows.each_with_index { |v, i| arr << row_filter.call(v, i) }
+      end
+      filter { index }
+    end
+
     # Creates a grouped data-frame given a list of grouping attributes.
     # Most data operations are done on groups defined by variables. `group_by()` takes the receiver data-frame and
     # converts it into a grouped data-frame where operations are performed "by group". `ungroup()` removes grouping.
