@@ -202,7 +202,7 @@ module Crysda
       when Type(Any).of_type?(arr)
         AnyCol.new(name, Array(Any).new(arr.size) { |i| arr[i].as?(Any) })
       else
-        raise CrysdaException.new ("Unsupported Operation for value: #{arr} - #{arr.class}")
+        raise CrysdaException.new("Unsupported Operation for value: #{arr} - #{arr.class}")
       end
     end
 
@@ -361,7 +361,7 @@ module Crysda
         return true if cval.in?(t_vals)
         return false if cval.in?(f_vals)
       end
-      raise CrysdaException.new ("invalid boolean conversion")
+      raise CrysdaException.new("invalid boolean conversion")
     end
   end
 

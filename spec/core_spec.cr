@@ -256,7 +256,7 @@ module Crysda
     end
 
     it "should allow for vectorized filter expressions" do
-      IRIS_DATA.filter { |e| (e["Sepal.Length"] > e["Petal.Length"] * 3).and (e["Species"] == "setosa") }.num_row.should eq(44)
+      IRIS_DATA.filter { |e| (e["Sepal.Length"] > e["Petal.Length"] * 3).and(e["Species"] == "setosa") }.num_row.should eq(44)
     end
   end
 

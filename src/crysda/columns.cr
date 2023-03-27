@@ -427,7 +427,7 @@ module Crysda
     private module Cast(R)
       def self.cast(col : DataCol)
         v = col.as?(R)
-        raise CrysdaException.new ("Could not cast column '#{col.name}' of type '#{col.class.name}' to type '#{R}'") if v.nil?
+        raise CrysdaException.new("Could not cast column '#{col.name}' of type '#{col.class.name}' to type '#{R}'") if v.nil?
         v
       end
     end
@@ -610,7 +610,7 @@ module Crysda
       when Int32      then handle_op(val, int_op)
       when Float64    then double_op(val, dbl_op)
       else
-        raise CrysdaException.new ("Unsupported + operation for type #{val.class}")
+        raise CrysdaException.new("Unsupported + operation for type #{val.class}")
       end
     end
 
@@ -635,7 +635,7 @@ module Crysda
           when Number # Int32
             Array(Int32?).new(values.size) { |i| NAOps(Int32).na_aware_op(@values[i], val, op) }
           else
-            raise CrysdaException.new ("Unsupported + operation for type #{typeof(val)}")
+            raise CrysdaException.new("Unsupported + operation for type #{typeof(val)}")
           end
       Utils.handle_union(Crysda.temp_colname, v)
     end
@@ -704,7 +704,7 @@ module Crysda
       when Int64      then handle_op(val, int_op)
       when Float64    then double_op(val, dbl_op)
       else
-        raise CrysdaException.new ("Unsupported + operation for type #{typeof(val)}")
+        raise CrysdaException.new("Unsupported + operation for type #{typeof(val)}")
       end
     end
 
@@ -731,7 +731,7 @@ module Crysda
           when Int32
             Array(Int64?).new(values.size) { |i| NAOps(Int64).na_aware_op(@values[i], val.to_i64, op) }
           else
-            raise CrysdaException.new ("Unsupported + operation for type #{typeof(val)}")
+            raise CrysdaException.new("Unsupported + operation for type #{typeof(val)}")
           end
       Utils.handle_union(Crysda.temp_colname, v)
     end

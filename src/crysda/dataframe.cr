@@ -90,7 +90,7 @@ module Crysda
     # Returns a DataFrame containing the new row.
     # The new row length must match the number of columns in the DataFrame
     def add_row(*row)
-      raise CrysdaException.new ("Row length must match number of columns") unless row.size == names.size
+      raise CrysdaException.new("Row length must match number of columns") unless row.size == names.size
       new_row = DataFrameRow.new
       names.each_with_index { |n, i| new_row[n] = AnyVal[row[i]] }
       Crysda.dataframe_of(self.rows.to_a + [new_row])
@@ -407,8 +407,8 @@ module Crysda
     def sample_n(n : Int32, replace = false) : DataFrame
       return self.transform_groups { |df| df.sample_n(n, replace) } if self.is_a?(GroupedDataFrame)
 
-      raise CrysdaException.new ("can not over-sample data without replace (num_row<#{n})") unless replace || n <= num_row
-      raise CrysdaException.new ("Sample size must be greater equal than 0 but was #{n}") unless n >= 0
+      raise CrysdaException.new("can not over-sample data without replace (num_row<#{n})") unless replace || n <= num_row
+      raise CrysdaException.new("Sample size must be greater equal than 0 but was #{n}") unless n >= 0
 
       rnd = Random.new
       # depending on replacement-mode randomly sample the index vector
@@ -705,7 +705,7 @@ module Crysda
     private def col_select_as_names(selector : ColumnSelector)
       validate_column_selector(selector)
       which = selector.call(ColNames.new(names))
-      raise CrysdaException.new ("selector array has different dimension than data-frame") unless which.size == self.num_col
+      raise CrysdaException.new("selector array has different dimension than data-frame") unless which.size == self.num_col
 
       # map bool array to string selection
       pos_sel = which.count { |v| v == true } > 0 || which.select { |v| !v.nil? }.empty?
@@ -729,7 +729,7 @@ module Crysda
       when SimpleDataFrame  then DFIter.new(cols)
       when GroupedDataFrame then raise UnSupportedOperationException.new
       else
-        raise CrysdaException.new ("Unknown type #{typeof(self)}")
+        raise CrysdaException.new("Unknown type #{typeof(self)}")
       end
     end
   end
@@ -744,7 +744,7 @@ module Crysda
         cname = "#{colname}_#{suf}"
         return cname unless cname.in? @names
       end
-      raise CrysdaException.new ("Unable to resolve duplicate column name")
+      raise CrysdaException.new("Unable to resolve duplicate column name")
     end
   end
 

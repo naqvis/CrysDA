@@ -15,13 +15,13 @@ module Crysda
 
       # make sure that new column names do not exist already
       if new_cols.is_a?(Array(Any))
-        raise CrysdaException.new ("spread columns do already exist in data-frame") unless (names & new_cols).empty?
+        raise CrysdaException.new("spread columns do already exist in data-frame") unless (names & new_cols).empty?
       end
 
       by_spread_grp = group_by(names - [key, value]).as(GroupedDataFrame)
       spread_grp = by_spread_grp.data_groups.map do |v|
         grp_df = v.df
-        raise CrysdaException.new ("key value mapping is not unique") unless grp_df.select(key).distinct(key).num_row == grp_df.num_row
+        raise CrysdaException.new("key value mapping is not unique") unless grp_df.select(key).distinct(key).num_row == grp_df.num_row
 
         spread_blk = SimpleDataFrame.new(Utils.handle_union(key, new_cols))
           .left_join(grp_df.select(key, value))
@@ -71,7 +71,7 @@ module Crysda
     # convert If TRUE will automatically run `convertType` on the key column. This is useful if the
     #                column names are actually numeric, integer, or logical.
     def gather(key : String, value : String, columns : Array(String) = self.names, convert : Bool = false) : DataFrame
-      raise CrysdaException.new ("the column selection to be `gather`ed must not be empty") if columns.empty?
+      raise CrysdaException.new("the column selection to be `gather`ed must not be empty") if columns.empty?
 
       gather_cols = self.select(columns)
 
@@ -107,7 +107,7 @@ module Crysda
     #
     # see `separate`
     def unite(col_name : String, which : Array(String), sep : String = "_", remove : Bool = true) : DataFrame
-      raise CrysdaException.new ("the column selection to be `unite`ed must not be empty") if which.empty?
+      raise CrysdaException.new("the column selection to be `unite`ed must not be empty") if which.empty?
 
       unite_blk = self.select(which)
       unite_res = unite_blk.rows.to_a.map { |r| r.values.map(&.to_s).join(sep) }
@@ -136,8 +136,8 @@ module Crysda
       split_widths = split_data.map { |d| d.try &.size }.reject(&.nil?).uniq
       num_splits = split_widths.first || 0
 
-      raise CrysdaException.new ("unequal splits are not yet supported") unless split_widths.size == 1
-      raise CrysdaException.new ("mismatch between number of splits #{num_splits} and provided new column names '#{into}'") unless num_splits == into.size
+      raise CrysdaException.new("unequal splits are not yet supported") unless split_widths.size == 1
+      raise CrysdaException.new("mismatch between number of splits #{num_splits} and provided new column names '#{into}'") unless num_splits == into.size
 
       # vertically split into columns and perform optional type conversion
       split_cols = (0..(num_splits - 1)).map { |index| StringCol.new(into[index], split_data.map { |v| v[index] == MISSING_VALUE ? nil : v[index] }) }
@@ -172,7 +172,7 @@ module Crysda
 
       case self
       when GroupedDataFrame
-        raise CrysdaException.new ("can not nest grouping columns") unless (nest_cols & self.by).empty?
+        raise CrysdaException.new("can not nest grouping columns") unless (nest_cols & self.by).empty?
 
         list_col = groups.map { |g| g.select { |c| c.list_of(nest_cols) } }
         df_cols = Array(DataFrame).new(list_col.size) { |i| list_col[i] }
@@ -194,7 +194,7 @@ module Crysda
                      when Iterable
                        add_column(column_name) { |c| c[column_name].map { |vals| Crysda.dataframe_of(column_name).values(vals).as(DataFrame) } }
                      else
-                       raise CrysdaException.new ("Unnesting failed because of unsupported list column type")
+                       raise CrysdaException.new("Unnesting failed because of unsupported list column type")
                      end
         return repackaged.unnest(column_name)
       end

@@ -108,7 +108,7 @@ module Crysda
       wide_df.gather("property", "value", ColumnSelector.new { |x| x.except("person") })
         .tap do |wf|
           wf.print
-          annual_salary = wf.filter { |x| (x["person"] == "anna").and (x["property"] == "salary") }
+          annual_salary = wf.filter { |x| (x["person"] == "anna").and(x["property"] == "salary") }
           annual_salary["value"].values.first.should eq "33.5"
         end
     end

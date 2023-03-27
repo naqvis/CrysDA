@@ -57,7 +57,7 @@ module Crysda
     def row(index : Int32) : DataFrameRow
       grp_offset = group_offsets
       grp_idx = grp_offset.count(&.<= index) - 1
-      row_offset = grp_offset.reverse_each.find(&.<= index) || raise CrysdaException.new ("Row ##{index} not found")
+      row_offset = grp_offset.reverse_each.find(&.<= index) || raise CrysdaException.new("Row ##{index} not found")
       @data_groups[grp_idx].df.row(index - row_offset)
     end
 

@@ -16,7 +16,7 @@ module Crysda
           when DFCol      then "DataFrame"
           when AnyCol     then guess_any_type(col)
           else
-            raise CrysdaException.new ("Unknown type #{typeof(col)}")
+            raise CrysdaException.new("Unknown type #{typeof(col)}")
           end
     wrap_squares ? "[#{val}]" : val
   end
@@ -65,7 +65,7 @@ module Crysda
       end
 
       if (hdr_row = header)
-        raise CrysdaException.new ("Unable to read header at row #{hdr_row}. Total records count : #{records.size}") unless hdr_row < records.size
+        raise CrysdaException.new("Unable to read header at row #{hdr_row}. Total records count : #{records.size}") unless hdr_row < records.size
         colnames = records[hdr_row]
         row_index = hdr_row + 1
       else
@@ -91,7 +91,7 @@ module Crysda
           case val = rs.read
           when Slice(UInt8) then data[name] << String.new(val)
           when Any          then data[name] << val
-          else                   raise CrysdaException.new ("uknown column type : #{val.class}")
+          else                   raise CrysdaException.new("uknown column type : #{val.class}")
           end
         end
       end
@@ -134,10 +134,10 @@ module Crysda
                   .add_column(col_id) { |a| a.df.names }
               end
             else
-              raise CrysdaException.new ("invalid json or unable to parse json to dataframe")
+              raise CrysdaException.new("invalid json or unable to parse json to dataframe")
             end
           else
-            raise CrysdaException.new ("Can not parse json.")
+            raise CrysdaException.new("Can not parse json.")
           end
         end
 
@@ -164,7 +164,7 @@ module Crysda
       HTTP::Client.get(url) do |resp|
         str = resp.body_io.gets_to_end
       end
-      raise CrysdaException.new ("URL returned an empty response") if str.nil? || str.empty?
+      raise CrysdaException.new("URL returned an empty response") if str.nil? || str.empty?
       IO::Memory.new(str)
     end
 
@@ -247,7 +247,7 @@ module Crysda
 
     def values(args : Array)
       # is values compatible with the header dimension?
-      raise CrysdaException.new ("data dimension #{@header.size} is not compatible with the length of values #{args.size}") unless @header.size > 0 && args.size % @header.size == 0
+      raise CrysdaException.new("data dimension #{@header.size} is not compatible with the length of values #{args.size}") unless @header.size > 0 && args.size % @header.size == 0
       # break into columns
       raw_cols = args.map_with_index { |a, i| {i % @header.size, a} }
         .group_by { |t| t[0] }
@@ -255,7 +255,7 @@ module Crysda
 
       # infer column type by peeking into column data
       table_cols = @header.zip(raw_cols).map { |k, v| Utils.handle_union(k, v) }
-      raise CrysdaException.new ("Provided data does not coerce to tabular shape") unless table_cols.map { |c| c.size }.to_set.size == 1
+      raise CrysdaException.new("Provided data does not coerce to tabular shape") unless table_cols.map { |c| c.size }.to_set.size == 1
       SimpleDataFrame.new(table_cols)
     end
   end

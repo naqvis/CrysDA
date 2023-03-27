@@ -43,14 +43,14 @@ module Crysda
 
     def [](name : String) : DataCol
       res = @cols.select { |c| c.name == name }
-      raise CrysdaException.new ("Could not find column '#{name}' in dataframe") unless res.size > 0
+      raise CrysdaException.new("Could not find column '#{name}' in dataframe") unless res.size > 0
       res.first
     end
 
     def row(index : Int32) : DataFrameRow
       @cols.map do |c|
         raise UnSupportedOperationException.new unless c.is_a?(DataCol)
-        raise CrysdaException.new ("Row not found in dataframe") unless index < c.values.size
+        raise CrysdaException.new("Row not found in dataframe") unless index < c.values.size
         {c.name, AnyVal[c.values[index]]}
       end.to_h
     end
@@ -79,7 +79,7 @@ module Crysda
 
     def filter(&block : RowPredicate) : DataFrame
       index = block.call(self.ec)
-      raise CrysdaException.new ("filter index has incompatible length of #{index.size}, rows : #{num_row}") unless index.size == num_row
+      raise CrysdaException.new("filter index has incompatible length of #{index.size}, rows : #{num_row}") unless index.size == num_row
       SimpleDataFrame.new(
         @cols.map do |c|
           case c
@@ -180,7 +180,7 @@ module Crysda
       # take all grouping columns
       group_cols = self.select(by)
 
-      raise CrysdaException.new ("Could not find all grouping columns") unless group_cols.num_col == by.size
+      raise CrysdaException.new("Could not find all grouping columns") unless group_cols.num_col == by.size
 
       empty_by_hash = Random.rand(Int32)
 
@@ -225,7 +225,7 @@ module Crysda
         return ret if (ret != 0) || idx == by.size - 1
         idx += 1
       end
-      raise CrysdaException.new ("compare didn't return any result")
+      raise CrysdaException.new("compare didn't return any result")
     end
 
     private def extract_group(col : DataCol, gid : GroupIndex) : DataCol
