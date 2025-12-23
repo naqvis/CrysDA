@@ -1,25 +1,32 @@
-name: CrysDA CI
+name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [main]
   pull_request:
-    branches: [ master ]
-  schedule:
-    - cron: '0 21 * * *'
+    branches: [main]
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    container:
-      image: crystallang/crystal:latest-alpine
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        crystal: [latest, nightly]
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Dev Dependencies
-      run: apk update && apk add sqlite && apk add sqlite-dev
-    - name: Check format
-      run: crystal tool format --check
-    - name: Install dependencies
-      run: shards install
-    - name: Run tests
-      run: crystal spec --order random --error-on-warnings
+      - name: Download source
+        uses: actions/checkout@v4
+
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: ${{ matrix.crystal }}
+
+      - name: Install dependencies
+        run: shards install
+      - name: Run tests
+        run: crystal spec
+      - name: Check formatting
+        run: crystal tool format --check
