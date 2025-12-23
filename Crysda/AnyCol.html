@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.17.1">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="crysda">
 
@@ -22,9 +23,14 @@
 
 <svg class="hidden">
   <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
   </symbol>
 </svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -201,6 +207,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/NullBitmap" data-name="crysda::nullbitmap">
+      <a href="../Crysda/NullBitmap.html">NullBitmap</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/RenamePair" data-name="crysda::renamepair">
       <a href="../Crysda/RenamePair.html">RenamePair</a>
       
@@ -228,6 +239,11 @@
   
   <li class=" " data-id="crysda/Crysda/StringCol" data-name="crysda::stringcol">
       <a href="../Crysda/StringCol.html">StringCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/StringPool" data-name="crysda::stringpool">
+      <a href="../Crysda/StringPool.html">StringPool</a>
       
     </li>
   
@@ -265,7 +281,9 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">struct</span> Crysda::AnyCol
+  <span class="kind">
+    struct
+  </span> Crysda::<wbr>AnyCol
 
 </h1>
 
@@ -284,7 +302,13 @@
     Overview
   </h2>
 
-  <p>Column for types other than implemented types and part of <code><a href="../Crysda/Any.html">Any</a></code> union type.</p>
+  <h1><a id="any-column" class="anchor" href="#any-column">  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>===========================================================================
+Any Column</h1>
+
+
 
 
 
@@ -309,7 +333,7 @@
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L765" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2132" target="_blank">
         crysda/columns.cr
       </a>
     
@@ -320,6 +344,7 @@
 
 
 
+  
   <h2>
     <a id="constructors" class="anchor" href="#constructors">
   <svg class="octicon-link" aria-hidden="true">
@@ -331,16 +356,18 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new(name:String,val:Array(Any))-class-method" class="signature"><strong>.new</strong>(name : String, val : Array(Any))</a>
+        <a href="#new%28name%3AString%2Cval%3AArray%28Any%29%29-class-method" class="signature"><strong>.new</strong>(name : String, val : Array(Any))</a>
         
       </li>
     
   </ul>
 
 
+  
 
+  
 
-
+  
   <h2>
     <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
   <svg class="octicon-link" aria-hidden="true">
@@ -352,12 +379,17 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#compare(left:Int32,right:Int32,null_last=true):Int32-instance-method" class="signature"><strong>#compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</a>
+        <a href="#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="signature"><strong>#compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#values:Array(Any)-instance-method" class="signature"><strong>#values</strong> : Array(Any)</a>
+        <a href="#has_nulls%3F%3ABool-instance-method" class="signature"><strong>#has_nulls?</strong> : Bool</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#values%3AArray%28Any%29-instance-method" class="signature"><strong>#values</strong> : Array(Any)</a>
         
       </li>
     
@@ -365,67 +397,65 @@
 
 
 
-
-
-<div class="methods-inherited">
-  
+  <div class="methods-inherited">
     
+      
 
   <h3>Instance methods inherited from struct <code><a href="../Crysda/DataCol.html">Crysda::DataCol</a></code></h3>
   
   
-    <a href="../Crysda/DataCol.html#*(val:DataCol)-instance-method" class="tooltip">
-      <span>*(val : DataCol)<br/>*(val : Number)</span>
+    <a href="../Crysda/DataCol.html#%2A%28val%3ANumber%29-instance-method" class="tooltip">
+      <span>*(val : Number)<br/>*(val : DataCol)</span>
     *</a>, 
     
   
-    <a href="../Crysda/DataCol.html#+(val:Number)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#%2B%28val%3ANumber%29-instance-method" class="tooltip">
       <span>+(val : Number)<br/>+(val : DataCol)<br/>+(val : Iterable)<br/>+(val : String)</span>
     +</a>, 
     
   
-    <a href="../Crysda/DataCol.html#-(val:Number)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#-%28val%3ANumber%29-instance-method" class="tooltip">
       <span>-(val : Number)<br/>-(val : DataCol)<br/>-</span>
     -</a>, 
     
   
-    <a href="../Crysda/DataCol.html#/(val:DataCol)-instance-method" class="tooltip">
-      <span>/(val : DataCol)<br/>/(val : Number)</span>
+    <a href="../Crysda/DataCol.html#/%28val%3ANumber%29-instance-method" class="tooltip">
+      <span>/(val : Number)<br/>/(val : DataCol)</span>
     /</a>, 
     
   
-    <a href="../Crysda/DataCol.html#%3C(val:Any%7CDataCol)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#%3C%28val%3AAny%7CDataCol%29-instance-method" class="tooltip">
       <span><(val : Any | DataCol)</span>
     <</a>, 
     
   
-    <a href="../Crysda/DataCol.html#%3C=(val:Any%7CDataCol)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#%3C%3D%28val%3AAny%7CDataCol%29-instance-method" class="tooltip">
       <span><=(val : Any | DataCol)</span>
     <=</a>, 
     
   
-    <a href="../Crysda/DataCol.html#==(i:Any)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#%3D%3D%28i%3AAny%29-instance-method" class="tooltip">
       <span>==(i : Any)<br/>==(other : <span class="k">self</span>)</span>
     ==</a>, 
     
   
-    <a href="../Crysda/DataCol.html#%3E(val:Any%7CDataCol)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#%3E%28val%3AAny%7CDataCol%29-instance-method" class="tooltip">
       <span>>(val : Any | DataCol)</span>
     ></a>, 
     
   
-    <a href="../Crysda/DataCol.html#%3E=(val:Any%7CDataCol)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#%3E%3D%28val%3AAny%7CDataCol%29-instance-method" class="tooltip">
       <span>>=(val : Any | DataCol)</span>
     >=</a>, 
     
   
-    <a href="../Crysda/DataCol.html#[](*args,**options)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#%5B%5D%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
       <span>[](*args, **options)<br/>[](*args, **options, &)</span>
     []</a>, 
     
   
-    <a href="../Crysda/DataCol.html#[]?(*args,**options,&)-instance-method" class="tooltip">
-      <span>[]?(*args, **options, &)<br/>[]?(*args, **options)</span>
+    <a href="../Crysda/DataCol.html#%5B%5D%3F%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
+      <span>[]?(*args, **options)<br/>[]?(*args, **options, &)</span>
     []?</a>, 
     
   
@@ -454,7 +484,7 @@
     as_s</a>, 
     
   
-    <a href="../Crysda/DataCol.html#compare(left:Int32,right:Int32,null_last=true):Int32-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="tooltip">
       <span>compare(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</span>
     compare</a>, 
     
@@ -469,22 +499,22 @@
     desc</a>, 
     
   
-    <a href="../Crysda/DataCol.html#div(val)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#div%28val%29-instance-method" class="tooltip">
       <span>div(val)</span>
     div</a>, 
     
   
-    <a href="../Crysda/DataCol.html#equals(other:self)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#equals%28other%3Aself%29-instance-method" class="tooltip">
       <span>equals(other : <span class="k">self</span>)</span>
     equals</a>, 
     
   
-    <a href="../Crysda/DataCol.html#has_nulls?-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#has_nulls%3F-instance-method" class="tooltip">
       <span>has_nulls?</span>
     has_nulls?</a>, 
     
   
-    <a href="../Crysda/DataCol.html#hash(hasher)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#hash%28hasher%29-instance-method" class="tooltip">
       <span>hash(hasher)</span>
     hash</a>, 
     
@@ -499,157 +529,169 @@
     is_not_na</a>, 
     
   
-    <a href="../Crysda/DataCol.html#lag(n=1,default:Any=nil)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#lag%28n%3D1%2Cdefault%3AAny%3Dnil%29-instance-method" class="tooltip">
       <span>lag(n = <span class="n">1</span>, default : Any = <span class="n">nil</span>)</span>
     lag</a>, 
     
   
-    <a href="../Crysda/DataCol.html#lead(n=1,default:Any=nil)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#lead%28n%3D1%2Cdefault%3AAny%3Dnil%29-instance-method" class="tooltip">
       <span>lead(n = <span class="n">1</span>, default : Any = <span class="n">nil</span>)</span>
     lead</a>, 
     
   
-    <a href="../Crysda/DataCol.html#map(&)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#map%28%26%29-instance-method" class="tooltip">
       <span>map(&)</span>
     map</a>, 
     
   
-    <a href="../Crysda/DataCol.html#matching(missing_as=false,&):Array(Bool)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#matching%28missing_as%3Dfalse%2C%26%29%3AArray%28Bool%29-instance-method" class="tooltip">
       <span>matching(missing_as = <span class="n">false</span>, &) : Array(Bool)</span>
     matching</a>, 
     
   
-    <a href="../Crysda/DataCol.html#max(remove_na=false)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#max%28remove_na%3Dfalse%29-instance-method" class="tooltip">
       <span>max(remove_na = <span class="n">false</span>)</span>
     max</a>, 
     
   
-    <a href="../Crysda/DataCol.html#mean(remove_na=false)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#mean%28remove_na%3Dfalse%29-instance-method" class="tooltip">
       <span>mean(remove_na = <span class="n">false</span>)</span>
     mean</a>, 
     
   
-    <a href="../Crysda/DataCol.html#median(remove_na=false)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#median%28remove_na%3Dfalse%29-instance-method" class="tooltip">
       <span>median(remove_na = <span class="n">false</span>)</span>
     median</a>, 
     
   
-    <a href="../Crysda/DataCol.html#min(remove_na=false)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#min%28remove_na%3Dfalse%29-instance-method" class="tooltip">
       <span>min(remove_na = <span class="n">false</span>)</span>
     min</a>, 
     
   
-    <a href="../Crysda/DataCol.html#minus(val)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#minus%28val%29-instance-method" class="tooltip">
       <span>minus(val)</span>
     minus</a>, 
     
   
-    <a href="../Crysda/DataCol.html#name:String-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#name%3AString-instance-method" class="tooltip">
       <span>name : String</span>
     name</a>, 
     
   
-    <a href="../Crysda/DataCol.html#order(na_last=true)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#order%28na_last%3Dtrue%29-instance-method" class="tooltip">
       <span>order(na_last = <span class="n">true</span>)</span>
     order</a>, 
     
   
-    <a href="../Crysda/DataCol.html#pct_change:DataCol-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#pct_change%3ADataCol-instance-method" class="tooltip">
       <span>pct_change : DataCol</span>
     pct_change</a>, 
     
   
-    <a href="../Crysda/DataCol.html#plus(val)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#plus%28val%29-instance-method" class="tooltip">
       <span>plus(val)</span>
     plus</a>, 
     
   
-    <a href="../Crysda/DataCol.html#rank(na_last=true)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#rank%28na_last%3Dtrue%29-instance-method" class="tooltip">
       <span>rank(na_last = <span class="n">true</span>)</span>
     rank</a>, 
     
   
-    <a href="../Crysda/DataCol.html#sd(remove_na=false)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#sd%28remove_na%3Dfalse%29-instance-method" class="tooltip">
       <span>sd(remove_na = <span class="n">false</span>)</span>
     sd</a>, 
     
   
-    <a href="../Crysda/DataCol.html#size(*args,**options)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#size%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
       <span>size(*args, **options)<br/>size(*args, **options, &)</span>
     size</a>, 
     
   
-    <a href="../Crysda/DataCol.html#sum(remove_na=false)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#sum%28remove_na%3Dfalse%29-instance-method" class="tooltip">
       <span>sum(remove_na = <span class="n">false</span>)</span>
     sum</a>, 
     
   
-    <a href="../Crysda/DataCol.html#times(val)-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#times%28val%29-instance-method" class="tooltip">
       <span>times(val)</span>
     times</a>, 
     
   
-    <a href="../Crysda/DataCol.html#to_s(io:IO):Nil-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#to_s%28io%3AIO%29%3ANil-instance-method" class="tooltip">
       <span>to_s(io : IO) : Nil<br/>to_s</span>
     to_s</a>, 
     
   
-    <a href="../Crysda/DataCol.html#values:Array-instance-method" class="tooltip">
+    <a href="../Crysda/DataCol.html#values%3AArray-instance-method" class="tooltip">
       <span>values : Array</span>
     values</a>
     
   
 
 
-    
+      
 
   <h3>Constructor methods inherited from struct <code><a href="../Crysda/DataCol.html">Crysda::DataCol</a></code></h3>
   
   
-    <a href="../Crysda/DataCol.html#new(name)-class-method" class="tooltip">
-      <span>new(name)</span>
+    <a href="../Crysda/DataCol.html#new%28name%3AString%29-class-method" class="tooltip">
+      <span>new(name : String)</span>
     new</a>
     
   
 
 
-    
+      
 
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
 
   
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-</div>
-
-
   <h2>
     <a id="constructor-detail" class="anchor" href="#constructor-detail">
   <svg class="octicon-link" aria-hidden="true">
@@ -664,22 +706,24 @@
         
         def self.<strong>new</strong>(name : String, val : Array(<a href="../Crysda/Any.html">Any</a>))
 
-        <a class="method-permalink" href="#new(name:String,val:Array(Any))-class-method">#</a>
+        <a class="method-permalink" href="#new%28name%3AString%2Cval%3AArray%28Any%29%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L766" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2133" target="_blank">View source</a>]
         
       </div>
     </div>
   
 
 
+  
 
+  
 
-
+  
   <h2>
     <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
@@ -694,13 +738,29 @@
         
         def <strong>compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32
 
-        <a class="method-permalink" href="#compare(left:Int32,right:Int32,null_last=true):Int32-instance-method">#</a>
+        <a class="method-permalink" href="#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L775" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2146" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="has_nulls?:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>has_nulls?</strong> : Bool
+
+        <a class="method-permalink" href="#has_nulls%3F%3ABool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2142" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -710,18 +770,17 @@
         
         def <strong>values</strong> : Array(<a href="../Crysda/Any.html">Any</a>)
 
-        <a class="method-permalink" href="#values:Array(Any)-instance-method">#</a>
+        <a class="method-permalink" href="#values%3AArray%28Any%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L771" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2138" target="_blank">View source</a>]
         
       </div>
     </div>
   
-
 
 
 

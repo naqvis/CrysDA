@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.17.1">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="crysda">
 
@@ -22,9 +23,14 @@
 
 <svg class="hidden">
   <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
   </symbol>
 </svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -201,6 +207,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/NullBitmap" data-name="crysda::nullbitmap">
+      <a href="../Crysda/NullBitmap.html">NullBitmap</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/RenamePair" data-name="crysda::renamepair">
       <a href="../Crysda/RenamePair.html">RenamePair</a>
       
@@ -228,6 +239,11 @@
   
   <li class=" " data-id="crysda/Crysda/StringCol" data-name="crysda::stringcol">
       <a href="../Crysda/StringCol.html">StringCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/StringPool" data-name="crysda::stringpool">
+      <a href="../Crysda/StringPool.html">StringPool</a>
       
     </li>
   
@@ -265,7 +281,9 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">struct</span> Crysda::HashBuilder
+  <span class="kind">
+    struct
+  </span> Crysda::<wbr>HashBuilder
 
 </h1>
 
@@ -301,6 +319,8 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
 
 
 
+
+
   <h2>
     <a id="defined-in" class="anchor" href="#defined-in">
   <svg class="octicon-link" aria-hidden="true">
@@ -311,7 +331,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L371" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L371" target="_blank">
         crysda/utils.cr
       </a>
     
@@ -320,8 +340,28 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
 
 
 
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="HASH_NULL">
+        <strong>HASH_NULL</strong> = <code><span class="t">Int64</span><span class="t">::</span><span class="t">MAX</span> <span class="o">-</span> <span class="n">123000</span></code>
+      </dt>
+      
+    
+  </dl>
 
 
+
+  
   <h2>
     <a id="constructors" class="anchor" href="#constructors">
   <svg class="octicon-link" aria-hidden="true">
@@ -340,9 +380,58 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
   </ul>
 
 
+  
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#combine%28h1%3AInt64%2Ch2%3AInt64%29%3AInt64-class-method" class="signature"><strong>.combine</strong>(h1 : Int64, h2 : Int64) : Int64</a>
+        
+          <div class="summary"><p>Combine multiple hash values</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hash_f64%28val%3AFloat64%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method" class="signature"><strong>.hash_f64</strong>(val : Float64 | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64</a>
+        
+          <div class="summary"><p>Hash a single Float64 value (or null) - fast path using bit representation</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hash_i32%28val%3AInt32%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method" class="signature"><strong>.hash_i32</strong>(val : Int32 | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64</a>
+        
+          <div class="summary"><p>Hash a single Int32 value (or null)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hash_i64%28val%3AInt64%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method" class="signature"><strong>.hash_i64</strong>(val : Int64 | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64</a>
+        
+          <div class="summary"><p>Hash a single Int64 value (or null)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hash_str%28val%3AString%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method" class="signature"><strong>.hash_str</strong>(val : String | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64</a>
+        
+          <div class="summary"><p>Hash a single String value (or null)</p></div>
+        
+      </li>
+    
+  </ul>
 
 
+  
 
+  
   <h2>
     <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
   <svg class="octicon-link" aria-hidden="true">
@@ -354,77 +443,77 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#add(val:Bool)-instance-method" class="signature"><strong>#add</strong>(val : Bool)</a>
+        <a href="#add%28val%3ABool%29-instance-method" class="signature"><strong>#add</strong>(val : Bool)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(val:Char)-instance-method" class="signature"><strong>#add</strong>(val : Char)</a>
+        <a href="#add%28val%3AChar%29-instance-method" class="signature"><strong>#add</strong>(val : Char)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(val:String)-instance-method" class="signature"><strong>#add</strong>(val : String)</a>
+        <a href="#add%28val%3AString%29-instance-method" class="signature"><strong>#add</strong>(val : String)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(val:AnyVal)-instance-method" class="signature"><strong>#add</strong>(val : AnyVal)</a>
+        <a href="#add%28val%3AAnyVal%29-instance-method" class="signature"><strong>#add</strong>(val : AnyVal)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(val:Nil)-instance-method" class="signature"><strong>#add</strong>(val : Nil)</a>
+        <a href="#add%28val%3ANil%29-instance-method" class="signature"><strong>#add</strong>(val : Nil)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(val:Iterable)-instance-method" class="signature"><strong>#add</strong>(val : Iterable)</a>
+        <a href="#add%28val%3AIterable%29-instance-method" class="signature"><strong>#add</strong>(val : Iterable)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(value:Float32)-instance-method" class="signature"><strong>#add</strong>(value : Float32)</a>
+        <a href="#add%28value%3AFloat32%29-instance-method" class="signature"><strong>#add</strong>(value : Float32)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(value:Float64)-instance-method" class="signature"><strong>#add</strong>(value : Float64)</a>
+        <a href="#add%28value%3AFloat64%29-instance-method" class="signature"><strong>#add</strong>(value : Float64)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(value:Float)-instance-method" class="signature"><strong>#add</strong>(value : Float)</a>
+        <a href="#add%28value%3AFloat%29-instance-method" class="signature"><strong>#add</strong>(value : Float)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(val:Int)-instance-method" class="signature"><strong>#add</strong>(val : Int)</a>
+        <a href="#add%28val%3AInt%29-instance-method" class="signature"><strong>#add</strong>(val : Int)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(val:UUID)-instance-method" class="signature"><strong>#add</strong>(val : UUID)</a>
+        <a href="#add%28val%3AUUID%29-instance-method" class="signature"><strong>#add</strong>(val : UUID)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(val:CustomColumnValue)-instance-method" class="signature"><strong>#add</strong>(val : CustomColumnValue)</a>
+        <a href="#add%28val%3ACustomColumnValue%29-instance-method" class="signature"><strong>#add</strong>(val : CustomColumnValue)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#add(val)-instance-method" class="signature"><strong>#add</strong>(val)</a>
+        <a href="#add%28val%29-instance-method" class="signature"><strong>#add</strong>(val)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#hashcode(val)-instance-method" class="signature"><strong>#hashcode</strong>(val)</a>
+        <a href="#hashcode%28val%29-instance-method" class="signature"><strong>#hashcode</strong>(val)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#hashcode:Int64-instance-method" class="signature"><strong>#hashcode</strong> : Int64</a>
+        <a href="#hashcode%3AInt64-instance-method" class="signature"><strong>#hashcode</strong> : Int64</a>
         
       </li>
     
@@ -432,43 +521,50 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
 
 
 
+  <div class="methods-inherited">
+    
+      
 
 
-<div class="methods-inherited">
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
   
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-</div>
-
-
   <h2>
     <a id="constructor-detail" class="anchor" href="#constructor-detail">
   <svg class="octicon-link" aria-hidden="true">
@@ -489,16 +585,133 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L379" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L380" target="_blank">View source</a>]
         
       </div>
     </div>
   
 
 
+  
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="combine(h1:Int64,h2:Int64):Int64-class-method">
+      <div class="signature">
+        
+        def self.<strong>combine</strong>(h1 : Int64, h2 : Int64) : Int64
+
+        <a class="method-permalink" href="#combine%28h1%3AInt64%2Ch2%3AInt64%29%3AInt64-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Combine multiple hash values</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L528" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hash_f64(val:Float64|Nil,seed:Int64=17_i64):Int64-class-method">
+      <div class="signature">
+        
+        def self.<strong>hash_f64</strong>(val : Float64 | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64
+
+        <a class="method-permalink" href="#hash_f64%28val%3AFloat64%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Hash a single Float64 value (or null) - fast path using bit representation</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L512" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hash_i32(val:Int32|Nil,seed:Int64=17_i64):Int64-class-method">
+      <div class="signature">
+        
+        def self.<strong>hash_i32</strong>(val : Int32 | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64
+
+        <a class="method-permalink" href="#hash_i32%28val%3AInt32%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Hash a single Int32 value (or null)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L498" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hash_i64(val:Int64|Nil,seed:Int64=17_i64):Int64-class-method">
+      <div class="signature">
+        
+        def self.<strong>hash_i64</strong>(val : Int64 | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64
+
+        <a class="method-permalink" href="#hash_i64%28val%3AInt64%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Hash a single Int64 value (or null)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L505" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hash_str(val:String|Nil,seed:Int64=17_i64):Int64-class-method">
+      <div class="signature">
+        
+        def self.<strong>hash_str</strong>(val : String | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64
+
+        <a class="method-permalink" href="#hash_str%28val%3AString%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Hash a single String value (or null)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L519" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
 
 
+  
 
+  
   <h2>
     <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
@@ -513,13 +726,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val : Bool)
 
-        <a class="method-permalink" href="#add(val:Bool)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%3ABool%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L384" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L385" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -529,13 +742,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val : Char)
 
-        <a class="method-permalink" href="#add(val:Char)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%3AChar%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L389" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L390" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -545,13 +758,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val : String)
 
-        <a class="method-permalink" href="#add(val:String)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%3AString%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L393" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L394" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -561,13 +774,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val : <a href="../Crysda/AnyVal.html">AnyVal</a>)
 
-        <a class="method-permalink" href="#add(val:AnyVal)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%3AAnyVal%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L397" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L398" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -577,13 +790,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val : Nil)
 
-        <a class="method-permalink" href="#add(val:Nil)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%3ANil%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L401" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L402" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -593,13 +806,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val : Iterable)
 
-        <a class="method-permalink" href="#add(val:Iterable)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%3AIterable%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L406" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L407" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -609,13 +822,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(value : Float32)
 
-        <a class="method-permalink" href="#add(value:Float32)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28value%3AFloat32%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L413" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L414" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -625,13 +838,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(value : Float64)
 
-        <a class="method-permalink" href="#add(value:Float64)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28value%3AFloat64%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L433" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L434" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -641,13 +854,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(value : Float)
 
-        <a class="method-permalink" href="#add(value:Float)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28value%3AFloat%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L454" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L455" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -657,13 +870,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val : Int)
 
-        <a class="method-permalink" href="#add(val:Int)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%3AInt%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L470" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L472" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -673,13 +886,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val : UUID)
 
-        <a class="method-permalink" href="#add(val:UUID)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%3AUUID%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L462" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L463" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -689,13 +902,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val : <a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a>)
 
-        <a class="method-permalink" href="#add(val:CustomColumnValue)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%3ACustomColumnValue%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L466" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L467" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -705,13 +918,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>add</strong>(val)
 
-        <a class="method-permalink" href="#add(val)-instance-method">#</a>
+        <a class="method-permalink" href="#add%28val%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L475" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L477" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -721,13 +934,13 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>hashcode</strong>(val)
 
-        <a class="method-permalink" href="#hashcode(val)-instance-method">#</a>
+        <a class="method-permalink" href="#hashcode%28val%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L483" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L485" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -737,18 +950,17 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
         
         def <strong>hashcode</strong> : Int64
 
-        <a class="method-permalink" href="#hashcode:Int64-instance-method">#</a>
+        <a class="method-permalink" href="#hashcode%3AInt64-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L479" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L481" target="_blank">View source</a>]
         
       </div>
     </div>
   
-
 
 
 

@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.17.1">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="crysda">
 
@@ -22,9 +23,14 @@
 
 <svg class="hidden">
   <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
   </symbol>
 </svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -201,6 +207,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/NullBitmap" data-name="crysda::nullbitmap">
+      <a href="../Crysda/NullBitmap.html">NullBitmap</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/RenamePair" data-name="crysda::renamepair">
       <a href="../Crysda/RenamePair.html">RenamePair</a>
       
@@ -228,6 +239,11 @@
   
   <li class=" " data-id="crysda/Crysda/StringCol" data-name="crysda::stringcol">
       <a href="../Crysda/StringCol.html">StringCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/StringPool" data-name="crysda::stringpool">
+      <a href="../Crysda/StringPool.html">StringPool</a>
       
     </li>
   
@@ -265,12 +281,16 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">class</span> Crysda::UnSupportedOperationException
+  <span class="kind">
+    class
+  </span> Crysda::<wbr>UnSupportedOperationException
 
 </h1>
 
 
   <ul class="superclass-hierarchy"><li class="superclass"><a href="../Crysda/UnSupportedOperationException.html">Crysda::UnSupportedOperationException</a></li><li class="superclass">Exception</li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
 
 
 
@@ -298,7 +318,7 @@
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/context.cr#L59" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/context.cr#L59" target="_blank">
         crysda/context.cr
       </a>
     
@@ -309,54 +329,65 @@
 
 
 
-
-
-
-
-
-
-
-
-<div class="methods-inherited">
   
-    
-
-
-    
-
-
-    
-
 
   
-    
-
-
-    
-
-
-    
-
 
   
-    
-
-
-    
-
-
-    
-
 
   
-</div>
 
 
+  <div class="methods-inherited">
+    
+      
 
 
+      
 
 
+      
 
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
+  
+
+  
+
+  
+
+  
 
 
 </div>

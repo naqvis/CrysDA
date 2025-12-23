@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.17.1">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="crysda">
 
@@ -22,9 +23,14 @@
 
 <svg class="hidden">
   <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
   </symbol>
 </svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -201,6 +207,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/NullBitmap" data-name="crysda::nullbitmap">
+      <a href="../Crysda/NullBitmap.html">NullBitmap</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/RenamePair" data-name="crysda::renamepair">
       <a href="../Crysda/RenamePair.html">RenamePair</a>
       
@@ -228,6 +239,11 @@
   
   <li class=" " data-id="crysda/Crysda/StringCol" data-name="crysda::stringcol">
       <a href="../Crysda/StringCol.html">StringCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/StringPool" data-name="crysda::stringpool">
+      <a href="../Crysda/StringPool.html">StringPool</a>
       
     </li>
   
@@ -265,7 +281,9 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">abstract struct</span> Crysda::DataCol
+  <span class="kind">
+    abstract struct
+  </span> Crysda::<wbr>DataCol
 
 </h1>
 
@@ -275,16 +293,7 @@
 
 
 
-  <h2>
-    <a id="overview" class="anchor" href="#overview">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Overview
-  </h2>
 
-  <p>Abstract base struct for column types of Int32?, Int64?, Float64?, Bool?, String?, DataFrame? or Any type</p>
 
 
 
@@ -335,7 +344,7 @@
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L59" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L419" target="_blank">
         crysda/columns.cr
       </a>
     
@@ -346,6 +355,7 @@
 
 
 
+  
   <h2>
     <a id="constructors" class="anchor" href="#constructors">
   <svg class="octicon-link" aria-hidden="true">
@@ -357,16 +367,18 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new(name)-class-method" class="signature"><strong>.new</strong>(name)</a>
+        <a href="#new%28name%3AString%29-class-method" class="signature"><strong>.new</strong>(name : String)</a>
         
       </li>
     
   </ul>
 
 
+  
 
+  
 
-
+  
   <h2>
     <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
   <svg class="octicon-link" aria-hidden="true">
@@ -378,42 +390,42 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#*(val:DataCol)-instance-method" class="signature"><strong>#*</strong>(val : DataCol)</a>
+        <a href="#%2A%28val%3ANumber%29-instance-method" class="signature"><strong>#*</strong>(val : Number)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#*(val:Number)-instance-method" class="signature"><strong>#*</strong>(val : Number)</a>
+        <a href="#%2A%28val%3ADataCol%29-instance-method" class="signature"><strong>#*</strong>(val : DataCol)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#+(val:Number)-instance-method" class="signature"><strong>#+</strong>(val : Number)</a>
+        <a href="#%2B%28val%3ANumber%29-instance-method" class="signature"><strong>#+</strong>(val : Number)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#+(val:DataCol)-instance-method" class="signature"><strong>#+</strong>(val : DataCol)</a>
+        <a href="#%2B%28val%3ADataCol%29-instance-method" class="signature"><strong>#+</strong>(val : DataCol)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#+(val:Iterable)-instance-method" class="signature"><strong>#+</strong>(val : Iterable)</a>
+        <a href="#%2B%28val%3AIterable%29-instance-method" class="signature"><strong>#+</strong>(val : Iterable)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#+(val:String)-instance-method" class="signature"><strong>#+</strong>(val : String)</a>
+        <a href="#%2B%28val%3AString%29-instance-method" class="signature"><strong>#+</strong>(val : String)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#-(val:Number)-instance-method" class="signature"><strong>#-</strong>(val : Number)</a>
+        <a href="#-%28val%3ANumber%29-instance-method" class="signature"><strong>#-</strong>(val : Number)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#-(val:DataCol)-instance-method" class="signature"><strong>#-</strong>(val : DataCol)</a>
+        <a href="#-%28val%3ADataCol%29-instance-method" class="signature"><strong>#-</strong>(val : DataCol)</a>
         
       </li>
     
@@ -423,136 +435,122 @@
       </li>
     
       <li class="entry-summary">
-        <a href="#/(val:DataCol)-instance-method" class="signature"><strong>#/</strong>(val : DataCol)</a>
+        <a href="#/%28val%3ANumber%29-instance-method" class="signature"><strong>#/</strong>(val : Number)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#/(val:Number)-instance-method" class="signature"><strong>#/</strong>(val : Number)</a>
+        <a href="#/%28val%3ADataCol%29-instance-method" class="signature"><strong>#/</strong>(val : DataCol)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%3C(val:Any%7CDataCol)-instance-method" class="signature"><strong>#<</strong>(val : Any | DataCol)</a>
+        <a href="#%3C%28val%3AAny%7CDataCol%29-instance-method" class="signature"><strong>#<</strong>(val : Any | DataCol)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%3C=(val:Any%7CDataCol)-instance-method" class="signature"><strong>#<=</strong>(val : Any | DataCol)</a>
+        <a href="#%3C%3D%28val%3AAny%7CDataCol%29-instance-method" class="signature"><strong>#<=</strong>(val : Any | DataCol)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#==(i:Any)-instance-method" class="signature"><strong>#==</strong>(i : Any)</a>
+        <a href="#%3D%3D%28i%3AAny%29-instance-method" class="signature"><strong>#==</strong>(i : Any)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#==(other:self)-instance-method" class="signature"><strong>#==</strong>(other : <span class="k">self</span>)</a>
+        <a href="#%3D%3D%28other%3Aself%29-instance-method" class="signature"><strong>#==</strong>(other : <span class="k">self</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%3E(val:Any%7CDataCol)-instance-method" class="signature"><strong>#></strong>(val : Any | DataCol)</a>
+        <a href="#%3E%28val%3AAny%7CDataCol%29-instance-method" class="signature"><strong>#></strong>(val : Any | DataCol)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#%3E=(val:Any%7CDataCol)-instance-method" class="signature"><strong>#>=</strong>(val : Any | DataCol)</a>
+        <a href="#%3E%3D%28val%3AAny%7CDataCol%29-instance-method" class="signature"><strong>#>=</strong>(val : Any | DataCol)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#[](*args,**options)-instance-method" class="signature"><strong>#[]</strong>(*args, **options)</a>
+        <a href="#%5B%5D%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#[]</strong>(*args, **options)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#[](*args,**options,&)-instance-method" class="signature"><strong>#[]</strong>(*args, **options, &)</a>
+        <a href="#%5B%5D%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method" class="signature"><strong>#[]</strong>(*args, **options, &)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#[]?(*args,**options,&)-instance-method" class="signature"><strong>#[]?</strong>(*args, **options, &)</a>
+        <a href="#%5B%5D%3F%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#[]?</strong>(*args, **options)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#[]?(*args,**options)-instance-method" class="signature"><strong>#[]?</strong>(*args, **options)</a>
+        <a href="#%5B%5D%3F%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method" class="signature"><strong>#[]?</strong>(*args, **options, &)</a>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_b-instance-method" class="signature"><strong>#as_b</strong></a>
         
-          <div class="summary"><p>Returns <code><a href="../Crysda/BoolCol.html">BoolCol</a></code> values as an array of <code>Bool?</code></p></div>
-        
       </li>
     
       <li class="entry-summary">
         <a href="#as_f64-instance-method" class="signature"><strong>#as_f64</strong></a>
-        
-          <div class="summary"><p>Returns <code><a href="../Crysda/Int32Col.html">Int32Col</a>, <a href="../Crysda/Int64Col.html">Int64Col</a>, <a href="../Crysda/Float64Col.html">Float64Col</a></code> values as an array of <code>Float64?</code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_i-instance-method" class="signature"><strong>#as_i</strong></a>
         
-          <div class="summary"><p>Returns <code><a href="../Crysda/Int32Col.html">Int32Col</a></code> values as an array of <code>Int32?</code></p></div>
-        
       </li>
     
       <li class="entry-summary">
         <a href="#as_i64-instance-method" class="signature"><strong>#as_i64</strong></a>
-        
-          <div class="summary"><p>Returns <code><a href="../Crysda/Int32Col.html">Int32Col</a> or <a href="../Crysda/Int64Col.html">Int64Col</a></code> values as an array of <code>Int64?</code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_s-instance-method" class="signature"><strong>#as_s</strong></a>
         
-          <div class="summary"><p>Returns values as Array of String?</p></div>
-        
       </li>
     
       <li class="entry-summary">
-        <a href="#compare(left:Int32,right:Int32,null_last=true):Int32-instance-method" class="signature"><strong>#compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</a>
+        <a href="#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="signature"><strong>#compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</a>
         
       </li>
     
       <li class="entry-summary">
         <a href="#cumsum-instance-method" class="signature"><strong>#cumsum</strong></a>
         
-          <div class="summary"><p>Calculates the cumulative sum of the column values.</p></div>
-        
       </li>
     
       <li class="entry-summary">
         <a href="#desc-instance-method" class="signature"><strong>#desc</strong></a>
         
-          <div class="summary"><p>Creates a sorting attribute that inverts the order of the argument</p></div>
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#div%28val%29-instance-method" class="signature"><strong>#div</strong>(val)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#div(val)-instance-method" class="signature"><strong>#div</strong>(val)</a>
+        <a href="#equals%28other%3Aself%29-instance-method" class="signature"><strong>#equals</strong>(other : <span class="k">self</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#equals(other:self)-instance-method" class="signature"><strong>#equals</strong>(other : <span class="k">self</span>)</a>
+        <a href="#has_nulls%3F-instance-method" class="signature"><strong>#has_nulls?</strong></a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#has_nulls?-instance-method" class="signature"><strong>#has_nulls?</strong></a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#hash(hasher)-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
+        <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
           <div class="summary"><p>See <code>Object#hash(hasher)</code></p></div>
         
@@ -561,138 +559,110 @@
       <li class="entry-summary">
         <a href="#is_na-instance-method" class="signature"><strong>#is_na</strong></a>
         
-          <div class="summary"><p>Maps a column to true for NA values and <code>false</code> otherwise Returns a <code>Bool</code> array with NA values marked as true, while others are marked as false</p></div>
-        
       </li>
     
       <li class="entry-summary">
         <a href="#is_not_na-instance-method" class="signature"><strong>#is_not_na</strong></a>
         
-          <div class="summary"><p>Maps a column to false for NA values and <code>true</code> otherwise Returns a <code>Bool</code> array with NA values marked as false, while others are marked as true</p></div>
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#lag%28n%3D1%2Cdefault%3AAny%3Dnil%29-instance-method" class="signature"><strong>#lag</strong>(n = <span class="n">1</span>, default : Any = <span class="n">nil</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#lag(n=1,default:Any=nil)-instance-method" class="signature"><strong>#lag</strong>(n = <span class="n">1</span>, default : Any = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Returns the "previous" column values.</p></div>
+        <a href="#lead%28n%3D1%2Cdefault%3AAny%3Dnil%29-instance-method" class="signature"><strong>#lead</strong>(n = <span class="n">1</span>, default : Any = <span class="n">nil</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#lead(n=1,default:Any=nil)-instance-method" class="signature"><strong>#lead</strong>(n = <span class="n">1</span>, default : Any = <span class="n">nil</span>)</a>
-        
-          <div class="summary"><p>Returns the "next" column values.</p></div>
+        <a href="#map%28%26%29-instance-method" class="signature"><strong>#map</strong>(&)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#map(&)-instance-method" class="signature"><strong>#map</strong>(&)</a>
+        <a href="#matching%28missing_as%3Dfalse%2C%26%29%3AArray%28Bool%29-instance-method" class="signature"><strong>#matching</strong>(missing_as = <span class="n">false</span>, &) : Array(Bool)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#matching(missing_as=false,&):Array(Bool)-instance-method" class="signature"><strong>#matching</strong>(missing_as = <span class="n">false</span>, &) : Array(Bool)</a>
-        
-          <div class="summary"><p>Match a text column in a NA-aware manner to create a predicate vector for filtering.</p></div>
+        <a href="#max%28remove_na%3Dfalse%29-instance-method" class="signature"><strong>#max</strong>(remove_na = <span class="n">false</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#max(remove_na=false)-instance-method" class="signature"><strong>#max</strong>(remove_na = <span class="n">false</span>)</a>
-        
-          <div class="summary"><p>Calculates the maximum of the column values.</p></div>
+        <a href="#mean%28remove_na%3Dfalse%29-instance-method" class="signature"><strong>#mean</strong>(remove_na = <span class="n">false</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#mean(remove_na=false)-instance-method" class="signature"><strong>#mean</strong>(remove_na = <span class="n">false</span>)</a>
-        
-          <div class="summary"><p>Calculates the arithmetic mean of the column values.</p></div>
+        <a href="#median%28remove_na%3Dfalse%29-instance-method" class="signature"><strong>#median</strong>(remove_na = <span class="n">false</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#median(remove_na=false)-instance-method" class="signature"><strong>#median</strong>(remove_na = <span class="n">false</span>)</a>
-        
-          <div class="summary"><p>Calculates the median of the column values.</p></div>
+        <a href="#min%28remove_na%3Dfalse%29-instance-method" class="signature"><strong>#min</strong>(remove_na = <span class="n">false</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#min(remove_na=false)-instance-method" class="signature"><strong>#min</strong>(remove_na = <span class="n">false</span>)</a>
-        
-          <div class="summary"><p>Calculates the minimum of the column values.</p></div>
+        <a href="#minus%28val%29-instance-method" class="signature"><strong>#minus</strong>(val)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#minus(val)-instance-method" class="signature"><strong>#minus</strong>(val)</a>
+        <a href="#name%3AString-instance-method" class="signature"><strong>#name</strong> : String</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#name:String-instance-method" class="signature"><strong>#name</strong> : String</a>
+        <a href="#order%28na_last%3Dtrue%29-instance-method" class="signature"><strong>#order</strong>(na_last = <span class="n">true</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#order(na_last=true)-instance-method" class="signature"><strong>#order</strong>(na_last = <span class="n">true</span>)</a>
-        
-          <div class="summary"><p><code><a href="../Crysda/DataCol.html#order(na_last=true)-instance-method">#order</a></code> returns the index each element would have in an ascending list <code></code>` y = Float64Col.new("foo", [3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1]) y.order # => [8, 1, 3, 9, 2, 6, 7, 0, 4, 5] <code></code>`</p></div>
+        <a href="#pct_change%3ADataCol-instance-method" class="signature"><strong>#pct_change</strong> : DataCol</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#pct_change:DataCol-instance-method" class="signature"><strong>#pct_change</strong> : DataCol</a>
-        
-          <div class="summary"><p>Calculates the percentage change between the current and a prior column value.</p></div>
+        <a href="#plus%28val%29-instance-method" class="signature"><strong>#plus</strong>(val)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#plus(val)-instance-method" class="signature"><strong>#plus</strong>(val)</a>
+        <a href="#rank%28na_last%3Dtrue%29-instance-method" class="signature"><strong>#rank</strong>(na_last = <span class="n">true</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#rank(na_last=true)-instance-method" class="signature"><strong>#rank</strong>(na_last = <span class="n">true</span>)</a>
-        
-          <div class="summary"><p><code><a href="../Crysda/DataCol.html#rank(na_last=true)-instance-method">#rank</a></code> returns the order of each element in an ascending list <code></code>` y = Float64Col.new("foo", [3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1]) y.rank # => [7, 1, 4, 2, 8, 9, 5, 6, 0, 3] <code></code>`</p></div>
+        <a href="#sd%28remove_na%3Dfalse%29-instance-method" class="signature"><strong>#sd</strong>(remove_na = <span class="n">false</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#sd(remove_na=false)-instance-method" class="signature"><strong>#sd</strong>(remove_na = <span class="n">false</span>)</a>
-        
-          <div class="summary"><p>Calculates the standard deviation of the column values.</p></div>
+        <a href="#size%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#size</strong>(*args, **options)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#size(*args,**options)-instance-method" class="signature"><strong>#size</strong>(*args, **options)</a>
+        <a href="#size%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method" class="signature"><strong>#size</strong>(*args, **options, &)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#size(*args,**options,&)-instance-method" class="signature"><strong>#size</strong>(*args, **options, &)</a>
+        <a href="#sum%28remove_na%3Dfalse%29-instance-method" class="signature"><strong>#sum</strong>(remove_na = <span class="n">false</span>)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#sum(remove_na=false)-instance-method" class="signature"><strong>#sum</strong>(remove_na = <span class="n">false</span>)</a>
-        
-          <div class="summary"><p>Calculates the sum of the column values.</p></div>
+        <a href="#times%28val%29-instance-method" class="signature"><strong>#times</strong>(val)</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#times(val)-instance-method" class="signature"><strong>#times</strong>(val)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#to_s(io:IO):Nil-instance-method" class="signature"><strong>#to_s</strong>(io : IO) : Nil</a>
+        <a href="#to_s%28io%3AIO%29%3ANil-instance-method" class="signature"><strong>#to_s</strong>(io : IO) : Nil</a>
         
           <div class="summary"><p>Same as <code>#inspect(io)</code>.</p></div>
         
@@ -701,12 +671,12 @@
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p>Returns a string representation of this object.</p></div>
+          <div class="summary"><p>Returns a nicely readable and concise string representation of this object, typically intended for users.</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#values:Array-instance-method" class="signature"><strong>#values</strong> : Array</a>
+        <a href="#values%3AArray-instance-method" class="signature"><strong>#values</strong> : Array</a>
         
       </li>
     
@@ -714,43 +684,50 @@
 
 
 
+  <div class="methods-inherited">
+    
+      
 
 
-<div class="methods-inherited">
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
   
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-</div>
-
-
   <h2>
     <a id="constructor-detail" class="anchor" href="#constructor-detail">
   <svg class="octicon-link" aria-hidden="true">
@@ -760,27 +737,29 @@
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(name)-class-method">
+    <div class="entry-detail" id="new(name:String)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(name)
+        def self.<strong>new</strong>(name : String)
 
-        <a class="method-permalink" href="#new(name)-class-method">#</a>
+        <a class="method-permalink" href="#new%28name%3AString%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L62" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L422" target="_blank">View source</a>]
         
       </div>
     </div>
   
 
 
+  
 
+  
 
-
+  
   <h2>
     <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
@@ -790,34 +769,34 @@
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="*(val:DataCol)-instance-method">
-      <div class="signature">
-        
-        def <strong>*</strong>(val : <a href="../Crysda/DataCol.html">DataCol</a>)
-
-        <a class="method-permalink" href="#*(val:DataCol)-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L97" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
     <div class="entry-detail" id="*(val:Number)-instance-method">
       <div class="signature">
         
         def <strong>*</strong>(val : Number)
 
-        <a class="method-permalink" href="#*(val:Number)-instance-method">#</a>
+        <a class="method-permalink" href="#%2A%28val%3ANumber%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L93" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L453" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="*(val:DataCol)-instance-method">
+      <div class="signature">
+        
+        def <strong>*</strong>(val : <a href="../Crysda/DataCol.html">DataCol</a>)
+
+        <a class="method-permalink" href="#%2A%28val%3ADataCol%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L457" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -827,13 +806,13 @@
         
         def <strong>+</strong>(val : Number)
 
-        <a class="method-permalink" href="#+(val:Number)-instance-method">#</a>
+        <a class="method-permalink" href="#%2B%28val%3ANumber%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L65" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L425" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -843,13 +822,13 @@
         
         def <strong>+</strong>(val : <a href="../Crysda/DataCol.html">DataCol</a>)
 
-        <a class="method-permalink" href="#+(val:DataCol)-instance-method">#</a>
+        <a class="method-permalink" href="#%2B%28val%3ADataCol%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L69" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L429" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -859,13 +838,13 @@
         
         def <strong>+</strong>(val : Iterable)
 
-        <a class="method-permalink" href="#+(val:Iterable)-instance-method">#</a>
+        <a class="method-permalink" href="#%2B%28val%3AIterable%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L73" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L433" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -875,13 +854,13 @@
         
         def <strong>+</strong>(val : String)
 
-        <a class="method-permalink" href="#+(val:String)-instance-method">#</a>
+        <a class="method-permalink" href="#%2B%28val%3AString%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L461" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -891,13 +870,13 @@
         
         def <strong>-</strong>(val : Number)
 
-        <a class="method-permalink" href="#-(val:Number)-instance-method">#</a>
+        <a class="method-permalink" href="#-%28val%3ANumber%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L77" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L437" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -907,13 +886,13 @@
         
         def <strong>-</strong>(val : <a href="../Crysda/DataCol.html">DataCol</a>)
 
-        <a class="method-permalink" href="#-(val:DataCol)-instance-method">#</a>
+        <a class="method-permalink" href="#-%28val%3ADataCol%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L81" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L441" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -929,23 +908,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L110" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="/(val:DataCol)-instance-method">
-      <div class="signature">
-        
-        def <strong>/</strong>(val : <a href="../Crysda/DataCol.html">DataCol</a>)
-
-        <a class="method-permalink" href="#/(val:DataCol)-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L89" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L470" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -955,45 +918,61 @@
         
         def <strong>/</strong>(val : Number)
 
-        <a class="method-permalink" href="#/(val:Number)-instance-method">#</a>
+        <a class="method-permalink" href="#/%28val%3ANumber%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L85" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L445" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="<(val:Any|DataCol)-instance-method">
+    <div class="entry-detail" id="/(val:DataCol)-instance-method">
+      <div class="signature">
+        
+        def <strong>/</strong>(val : <a href="../Crysda/DataCol.html">DataCol</a>)
+
+        <a class="method-permalink" href="#/%28val%3ADataCol%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L449" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&lt;(val:Any|DataCol)-instance-method">
       <div class="signature">
         
         def <strong><</strong>(val : <a href="../Crysda/Any.html">Any</a> | <a href="../Crysda/DataCol.html">DataCol</a>)
 
-        <a class="method-permalink" href="#%3C(val:Any%7CDataCol)-instance-method">#</a>
+        <a class="method-permalink" href="#%3C%28val%3AAny%7CDataCol%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L114" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L474" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="<=(val:Any|DataCol)-instance-method">
+    <div class="entry-detail" id="&lt;=(val:Any|DataCol)-instance-method">
       <div class="signature">
         
         def <strong><=</strong>(val : <a href="../Crysda/Any.html">Any</a> | <a href="../Crysda/DataCol.html">DataCol</a>)
 
-        <a class="method-permalink" href="#%3C=(val:Any%7CDataCol)-instance-method">#</a>
+        <a class="method-permalink" href="#%3C%3D%28val%3AAny%7CDataCol%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L114" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L474" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1003,13 +982,13 @@
         
         def <strong>==</strong>(i : <a href="../Crysda/Any.html">Any</a>)
 
-        <a class="method-permalink" href="#==(i:Any)-instance-method">#</a>
+        <a class="method-permalink" href="#%3D%3D%28i%3AAny%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L120" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L480" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1019,7 +998,7 @@
         
         def <strong>==</strong>(other : <span class="k">self</span>)
 
-        <a class="method-permalink" href="#==(other:self)-instance-method">#</a>
+        <a class="method-permalink" href="#%3D%3D%28other%3Aself%29-instance-method">#</a>
       </div>
       
       <br/>
@@ -1028,34 +1007,34 @@
       </div>
     </div>
   
-    <div class="entry-detail" id=">(val:Any|DataCol)-instance-method">
+    <div class="entry-detail" id="&gt;(val:Any|DataCol)-instance-method">
       <div class="signature">
         
         def <strong>></strong>(val : <a href="../Crysda/Any.html">Any</a> | <a href="../Crysda/DataCol.html">DataCol</a>)
 
-        <a class="method-permalink" href="#%3E(val:Any%7CDataCol)-instance-method">#</a>
+        <a class="method-permalink" href="#%3E%28val%3AAny%7CDataCol%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L114" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L474" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id=">=(val:Any|DataCol)-instance-method">
+    <div class="entry-detail" id="&gt;=(val:Any|DataCol)-instance-method">
       <div class="signature">
         
         def <strong>>=</strong>(val : <a href="../Crysda/Any.html">Any</a> | <a href="../Crysda/DataCol.html">DataCol</a>)
 
-        <a class="method-permalink" href="#%3E=(val:Any%7CDataCol)-instance-method">#</a>
+        <a class="method-permalink" href="#%3E%3D%28val%3AAny%7CDataCol%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L114" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L474" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1065,45 +1044,29 @@
         
         def <strong>[]</strong>(*args, **options)
 
-        <a class="method-permalink" href="#[](*args,**options)-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%28%2Aargs%2C%2A%2Aoptions%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L425" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L713" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="[](*args,**options,&)-instance-method">
+    <div class="entry-detail" id="[](*args,**options,&amp;)-instance-method">
       <div class="signature">
         
         def <strong>[]</strong>(*args, **options, &)
 
-        <a class="method-permalink" href="#[](*args,**options,&)-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L425" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
-    <div class="entry-detail" id="[]?(*args,**options,&)-instance-method">
-      <div class="signature">
-        
-        def <strong>[]?</strong>(*args, **options, &)
-
-        <a class="method-permalink" href="#[]?(*args,**options,&)-instance-method">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L425" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L713" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1113,13 +1076,29 @@
         
         def <strong>[]?</strong>(*args, **options)
 
-        <a class="method-permalink" href="#[]?(*args,**options)-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%3F%28%2Aargs%2C%2A%2Aoptions%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L425" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L713" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="[]?(*args,**options,&amp;)-instance-method">
+      <div class="signature">
+        
+        def <strong>[]?</strong>(*args, **options, &)
+
+        <a class="method-permalink" href="#%5B%5D%3F%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L713" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1132,15 +1111,10 @@
         <a class="method-permalink" href="#as_b-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>Returns <code><a href="../Crysda/BoolCol.html">BoolCol</a></code> values as an array of <code>Bool?</code></p>
-        </div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L374" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L665" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1153,15 +1127,10 @@
         <a class="method-permalink" href="#as_f64-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>Returns <code><a href="../Crysda/Int32Col.html">Int32Col</a>, <a href="../Crysda/Int64Col.html">Int64Col</a>, <a href="../Crysda/Float64Col.html">Float64Col</a></code> values as an array of <code>Float64?</code></p>
-        </div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L393" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L681" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1174,15 +1143,10 @@
         <a class="method-permalink" href="#as_i-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>Returns <code><a href="../Crysda/Int32Col.html">Int32Col</a></code> values as an array of <code>Int32?</code></p>
-        </div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L379" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L669" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1195,15 +1159,10 @@
         <a class="method-permalink" href="#as_i64-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>Returns <code><a href="../Crysda/Int32Col.html">Int32Col</a> or <a href="../Crysda/Int64Col.html">Int64Col</a></code> values as an array of <code>Int64?</code></p>
-        </div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L384" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L673" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1216,15 +1175,10 @@
         <a class="method-permalink" href="#as_s-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>Returns values as Array of String?</p>
-        </div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L364" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L656" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1234,13 +1188,13 @@
         abstract 
         def <strong>compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32
 
-        <a class="method-permalink" href="#compare(left:Int32,right:Int32,null_last=true):Int32-instance-method">#</a>
+        <a class="method-permalink" href="#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L141" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L501" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1253,17 +1207,10 @@
         <a class="method-permalink" href="#cumsum-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>Calculates the cumulative sum of the column values.
-An NA value in x causes the corresponding and following elements of the return value to be NA.
-raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a></code> If the type of the column is not numeric</p>
-        </div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L301" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L601" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1276,15 +1223,10 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         <a class="method-permalink" href="#desc-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>Creates a sorting attribute that inverts the order of the argument</p>
-        </div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L162" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L511" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1294,13 +1236,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>div</strong>(val)
 
-        <a class="method-permalink" href="#div(val)-instance-method">#</a>
+        <a class="method-permalink" href="#div%28val%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L132" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L492" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1310,13 +1252,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>equals</strong>(other : <span class="k">self</span>)
 
-        <a class="method-permalink" href="#equals(other:self)-instance-method">#</a>
+        <a class="method-permalink" href="#equals%28other%3Aself%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L420" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L708" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1326,13 +1268,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>has_nulls?</strong>
 
-        <a class="method-permalink" href="#has_nulls?-instance-method">#</a>
+        <a class="method-permalink" href="#has_nulls%3F-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L166" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L515" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1342,7 +1284,7 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>hash</strong>(hasher)
 
-        <a class="method-permalink" href="#hash(hasher)-instance-method">#</a>
+        <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1368,16 +1310,10 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         <a class="method-permalink" href="#is_na-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>Maps a column to true for NA values and <code>false</code> otherwise
-Returns a <code>Bool</code> array with NA values marked as true, while others are marked as false</p>
-        </div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L186" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L533" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1390,16 +1326,10 @@ Returns a <code>Bool</code> array with NA values marked as true, while others ar
         <a class="method-permalink" href="#is_not_na-instance-method">#</a>
       </div>
       
-        <div class="doc">
-          
-          <p>Maps a column to false for NA values and <code>true</code> otherwise
-Returns a <code>Bool</code> array with NA values marked as false, while others are marked as true</p>
-        </div>
-      
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L192" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L537" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1409,19 +1339,13 @@ Returns a <code>Bool</code> array with NA values marked as false, while others a
         
         def <strong>lag</strong>(n = <span class="n">1</span>, default : <a href="../Crysda/Any.html">Any</a> = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#lag(n=1,default:Any=nil)-instance-method">#</a>
+        <a class="method-permalink" href="#lag%28n%3D1%2Cdefault%3AAny%3Dnil%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Returns the "previous" column values. Useful for comparing values ahead of the current values.
-n - positive integer, giving the number of positions to lead by (defaults to 1)</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L344" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L638" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1431,56 +1355,45 @@ n - positive integer, giving the number of positions to lead by (defaults to 1)<
         
         def <strong>lead</strong>(n = <span class="n">1</span>, default : <a href="../Crysda/Any.html">Any</a> = <span class="n">nil</span>)
 
-        <a class="method-permalink" href="#lead(n=1,default:Any=nil)-instance-method">#</a>
+        <a class="method-permalink" href="#lead%28n%3D1%2Cdefault%3AAny%3Dnil%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Returns the "next" column values. Useful for comparing values ahead of the current values.
-n - positive integer, giving the number of positions to lead by (defaults to 1)</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L328" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L624" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="map(&)-instance-method">
+    <div class="entry-detail" id="map(&amp;)-instance-method">
       <div class="signature">
         
         def <strong>map</strong>(&)
 
-        <a class="method-permalink" href="#map(&)-instance-method">#</a>
+        <a class="method-permalink" href="#map%28%26%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L170" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L519" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="matching(missing_as=false,&):Array(Bool)-instance-method">
+    <div class="entry-detail" id="matching(missing_as=false,&amp;):Array(Bool)-instance-method">
       <div class="signature">
         
         def <strong>matching</strong>(missing_as = <span class="n">false</span>, &) : Array(Bool)
 
-        <a class="method-permalink" href="#matching(missing_as=false,&):Array(Bool)-instance-method">#</a>
+        <a class="method-permalink" href="#matching%28missing_as%3Dfalse%2C%26%29%3AArray%28Bool%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Match a text column in a NA-aware manner to create a predicate vector for filtering.</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L359" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L652" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1490,21 +1403,13 @@ n - positive integer, giving the number of positions to lead by (defaults to 1)<
         
         def <strong>max</strong>(remove_na = <span class="n">false</span>)
 
-        <a class="method-permalink" href="#max(remove_na=false)-instance-method">#</a>
+        <a class="method-permalink" href="#max%28remove_na%3Dfalse%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Calculates the maximum of the column values.
-remove_na If <code>true</code> missing values will be excluded from the operation
-raises <code><a href="../Crysda/MissingValueException.html">MissingValueException</a></code> if <code>remove_na</code> is <code>false</code> but the data contains missing values
-raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a></code> If the type of the column is not numeric</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L217" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L551" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1514,21 +1419,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>mean</strong>(remove_na = <span class="n">false</span>)
 
-        <a class="method-permalink" href="#mean(remove_na=false)-instance-method">#</a>
+        <a class="method-permalink" href="#mean%28remove_na%3Dfalse%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Calculates the arithmetic mean of the column values.
-remove_na If <code>true</code> missing values will be excluded from the operation
-raises <code><a href="../Crysda/MissingValueException.html">MissingValueException</a></code> if <code>remove_na</code> is <code>false</code> but the data contains missing values
-raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a></code> If the type of the column is not numeric</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L234" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L561" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1538,21 +1435,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>median</strong>(remove_na = <span class="n">false</span>)
 
-        <a class="method-permalink" href="#median(remove_na=false)-instance-method">#</a>
+        <a class="method-permalink" href="#median%28remove_na%3Dfalse%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Calculates the median of the column values.
-remove_na If <code>true</code> missing values will be excluded from the operation
-raises <code><a href="../Crysda/MissingValueException.html">MissingValueException</a></code> if <code>remove_na</code> is <code>false</code> but the data contains missing values
-raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a></code> If the type of the column is not numeric</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L268" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L581" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1562,21 +1451,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>min</strong>(remove_na = <span class="n">false</span>)
 
-        <a class="method-permalink" href="#min(remove_na=false)-instance-method">#</a>
+        <a class="method-permalink" href="#min%28remove_na%3Dfalse%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Calculates the minimum of the column values.
-remove_na If <code>true</code> missing values will be excluded from the operation
-raises <code><a href="../Crysda/MissingValueException.html">MissingValueException</a></code> if <code>remove_na</code> is <code>false</code> but the data contains missing values
-raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a></code> If the type of the column is not numeric</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L200" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L541" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1586,13 +1467,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>minus</strong>(val)
 
-        <a class="method-permalink" href="#minus(val)-instance-method">#</a>
+        <a class="method-permalink" href="#minus%28val%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L128" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L488" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1602,13 +1483,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>name</strong> : String
 
-        <a class="method-permalink" href="#name:String-instance-method">#</a>
+        <a class="method-permalink" href="#name%3AString-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L420" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1618,21 +1499,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>order</strong>(na_last = <span class="n">true</span>)
 
-        <a class="method-permalink" href="#order(na_last=true)-instance-method">#</a>
+        <a class="method-permalink" href="#order%28na_last%3Dtrue%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p><code><a href="../Crysda/DataCol.html#order(na_last=true)-instance-method">#order</a></code> returns the index each element would have in an ascending list</p>
-
-<pre><code class="language-crystal">y <span class="o">=</span> <span class="t">Float64Col</span>.<span class="k">new</span>(<span class="s">&quot;foo&quot;</span>, [<span class="n">3.5</span>, <span class="n">3.0</span>, <span class="n">3.2</span>, <span class="n">3.1</span>, <span class="n">3.6</span>, <span class="n">3.9</span>, <span class="n">3.4</span>, <span class="n">3.4</span>, <span class="n">2.9</span>, <span class="n">3.1</span>])
-y.order <span class="c"># =&gt; [8, 1, 3, 9, 2, 6, 7, 0, 4, 5]</span></code></pre>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L148" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L503" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1642,19 +1515,13 @@ y.order <span class="c"># =&gt; [8, 1, 3, 9, 2, 6, 7, 0, 4, 5]</span></code></pr
         
         def <strong>pct_change</strong> : <a href="../Crysda/DataCol.html">DataCol</a>
 
-        <a class="method-permalink" href="#pct_change:DataCol-instance-method">#</a>
+        <a class="method-permalink" href="#pct_change%3ADataCol-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Calculates the percentage change between the current and a prior column value.
-raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a></code> If the type of the receiver column is not numeric</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L322" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L620" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1664,13 +1531,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>plus</strong>(val)
 
-        <a class="method-permalink" href="#plus(val)-instance-method">#</a>
+        <a class="method-permalink" href="#plus%28val%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L124" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L484" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1680,21 +1547,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>rank</strong>(na_last = <span class="n">true</span>)
 
-        <a class="method-permalink" href="#rank(na_last=true)-instance-method">#</a>
+        <a class="method-permalink" href="#rank%28na_last%3Dtrue%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p><code><a href="../Crysda/DataCol.html#rank(na_last=true)-instance-method">#rank</a></code> returns the order of each element in an ascending list</p>
-
-<pre><code class="language-crystal">y <span class="o">=</span> <span class="t">Float64Col</span>.<span class="k">new</span>(<span class="s">&quot;foo&quot;</span>, [<span class="n">3.5</span>, <span class="n">3.0</span>, <span class="n">3.2</span>, <span class="n">3.1</span>, <span class="n">3.6</span>, <span class="n">3.9</span>, <span class="n">3.4</span>, <span class="n">3.4</span>, <span class="n">2.9</span>, <span class="n">3.1</span>])
-y.rank <span class="c"># =&gt; [7, 1, 4, 2, 8, 9, 5, 6, 0, 3]</span></code></pre>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L157" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L507" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1704,21 +1563,13 @@ y.rank <span class="c"># =&gt; [7, 1, 4, 2, 8, 9, 5, 6, 0, 3]</span></code></pre
         
         def <strong>sd</strong>(remove_na = <span class="n">false</span>)
 
-        <a class="method-permalink" href="#sd(remove_na=false)-instance-method">#</a>
+        <a class="method-permalink" href="#sd%28remove_na%3Dfalse%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Calculates the standard deviation of the column values.
-remove_na If <code>true</code> missing values will be excluded from the operation
-raises <code><a href="../Crysda/MissingValueException.html">MissingValueException</a></code> if <code>remove_na</code> is <code>false</code> but the data contains missing values
-raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a></code> If the type of the column is not numeric</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L285" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L591" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1728,29 +1579,29 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>size</strong>(*args, **options)
 
-        <a class="method-permalink" href="#size(*args,**options)-instance-method">#</a>
+        <a class="method-permalink" href="#size%28%2Aargs%2C%2A%2Aoptions%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L425" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L713" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="size(*args,**options,&)-instance-method">
+    <div class="entry-detail" id="size(*args,**options,&amp;)-instance-method">
       <div class="signature">
         
         def <strong>size</strong>(*args, **options, &)
 
-        <a class="method-permalink" href="#size(*args,**options,&)-instance-method">#</a>
+        <a class="method-permalink" href="#size%28%2Aargs%2C%2A%2Aoptions%2C%26%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L425" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L713" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1760,21 +1611,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>sum</strong>(remove_na = <span class="n">false</span>)
 
-        <a class="method-permalink" href="#sum(remove_na=false)-instance-method">#</a>
+        <a class="method-permalink" href="#sum%28remove_na%3Dfalse%29-instance-method">#</a>
       </div>
-      
-        <div class="doc">
-          
-          <p>Calculates the sum of the column values.
-remove_na If <code>true</code> missing values will be excluded from the operation
-raises <code><a href="../Crysda/MissingValueException.html">MissingValueException</a></code> if <code>remove_na</code> is <code>false</code> but the data contains missing values
-raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidColumnOperationException</a></code> If the type of the column is not numeric</p>
-        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L251" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L571" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1784,13 +1627,13 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>times</strong>(val)
 
-        <a class="method-permalink" href="#times(val)-instance-method">#</a>
+        <a class="method-permalink" href="#times%28val%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L136" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L496" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1800,7 +1643,7 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
         
         def <strong>to_s</strong>(io : IO) : Nil
 
-        <a class="method-permalink" href="#to_s(io:IO):Nil-instance-method">#</a>
+        <a class="method-permalink" href="#to_s%28io%3AIO%29%3ANil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1815,7 +1658,7 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L402" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L690" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1834,17 +1677,17 @@ raises <code><a href="../Crysda/InvalidColumnOperationException.html">InvalidCol
               Description copied from class Object
             </div>
           
-          <p>Returns a string representation of this object.</p>
-
-<p>Descendants must usually <strong>not</strong> override this method. Instead,
-they must override <code><a href="../Crysda/DataCol.html#to_s(io:IO):Nil-instance-method">#to_s(io)</a></code>, which must append to the given
-IO object.</p>
+          <p>Returns a nicely readable and concise string representation of this object,
+typically intended for users.</p>
+<p>This method should usually <strong>not</strong> be overridden. It delegates to
+<code><a href="../Crysda/DataCol.html#to_s%28io%3AIO%29%3ANil-instance-method">#to_s(IO)</a></code> which can be overridden for custom implementations.</p>
+<p>Also see <code>#inspect</code>.</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L406" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L694" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1854,18 +1697,17 @@ IO object.</p>
         abstract 
         def <strong>values</strong> : Array
 
-        <a class="method-permalink" href="#values:Array-instance-method">#</a>
+        <a class="method-permalink" href="#values%3AArray-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/columns.cr#L140" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L500" target="_blank">View source</a>]
         
       </div>
     </div>
   
-
 
 
 

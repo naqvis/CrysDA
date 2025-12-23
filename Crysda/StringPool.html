@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="crysda">
-  <title>Crysda::TableExpression - crysda master</title>
+  <title>Crysda::StringPool - crysda master</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -242,7 +242,7 @@
       
     </li>
   
-  <li class=" " data-id="crysda/Crysda/StringPool" data-name="crysda::stringpool">
+  <li class=" current" data-id="crysda/Crysda/StringPool" data-name="crysda::stringpool">
       <a href="../Crysda/StringPool.html">StringPool</a>
       
     </li>
@@ -257,7 +257,7 @@
       
     </li>
   
-  <li class=" current" data-id="crysda/Crysda/TableExpression" data-name="crysda::tableexpression">
+  <li class=" " data-id="crysda/Crysda/TableExpression" data-name="crysda::tableexpression">
       <a href="../Crysda/TableExpression.html">TableExpression</a>
       
     </li>
@@ -282,26 +282,34 @@
 <h1 class="type-name">
 
   <span class="kind">
-    alias
-  </span> Crysda::<wbr>TableExpression
+    class
+  </span> Crysda::<wbr>StringPool
 
 </h1>
 
 
-
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Crysda/StringPool.html">Crysda::StringPool</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
 
 
 
 
   <h2>
-    <a id="alias-definition" class="anchor" href="#alias-definition">
+    <a id="overview" class="anchor" href="#overview">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>
-    Alias Definition
+    Overview
   </h2>
-  <code>Crysda::ExpressionContext -> Array(Bool?) | Array(Bool) | Array(<a href="../Crysda/CustomColumnValue.html">Crysda::CustomColumnValue</a>) | Array(<a href="../Crysda/DataFrame.html">Crysda::DataFrame</a>?) | Array(<a href="../Crysda/DataFrame.html">Crysda::DataFrame</a>) | Array(Float32?) | Array(Float32) | Array(Float64?) | Array(Float64) | Array(Int32?) | Array(Int32) | Array(Int64?) | Array(Int64) | Array(String?) | Array(String) | Bool | <a href="../Crysda/CustomColumnValue.html">Crysda::CustomColumnValue</a> | <a href="../Crysda/DataCol.html">Crysda::DataCol</a> | Float32 | Float64 | Int32 | Int64 | JSON::Any | String | Time | UUID | Nil</code>
+
+  <h1><a id="string-pool-for-string-interning-dictionary-encodingreduces-memory-for-categorical-columns-with-repeated-values" class="anchor" href="#string-pool-for-string-interning-dictionary-encodingreduces-memory-for-categorical-columns-with-repeated-values">  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>===========================================================================
+String Pool for String Interning (Dictionary Encoding)
+Reduces memory for categorical columns with repeated values</h1>
+
+
 
 
 
@@ -326,8 +334,8 @@
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/context.cr#L7" target="_blank">
-        crysda/context.cr
+      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1881" target="_blank">
+        crysda/columns.cr
       </a>
     
     <br/>
@@ -338,25 +346,277 @@
 
 
   
+  <h2>
+    <a id="constructors" class="anchor" href="#constructors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructors
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28initial_capacity%3AInt32%3D64%29-class-method" class="signature"><strong>.new</strong>(initial_capacity : Int32 = <span class="n">64</span>)</a>
+        
+      </li>
+    
+  </ul>
+
 
   
 
   
 
   
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#beneficial%3F%28total_strings%3AInt32%29%3ABool-instance-method" class="signature"><strong>#beneficial?</strong>(total_strings : Int32) : Bool</a>
+        
+          <div class="summary"><p>Check if interning would be beneficial (high repetition ratio)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear-instance-method" class="signature"><strong>#clear</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hit_ratio%3AFloat64-instance-method" class="signature"><strong>#hit_ratio</strong> : Float64</a>
+        
+          <div class="summary"><p>Statistics</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#intern%28str%3AString%29%3AString-instance-method" class="signature"><strong>#intern</strong>(str : String) : String</a>
+        
+          <div class="summary"><p>Intern a string - returns the canonical instance</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#intern%28str%3AString%7CNil%29%3AString%7CNil-instance-method" class="signature"><strong>#intern</strong>(str : String | Nil) : String | Nil</a>
+        
+          <div class="summary"><p>Intern a nullable string</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
+        
+          <div class="summary"><p>Number of unique strings in pool</p></div>
+        
+      </li>
+    
+  </ul>
+
 
 
   <div class="methods-inherited">
     
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
   </div>
 
   
+  <h2>
+    <a id="constructor-detail" class="anchor" href="#constructor-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Constructor Detail
+  </h2>
+  
+    <div class="entry-detail" id="new(initial_capacity:Int32=64)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(initial_capacity : Int32 = <span class="n">64</span>)
+
+        <a class="method-permalink" href="#new%28initial_capacity%3AInt32%3D64%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1886" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
 
   
 
   
 
   
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="beneficial?(total_strings:Int32):Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>beneficial?</strong>(total_strings : Int32) : Bool
+
+        <a class="method-permalink" href="#beneficial%3F%28total_strings%3AInt32%29%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Check if interning would be beneficial (high repetition ratio)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1917" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear-instance-method">
+      <div class="signature">
+        
+        def <strong>clear</strong>
+
+        <a class="method-permalink" href="#clear-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1930" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hit_ratio:Float64-instance-method">
+      <div class="signature">
+        
+        def <strong>hit_ratio</strong> : Float64
+
+        <a class="method-permalink" href="#hit_ratio%3AFloat64-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Statistics</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1924" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="intern(str:String):String-instance-method">
+      <div class="signature">
+        
+        def <strong>intern</strong>(str : String) : String
+
+        <a class="method-permalink" href="#intern%28str%3AString%29%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Intern a string - returns the canonical instance</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1894" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="intern(str:String|Nil):String|Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>intern</strong>(str : String | Nil) : String | Nil
+
+        <a class="method-permalink" href="#intern%28str%3AString%7CNil%29%3AString%7CNil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Intern a nullable string</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1907" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="size:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>size</strong> : Int32
+
+        <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Number of unique strings in pool</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1912" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
 
 
 </div>

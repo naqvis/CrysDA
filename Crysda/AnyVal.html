@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Crystal Docs 0.35.1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.17.1">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="crysda">
 
@@ -22,9 +23,14 @@
 
 <svg class="hidden">
   <symbol id="octicon-link" viewBox="0 0 16 16">
-    <path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
   </symbol>
 </svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
 <div class="sidebar">
   <div class="sidebar-header">
     <div class="search-box">
@@ -201,6 +207,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/NullBitmap" data-name="crysda::nullbitmap">
+      <a href="../Crysda/NullBitmap.html">NullBitmap</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/RenamePair" data-name="crysda::renamepair">
       <a href="../Crysda/RenamePair.html">RenamePair</a>
       
@@ -228,6 +239,11 @@
   
   <li class=" " data-id="crysda/Crysda/StringCol" data-name="crysda::stringcol">
       <a href="../Crysda/StringCol.html">StringCol</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/StringPool" data-name="crysda::stringpool">
+      <a href="../Crysda/StringPool.html">StringPool</a>
       
     </li>
   
@@ -265,7 +281,9 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">struct</span> Crysda::AnyVal
+  <span class="kind">
+    struct
+  </span> Crysda::<wbr>AnyVal
 
 </h1>
 
@@ -299,6 +317,8 @@
 
 
 
+
+
   <h2>
     <a id="defined-in" class="anchor" href="#defined-in">
   <svg class="octicon-link" aria-hidden="true">
@@ -309,7 +329,7 @@
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L3" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L3" target="_blank">
         crysda/utils.cr
       </a>
     
@@ -320,6 +340,7 @@
 
 
 
+  
   <h2>
     <a id="constructors" class="anchor" href="#constructors">
   <svg class="octicon-link" aria-hidden="true">
@@ -331,14 +352,14 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new(raw)-class-method" class="signature"><strong>.new</strong>(raw)</a>
+        <a href="#new%28raw%3ABool%7CCrysda%3A%3ACustomColumnValue%7CCrysda%3A%3ADataFrame%7CFloat32%7CFloat64%7CInt32%7CInt64%7CJSON%3A%3AAny%7CString%7CTime%7CUUID%7CNil%29-class-method" class="signature"><strong>.new</strong>(raw : Bool | Crysda::CustomColumnValue | Crysda::DataFrame | Float32 | Float64 | Int32 | Int64 | JSON::Any | String | Time | UUID | Nil)</a>
         
       </li>
     
   </ul>
 
 
-
+  
   <h2>
     <a id="class-method-summary" class="anchor" href="#class-method-summary">
   <svg class="octicon-link" aria-hidden="true">
@@ -350,178 +371,14 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#[](val:Any%7CDataFrame)-class-method" class="signature"><strong>.[]</strong>(val : Any | DataFrame)</a>
+        <a href="#%5B%5D%28val%3AAny%7CDataFrame%29-class-method" class="signature"><strong>.[]</strong>(val : Any | DataFrame)</a>
         
       </li>
     
   </ul>
 
 
-
-  <h2>
-    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Instance Method Summary
-  </h2>
-  <ul class="list-summary">
-    
-      <li class="entry-summary">
-        <a href="#==(other:self)-instance-method" class="signature"><strong>#==</strong>(other : <span class="k">self</span>)</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_bool:Bool-instance-method" class="signature"><strong>#as_bool</strong> : Bool</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Bool</code>, and returns its value.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_bool?:Bool?-instance-method" class="signature"><strong>#as_bool?</strong> : Bool?</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Bool</code>, and returns its value.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_df:DataFrame-instance-method" class="signature"><strong>#as_df</strong> : DataFrame</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Crysda/DataFrame.html">DataFrame</a></code>, and returns its value.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_df?:DataFrame?-instance-method" class="signature"><strong>#as_df?</strong> : DataFrame?</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Crysda/DataFrame.html">DataFrame</a></code>, and returns its value.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_f:Float64-instance-method" class="signature"><strong>#as_f</strong> : Float64</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float64</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_f32:Float32-instance-method" class="signature"><strong>#as_f32</strong> : Float32</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float32</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_f32?:Float32?-instance-method" class="signature"><strong>#as_f32?</strong> : Float32?</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float32</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_f?:Float64?-instance-method" class="signature"><strong>#as_f?</strong> : Float64?</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float64</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_i:Int32-instance-method" class="signature"><strong>#as_i</strong> : Int32</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int32</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_i64:Int64-instance-method" class="signature"><strong>#as_i64</strong> : Int64</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int64</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_i64?:Int64?-instance-method" class="signature"><strong>#as_i64?</strong> : Int64?</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int64</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_i?:Int32?-instance-method" class="signature"><strong>#as_i?</strong> : Int32?</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int32</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_nil:Nil-instance-method" class="signature"><strong>#as_nil</strong> : Nil</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Nil</code>, and returns <code>nil</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_s:String-instance-method" class="signature"><strong>#as_s</strong> : String</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>String</code>, and returns its value.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_s?:String?-instance-method" class="signature"><strong>#as_s?</strong> : String?</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>String</code>, and returns its value.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_t:Time-instance-method" class="signature"><strong>#as_t</strong> : Time</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Time</code>, and returns its value.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#as_t?:Time?-instance-method" class="signature"><strong>#as_t?</strong> : Time?</a>
-        
-          <div class="summary"><p>Checks that the underlying value is <code>Time</code>, and returns its value.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#hash(hasher)-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
-        
-          <div class="summary"><p>See <code>Object#hash(hasher)</code></p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#raw:Any%7CDataFrame-instance-method" class="signature"><strong>#raw</strong> : Any | DataFrame</a>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#to_s(io:IO):Nil-instance-method" class="signature"><strong>#to_s</strong>(io : IO) : Nil</a>
-        
-          <div class="summary"><p>Same as <code>#inspect(io)</code>.</p></div>
-        
-      </li>
-    
-      <li class="entry-summary">
-        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
-        
-          <div class="summary"><p>Returns a string representation of this object.</p></div>
-        
-      </li>
-    
-  </ul>
-
-
-
+  
   <h2>
     <a id="macro-summary" class="anchor" href="#macro-summary">
   <svg class="octicon-link" aria-hidden="true">
@@ -533,7 +390,171 @@
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#method_missing(call)-macro" class="signature"><strong>method_missing</strong>(call)</a>
+        <a href="#method_missing%28call%29-macro" class="signature"><strong>method_missing</strong>(call)</a>
+        
+      </li>
+    
+  </ul>
+
+
+  
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28other%3Aself%29-instance-method" class="signature"><strong>#==</strong>(other : <span class="k">self</span>)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_bool%3ABool-instance-method" class="signature"><strong>#as_bool</strong> : Bool</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Bool</code>, and returns its value.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_bool%3F%3ABool%7CNil-instance-method" class="signature"><strong>#as_bool?</strong> : Bool | Nil</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Bool</code>, and returns its value.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_df%3ADataFrame-instance-method" class="signature"><strong>#as_df</strong> : DataFrame</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code><a href="../Crysda/DataFrame.html">DataFrame</a></code>, and returns its value.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_df%3F%3ADataFrame%7CNil-instance-method" class="signature"><strong>#as_df?</strong> : DataFrame | Nil</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code><a href="../Crysda/DataFrame.html">DataFrame</a></code>, and returns its value.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_f%3AFloat64-instance-method" class="signature"><strong>#as_f</strong> : Float64</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float64</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_f32%3AFloat32-instance-method" class="signature"><strong>#as_f32</strong> : Float32</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float32</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_f32%3F%3AFloat32%7CNil-instance-method" class="signature"><strong>#as_f32?</strong> : Float32 | Nil</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float32</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_f%3F%3AFloat64%7CNil-instance-method" class="signature"><strong>#as_f?</strong> : Float64 | Nil</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float64</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_i%3AInt32-instance-method" class="signature"><strong>#as_i</strong> : Int32</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int32</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_i64%3AInt64-instance-method" class="signature"><strong>#as_i64</strong> : Int64</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int64</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_i64%3F%3AInt64%7CNil-instance-method" class="signature"><strong>#as_i64?</strong> : Int64 | Nil</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int64</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_i%3F%3AInt32%7CNil-instance-method" class="signature"><strong>#as_i?</strong> : Int32 | Nil</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int32</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_nil%3ANil-instance-method" class="signature"><strong>#as_nil</strong> : Nil</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Nil</code>, and returns <code>nil</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_s%3AString-instance-method" class="signature"><strong>#as_s</strong> : String</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>String</code>, and returns its value.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_s%3F%3AString%7CNil-instance-method" class="signature"><strong>#as_s?</strong> : String | Nil</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>String</code>, and returns its value.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_t%3ATime-instance-method" class="signature"><strong>#as_t</strong> : Time</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Time</code>, and returns its value.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#as_t%3F%3ATime%7CNil-instance-method" class="signature"><strong>#as_t?</strong> : Time | Nil</a>
+        
+          <div class="summary"><p>Checks that the underlying value is <code>Time</code>, and returns its value.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
+        
+          <div class="summary"><p>See <code>Object#hash(hasher)</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#raw%3AAny%7CDataFrame-instance-method" class="signature"><strong>#raw</strong> : Any | DataFrame</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s%28io%3AIO%29%3ANil-instance-method" class="signature"><strong>#to_s</strong>(io : IO) : Nil</a>
+        
+          <div class="summary"><p>Same as <code>#inspect(io)</code>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
+        
+          <div class="summary"><p>Returns a nicely readable and concise string representation of this object, typically intended for users.</p></div>
         
       </li>
     
@@ -541,41 +562,50 @@
 
 
 
-<div class="methods-inherited">
+  <div class="methods-inherited">
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+      
+
+
+      
+
+
+      
+
+
+      
+
+
+    
+  </div>
+
   
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-    
-
-
-    
-
-
-    
-
-
-  
-</div>
-
-
   <h2>
     <a id="constructor-detail" class="anchor" href="#constructor-detail">
   <svg class="octicon-link" aria-hidden="true">
@@ -585,25 +615,25 @@
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(raw)-class-method">
+    <div class="entry-detail" id="new(raw:Bool|Crysda::CustomColumnValue|Crysda::DataFrame|Float32|Float64|Int32|Int64|JSON::Any|String|Time|UUID|Nil)-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(raw)
+        def self.<strong>new</strong>(raw : Bool | <a href="../Crysda/CustomColumnValue.html">Crysda::CustomColumnValue</a> | <a href="../Crysda/DataFrame.html">Crysda::DataFrame</a> | Float32 | Float64 | Int32 | Int64 | JSON::Any | String | Time | UUID | Nil)
 
-        <a class="method-permalink" href="#new(raw)-class-method">#</a>
+        <a class="method-permalink" href="#new%28raw%3ABool%7CCrysda%3A%3ACustomColumnValue%7CCrysda%3A%3ADataFrame%7CFloat32%7CFloat64%7CInt32%7CInt64%7CJSON%3A%3AAny%7CString%7CTime%7CUUID%7CNil%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L6" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L6" target="_blank">View source</a>]
         
       </div>
     </div>
   
 
 
-
+  
   <h2>
     <a id="class-method-detail" class="anchor" href="#class-method-detail">
   <svg class="octicon-link" aria-hidden="true">
@@ -618,20 +648,48 @@
         
         def self.<strong>[]</strong>(val : <a href="../Crysda/Any.html">Any</a> | <a href="../Crysda/DataFrame.html">DataFrame</a>)
 
-        <a class="method-permalink" href="#[](val:Any%7CDataFrame)-class-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%28val%3AAny%7CDataFrame%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L9" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L9" target="_blank">View source</a>]
         
       </div>
     </div>
   
 
 
+  
+  <h2>
+    <a id="macro-detail" class="anchor" href="#macro-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Macro Detail
+  </h2>
+  
+    <div class="entry-detail" id="method_missing(call)-macro">
+      <div class="signature">
+        
+        macro <strong>method_missing</strong>(call)
 
+        <a class="method-permalink" href="#method_missing%28call%29-macro">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L124" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+  
   <h2>
     <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
   <svg class="octicon-link" aria-hidden="true">
@@ -646,7 +704,7 @@
         
         def <strong>==</strong>(other : <span class="k">self</span>)
 
-        <a class="method-permalink" href="#==(other:self)-instance-method">#</a>
+        <a class="method-permalink" href="#%3D%3D%28other%3Aself%29-instance-method">#</a>
       </div>
       
       <br/>
@@ -660,7 +718,7 @@
         
         def <strong>as_bool</strong> : Bool
 
-        <a class="method-permalink" href="#as_bool:Bool-instance-method">#</a>
+        <a class="method-permalink" href="#as_bool%3ABool-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -672,17 +730,17 @@ Raises otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_bool?:Bool?-instance-method">
+    <div class="entry-detail" id="as_bool?:Bool|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_bool?</strong> : Bool?
+        def <strong>as_bool?</strong> : Bool | Nil
 
-        <a class="method-permalink" href="#as_bool?:Bool?-instance-method">#</a>
+        <a class="method-permalink" href="#as_bool%3F%3ABool%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -694,7 +752,7 @@ Returns <code>nil</code> otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -704,7 +762,7 @@ Returns <code>nil</code> otherwise.</p>
         
         def <strong>as_df</strong> : <a href="../Crysda/DataFrame.html">DataFrame</a>
 
-        <a class="method-permalink" href="#as_df:DataFrame-instance-method">#</a>
+        <a class="method-permalink" href="#as_df%3ADataFrame-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -716,17 +774,17 @@ Raises otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L87" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L87" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_df?:DataFrame?-instance-method">
+    <div class="entry-detail" id="as_df?:DataFrame|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_df?</strong> : <a href="../Crysda/DataFrame.html">DataFrame</a>?
+        def <strong>as_df?</strong> : <a href="../Crysda/DataFrame.html">DataFrame</a> | Nil
 
-        <a class="method-permalink" href="#as_df?:DataFrame?-instance-method">#</a>
+        <a class="method-permalink" href="#as_df%3F%3ADataFrame%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -738,7 +796,7 @@ Returns <code>nil</code> otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L93" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L93" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -748,7 +806,7 @@ Returns <code>nil</code> otherwise.</p>
         
         def <strong>as_f</strong> : Float64
 
-        <a class="method-permalink" href="#as_f:Float64-instance-method">#</a>
+        <a class="method-permalink" href="#as_f%3AFloat64-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -760,7 +818,7 @@ Raises otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L51" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -770,7 +828,7 @@ Raises otherwise.</p>
         
         def <strong>as_f32</strong> : Float32
 
-        <a class="method-permalink" href="#as_f32:Float32-instance-method">#</a>
+        <a class="method-permalink" href="#as_f32%3AFloat32-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -782,17 +840,17 @@ Raises otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L63" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L63" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_f32?:Float32?-instance-method">
+    <div class="entry-detail" id="as_f32?:Float32|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_f32?</strong> : Float32?
+        def <strong>as_f32?</strong> : Float32 | Nil
 
-        <a class="method-permalink" href="#as_f32?:Float32?-instance-method">#</a>
+        <a class="method-permalink" href="#as_f32%3F%3AFloat32%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -804,17 +862,17 @@ Returns <code>nil</code> otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L69" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L69" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_f?:Float64?-instance-method">
+    <div class="entry-detail" id="as_f?:Float64|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_f?</strong> : Float64?
+        def <strong>as_f?</strong> : Float64 | Nil
 
-        <a class="method-permalink" href="#as_f?:Float64?-instance-method">#</a>
+        <a class="method-permalink" href="#as_f%3F%3AFloat64%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -826,7 +884,7 @@ Returns <code>nil</code> otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L57" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -836,7 +894,7 @@ Returns <code>nil</code> otherwise.</p>
         
         def <strong>as_i</strong> : Int32
 
-        <a class="method-permalink" href="#as_i:Int32-instance-method">#</a>
+        <a class="method-permalink" href="#as_i%3AInt32-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -848,7 +906,7 @@ Raises otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -858,7 +916,7 @@ Raises otherwise.</p>
         
         def <strong>as_i64</strong> : Int64
 
-        <a class="method-permalink" href="#as_i64:Int64-instance-method">#</a>
+        <a class="method-permalink" href="#as_i64%3AInt64-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -870,17 +928,17 @@ Raises otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L39" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L39" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_i64?:Int64?-instance-method">
+    <div class="entry-detail" id="as_i64?:Int64|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_i64?</strong> : Int64?
+        def <strong>as_i64?</strong> : Int64 | Nil
 
-        <a class="method-permalink" href="#as_i64?:Int64?-instance-method">#</a>
+        <a class="method-permalink" href="#as_i64%3F%3AInt64%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -892,17 +950,17 @@ Returns <code>nil</code> otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L45" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L45" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_i?:Int32?-instance-method">
+    <div class="entry-detail" id="as_i?:Int32|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_i?</strong> : Int32?
+        def <strong>as_i?</strong> : Int32 | Nil
 
-        <a class="method-permalink" href="#as_i?:Int32?-instance-method">#</a>
+        <a class="method-permalink" href="#as_i%3F%3AInt32%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -914,7 +972,7 @@ Returns <code>nil</code> otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -924,7 +982,7 @@ Returns <code>nil</code> otherwise.</p>
         
         def <strong>as_nil</strong> : Nil
 
-        <a class="method-permalink" href="#as_nil:Nil-instance-method">#</a>
+        <a class="method-permalink" href="#as_nil%3ANil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -936,7 +994,7 @@ Raises otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -946,7 +1004,7 @@ Raises otherwise.</p>
         
         def <strong>as_s</strong> : String
 
-        <a class="method-permalink" href="#as_s:String-instance-method">#</a>
+        <a class="method-permalink" href="#as_s%3AString-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -958,17 +1016,17 @@ Raises otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L75" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L75" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_s?:String?-instance-method">
+    <div class="entry-detail" id="as_s?:String|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_s?</strong> : String?
+        def <strong>as_s?</strong> : String | Nil
 
-        <a class="method-permalink" href="#as_s?:String?-instance-method">#</a>
+        <a class="method-permalink" href="#as_s%3F%3AString%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -980,7 +1038,7 @@ Returns <code>nil</code> otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L81" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L81" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -990,7 +1048,7 @@ Returns <code>nil</code> otherwise.</p>
         
         def <strong>as_t</strong> : Time
 
-        <a class="method-permalink" href="#as_t:Time-instance-method">#</a>
+        <a class="method-permalink" href="#as_t%3ATime-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1002,17 +1060,17 @@ Raises otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L105" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L105" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="as_t?:Time?-instance-method">
+    <div class="entry-detail" id="as_t?:Time|Nil-instance-method">
       <div class="signature">
         
-        def <strong>as_t?</strong> : Time?
+        def <strong>as_t?</strong> : Time | Nil
 
-        <a class="method-permalink" href="#as_t?:Time?-instance-method">#</a>
+        <a class="method-permalink" href="#as_t%3F%3ATime%7CNil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1024,7 +1082,7 @@ Returns <code>nil</code> otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L111" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1034,7 +1092,7 @@ Returns <code>nil</code> otherwise.</p>
         
         def <strong>hash</strong>(hasher)
 
-        <a class="method-permalink" href="#hash(hasher)-instance-method">#</a>
+        <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1057,13 +1115,13 @@ Returns <code>nil</code> otherwise.</p>
         
         def <strong>raw</strong> : <a href="../Crysda/Any.html">Any</a> | <a href="../Crysda/DataFrame.html">DataFrame</a>
 
-        <a class="method-permalink" href="#raw:Any%7CDataFrame-instance-method">#</a>
+        <a class="method-permalink" href="#raw%3AAny%7CDataFrame-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L4" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L4" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1073,7 +1131,7 @@ Returns <code>nil</code> otherwise.</p>
         
         def <strong>to_s</strong>(io : IO) : Nil
 
-        <a class="method-permalink" href="#to_s(io:IO):Nil-instance-method">#</a>
+        <a class="method-permalink" href="#to_s%28io%3AIO%29%3ANil-instance-method">#</a>
       </div>
       
         <div class="doc">
@@ -1088,7 +1146,7 @@ Returns <code>nil</code> otherwise.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L119" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L119" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1107,49 +1165,22 @@ Returns <code>nil</code> otherwise.</p>
               Description copied from class Object
             </div>
           
-          <p>Returns a string representation of this object.</p>
-
-<p>Descendants must usually <strong>not</strong> override this method. Instead,
-they must override <code><a href="../Crysda/AnyVal.html#to_s(io:IO):Nil-instance-method">#to_s(io)</a></code>, which must append to the given
-IO object.</p>
+          <p>Returns a nicely readable and concise string representation of this object,
+typically intended for users.</p>
+<p>This method should usually <strong>not</strong> be overridden. It delegates to
+<code><a href="../Crysda/AnyVal.html#to_s%28io%3AIO%29%3ANil-instance-method">#to_s(IO)</a></code> which can be overridden for custom implementations.</p>
+<p>Also see <code>#inspect</code>.</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L115" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/utils.cr#L115" target="_blank">View source</a>]
         
       </div>
     </div>
   
 
-
-
-  <h2>
-    <a id="macro-detail" class="anchor" href="#macro-detail">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Macro Detail
-  </h2>
-  
-    <div class="entry-detail" id="method_missing(call)-macro">
-      <div class="signature">
-        
-        macro <strong>method_missing</strong>(call)
-
-        <a class="method-permalink" href="#method_missing(call)-macro">#</a>
-      </div>
-      
-      <br/>
-      <div>
-        
-          [<a href="https://github.com/naqvis/CrysDA/blob/77c527b796833fe3fb8a5d75e29692236c59471a/src/crysda/utils.cr#L124" target="_blank">View source</a>]
-        
-      </div>
-    </div>
-  
 
 
 </div>

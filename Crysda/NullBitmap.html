@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="crysda">
-  <title>Crysda::BoolCol - crysda master</title>
+  <title>Crysda::NullBitmap - crysda master</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -87,7 +87,7 @@
       
     </li>
   
-  <li class=" current" data-id="crysda/Crysda/BoolCol" data-name="crysda::boolcol">
+  <li class=" " data-id="crysda/Crysda/BoolCol" data-name="crysda::boolcol">
       <a href="../Crysda/BoolCol.html">BoolCol</a>
       
     </li>
@@ -207,7 +207,7 @@
       
     </li>
   
-  <li class=" " data-id="crysda/Crysda/NullBitmap" data-name="crysda::nullbitmap">
+  <li class=" current" data-id="crysda/Crysda/NullBitmap" data-name="crysda::nullbitmap">
       <a href="../Crysda/NullBitmap.html">NullBitmap</a>
       
     </li>
@@ -283,12 +283,12 @@
 
   <span class="kind">
     struct
-  </span> Crysda::<wbr>BoolCol
+  </span> Crysda::<wbr>NullBitmap
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Crysda/BoolCol.html">Crysda::BoolCol</a></li><li class="superclass"><a href="../Crysda/DataCol.html">Crysda::DataCol</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Crysda/NullBitmap.html">Crysda::NullBitmap</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
 
 
 
@@ -302,11 +302,12 @@
     Overview
   </h2>
 
-  <h1><a id="bool-column" class="anchor" href="#bool-column">  <svg class="octicon-link" aria-hidden="true">
+  <h1><a id="null-bitmap-1-bit-per-element-for-efficient-null-tracking-uses-u-int64-words-with-simd-acceleration-for-bulk-operations" class="anchor" href="#null-bitmap-1-bit-per-element-for-efficient-null-tracking-uses-u-int64-words-with-simd-acceleration-for-bulk-operations">  <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>===========================================================================
-Bool Column</h1>
+Null Bitmap - 1 bit per element for efficient null tracking
+Uses UInt64 words with SIMD acceleration for bulk operations</h1>
 
 
 
@@ -333,7 +334,7 @@ Bool Column</h1>
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2102" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L37" target="_blank">
         crysda/columns.cr
       </a>
     
@@ -341,6 +342,29 @@ Bool Column</h1>
   
 
 
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="SIMD_THRESHOLD">
+        <strong>SIMD_THRESHOLD</strong> = <code><span class="n">4</span></code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>SIMD threshold - use SIMD for bitmaps with &gt;= this many words</p>
+      </dd>
+      
+    
+  </dl>
 
 
 
@@ -356,7 +380,24 @@ Bool Column</h1>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28name%3AString%2Cval%3AArray%28Bool%7CNil%29%29-class-method" class="signature"><strong>.new</strong>(name : String, val : Array(Bool | Nil))</a>
+        <a href="#build%28size%3AInt32%2C%26%29%3ANullBitmap-class-method" class="signature"><strong>.build</strong>(size : Int32, &) : NullBitmap</a>
+        
+          <div class="summary"><p>Build bitmap directly from parsing - avoids intermediate Array(T?)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_nullable%28arr%3AArray%29%3ANullBitmap-class-method" class="signature"><strong>.from_nullable</strong>(arr : Array) : NullBitmap</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28size%3AInt32%29-class-method" class="signature"><strong>.new</strong>(size : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#none%28size%3AInt32%29%3ANullBitmap-class-method" class="signature"><strong>.none</strong>(size : Int32) : NullBitmap</a>
         
       </li>
     
@@ -379,17 +420,53 @@ Bool Column</h1>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="signature"><strong>#compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</a>
+        <a href="#%26%28other%3ANullBitmap%29%3ANullBitmap-instance-method" class="signature"><strong>#&</strong>(other : NullBitmap) : NullBitmap</a>
+        
+          <div class="summary"><p>Optimized AND - uses SIMD for large bitmaps</p></div>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#has_nulls%3F%3ABool-instance-method" class="signature"><strong>#has_nulls?</strong> : Bool</a>
+        <a href="#%5B%5D%28index%3AInt32%29%3ABool-instance-method" class="signature"><strong>#[]</strong>(index : Int32) : Bool</a>
         
       </li>
     
       <li class="entry-summary">
-        <a href="#values%3AArray%28Bool%7CNil%29-instance-method" class="signature"><strong>#values</strong> : Array(Bool | Nil)</a>
+        <a href="#%7C%28other%3ANullBitmap%29%3ANullBitmap-instance-method" class="signature"><strong>#|</strong>(other : NullBitmap) : NullBitmap</a>
+        
+          <div class="summary"><p>Optimized OR - uses SIMD for large bitmaps</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#any%3F%3ABool-instance-method" class="signature"><strong>#any?</strong> : Bool</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear%28index%3AInt32%29%3ANil-instance-method" class="signature"><strong>#clear</strong>(index : Int32) : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#count%3AInt32-instance-method" class="signature"><strong>#count</strong> : Int32</a>
+        
+          <div class="summary"><p>Optimized count using SIMD popcount where available</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#none%3F%3ABool-instance-method" class="signature"><strong>#none?</strong> : Bool</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set%28index%3AInt32%29%3ANil-instance-method" class="signature"><strong>#set</strong>(index : Int32) : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
         
       </li>
     
@@ -398,257 +475,6 @@ Bool Column</h1>
 
 
   <div class="methods-inherited">
-    
-      
-
-  <h3>Instance methods inherited from struct <code><a href="../Crysda/DataCol.html">Crysda::DataCol</a></code></h3>
-  
-  
-    <a href="../Crysda/DataCol.html#%2A%28val%3ANumber%29-instance-method" class="tooltip">
-      <span>*(val : Number)<br/>*(val : DataCol)</span>
-    *</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#%2B%28val%3ANumber%29-instance-method" class="tooltip">
-      <span>+(val : Number)<br/>+(val : DataCol)<br/>+(val : Iterable)<br/>+(val : String)</span>
-    +</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#-%28val%3ANumber%29-instance-method" class="tooltip">
-      <span>-(val : Number)<br/>-(val : DataCol)<br/>-</span>
-    -</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#/%28val%3ANumber%29-instance-method" class="tooltip">
-      <span>/(val : Number)<br/>/(val : DataCol)</span>
-    /</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#%3C%28val%3AAny%7CDataCol%29-instance-method" class="tooltip">
-      <span><(val : Any | DataCol)</span>
-    <</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#%3C%3D%28val%3AAny%7CDataCol%29-instance-method" class="tooltip">
-      <span><=(val : Any | DataCol)</span>
-    <=</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#%3D%3D%28i%3AAny%29-instance-method" class="tooltip">
-      <span>==(i : Any)<br/>==(other : <span class="k">self</span>)</span>
-    ==</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#%3E%28val%3AAny%7CDataCol%29-instance-method" class="tooltip">
-      <span>>(val : Any | DataCol)</span>
-    ></a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#%3E%3D%28val%3AAny%7CDataCol%29-instance-method" class="tooltip">
-      <span>>=(val : Any | DataCol)</span>
-    >=</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#%5B%5D%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
-      <span>[](*args, **options)<br/>[](*args, **options, &)</span>
-    []</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#%5B%5D%3F%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
-      <span>[]?(*args, **options)<br/>[]?(*args, **options, &)</span>
-    []?</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#as_b-instance-method" class="tooltip">
-      <span>as_b</span>
-    as_b</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#as_f64-instance-method" class="tooltip">
-      <span>as_f64</span>
-    as_f64</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#as_i-instance-method" class="tooltip">
-      <span>as_i</span>
-    as_i</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#as_i64-instance-method" class="tooltip">
-      <span>as_i64</span>
-    as_i64</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#as_s-instance-method" class="tooltip">
-      <span>as_s</span>
-    as_s</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="tooltip">
-      <span>compare(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</span>
-    compare</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#cumsum-instance-method" class="tooltip">
-      <span>cumsum</span>
-    cumsum</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#desc-instance-method" class="tooltip">
-      <span>desc</span>
-    desc</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#div%28val%29-instance-method" class="tooltip">
-      <span>div(val)</span>
-    div</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#equals%28other%3Aself%29-instance-method" class="tooltip">
-      <span>equals(other : <span class="k">self</span>)</span>
-    equals</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#has_nulls%3F-instance-method" class="tooltip">
-      <span>has_nulls?</span>
-    has_nulls?</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#hash%28hasher%29-instance-method" class="tooltip">
-      <span>hash(hasher)</span>
-    hash</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#is_na-instance-method" class="tooltip">
-      <span>is_na</span>
-    is_na</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#is_not_na-instance-method" class="tooltip">
-      <span>is_not_na</span>
-    is_not_na</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#lag%28n%3D1%2Cdefault%3AAny%3Dnil%29-instance-method" class="tooltip">
-      <span>lag(n = <span class="n">1</span>, default : Any = <span class="n">nil</span>)</span>
-    lag</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#lead%28n%3D1%2Cdefault%3AAny%3Dnil%29-instance-method" class="tooltip">
-      <span>lead(n = <span class="n">1</span>, default : Any = <span class="n">nil</span>)</span>
-    lead</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#map%28%26%29-instance-method" class="tooltip">
-      <span>map(&)</span>
-    map</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#matching%28missing_as%3Dfalse%2C%26%29%3AArray%28Bool%29-instance-method" class="tooltip">
-      <span>matching(missing_as = <span class="n">false</span>, &) : Array(Bool)</span>
-    matching</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#max%28remove_na%3Dfalse%29-instance-method" class="tooltip">
-      <span>max(remove_na = <span class="n">false</span>)</span>
-    max</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#mean%28remove_na%3Dfalse%29-instance-method" class="tooltip">
-      <span>mean(remove_na = <span class="n">false</span>)</span>
-    mean</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#median%28remove_na%3Dfalse%29-instance-method" class="tooltip">
-      <span>median(remove_na = <span class="n">false</span>)</span>
-    median</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#min%28remove_na%3Dfalse%29-instance-method" class="tooltip">
-      <span>min(remove_na = <span class="n">false</span>)</span>
-    min</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#minus%28val%29-instance-method" class="tooltip">
-      <span>minus(val)</span>
-    minus</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#name%3AString-instance-method" class="tooltip">
-      <span>name : String</span>
-    name</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#order%28na_last%3Dtrue%29-instance-method" class="tooltip">
-      <span>order(na_last = <span class="n">true</span>)</span>
-    order</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#pct_change%3ADataCol-instance-method" class="tooltip">
-      <span>pct_change : DataCol</span>
-    pct_change</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#plus%28val%29-instance-method" class="tooltip">
-      <span>plus(val)</span>
-    plus</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#rank%28na_last%3Dtrue%29-instance-method" class="tooltip">
-      <span>rank(na_last = <span class="n">true</span>)</span>
-    rank</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#sd%28remove_na%3Dfalse%29-instance-method" class="tooltip">
-      <span>sd(remove_na = <span class="n">false</span>)</span>
-    sd</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#size%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="tooltip">
-      <span>size(*args, **options)<br/>size(*args, **options, &)</span>
-    size</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#sum%28remove_na%3Dfalse%29-instance-method" class="tooltip">
-      <span>sum(remove_na = <span class="n">false</span>)</span>
-    sum</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#times%28val%29-instance-method" class="tooltip">
-      <span>times(val)</span>
-    times</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#to_s%28io%3AIO%29%3ANil-instance-method" class="tooltip">
-      <span>to_s(io : IO) : Nil<br/>to_s</span>
-    to_s</a>, 
-    
-  
-    <a href="../Crysda/DataCol.html#values%3AArray-instance-method" class="tooltip">
-      <span>values : Array</span>
-    values</a>
-    
-  
-
-
-      
-
-  <h3>Constructor methods inherited from struct <code><a href="../Crysda/DataCol.html">Crysda::DataCol</a></code></h3>
-  
-  
-    <a href="../Crysda/DataCol.html#new%28name%3AString%29-class-method" class="tooltip">
-      <span>new(name : String)</span>
-    new</a>
-    
-  
-
-
-      
-
-
-      
-
-
     
       
 
@@ -701,18 +527,71 @@ Bool Column</h1>
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(name:String,val:Array(Bool|Nil))-class-method">
+    <div class="entry-detail" id="build(size:Int32,&amp;):NullBitmap-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(name : String, val : Array(Bool | Nil))
+        def self.<strong>build</strong>(size : Int32, &) : <a href="../Crysda/NullBitmap.html">NullBitmap</a>
 
-        <a class="method-permalink" href="#new%28name%3AString%2Cval%3AArray%28Bool%7CNil%29%29-class-method">#</a>
+        <a class="method-permalink" href="#build%28size%3AInt32%2C%26%29%3ANullBitmap-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Build bitmap directly from parsing - avoids intermediate Array(T?)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L62" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_nullable(arr:Array):NullBitmap-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_nullable</strong>(arr : Array) : <a href="../Crysda/NullBitmap.html">NullBitmap</a>
+
+        <a class="method-permalink" href="#from_nullable%28arr%3AArray%29%3ANullBitmap-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2103" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L55" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(size:Int32)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(size : Int32)
+
+        <a class="method-permalink" href="#new%28size%3AInt32%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L45" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="none(size:Int32):NullBitmap-class-method">
+      <div class="signature">
+        
+        def self.<strong>none</strong>(size : Int32) : <a href="../Crysda/NullBitmap.html">NullBitmap</a>
+
+        <a class="method-permalink" href="#none%28size%3AInt32%29%3ANullBitmap-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -733,50 +612,161 @@ Bool Column</h1>
     Instance Method Detail
   </h2>
   
-    <div class="entry-detail" id="compare(left:Int32,right:Int32,null_last=true):Int32-instance-method">
+    <div class="entry-detail" id="&amp;(other:NullBitmap):NullBitmap-instance-method">
       <div class="signature">
         
-        def <strong>compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32
+        def <strong>&</strong>(other : <a href="../Crysda/NullBitmap.html">NullBitmap</a>) : <a href="../Crysda/NullBitmap.html">NullBitmap</a>
 
-        <a class="method-permalink" href="#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method">#</a>
+        <a class="method-permalink" href="#%26%28other%3ANullBitmap%29%3ANullBitmap-instance-method">#</a>
       </div>
+      
+        <div class="doc">
+          
+          <p>Optimized AND - uses SIMD for large bitmaps</p>
+        </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2116" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L284" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="has_nulls?:Bool-instance-method">
+    <div class="entry-detail" id="[](index:Int32):Bool-instance-method">
       <div class="signature">
         
-        def <strong>has_nulls?</strong> : Bool
+        def <strong>[]</strong>(index : Int32) : Bool
 
-        <a class="method-permalink" href="#has_nulls%3F%3ABool-instance-method">#</a>
+        <a class="method-permalink" href="#%5B%5D%28index%3AInt32%29%3ABool-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2112" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L73" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="values:Array(Bool|Nil)-instance-method">
+    <div class="entry-detail" id="|(other:NullBitmap):NullBitmap-instance-method">
       <div class="signature">
         
-        def <strong>values</strong> : Array(Bool | Nil)
+        def <strong>|</strong>(other : <a href="../Crysda/NullBitmap.html">NullBitmap</a>) : <a href="../Crysda/NullBitmap.html">NullBitmap</a>
 
-        <a class="method-permalink" href="#values%3AArray%28Bool%7CNil%29-instance-method">#</a>
+        <a class="method-permalink" href="#%7C%28other%3ANullBitmap%29%3ANullBitmap-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Optimized OR - uses SIMD for large bitmaps</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L193" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="any?:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>any?</strong> : Bool
+
+        <a class="method-permalink" href="#any%3F%3ABool-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2108" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L94" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear(index:Int32):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>clear</strong>(index : Int32) : Nil
+
+        <a class="method-permalink" href="#clear%28index%3AInt32%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L87" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="count:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>count</strong> : Int32
+
+        <a class="method-permalink" href="#count%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Optimized count using SIMD popcount where available</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L104" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="none?:Bool-instance-method">
+      <div class="signature">
+        
+        def <strong>none?</strong> : Bool
+
+        <a class="method-permalink" href="#none%3F%3ABool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L99" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set(index:Int32):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>set</strong>(index : Int32) : Nil
+
+        <a class="method-permalink" href="#set%28index%3AInt32%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L79" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="size:Int32-instance-method">
+      <div class="signature">
+        
+        def <strong>size</strong> : Int32
+
+        <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L385" target="_blank">View source</a>]
         
       </div>
     </div>
