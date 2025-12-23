@@ -8,21 +8,23 @@ on:
 jobs:
   deploy_docs:
     runs-on: ubuntu-latest
-    container:
-      image: crystallang/crystal:latest-alpine
     steps:
-      - name: Install Build Dependencies
-        run: apk add --update rsync
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: latest
+
       - name: Install Dependencies
         run: shards install
-      - name: Build
+
+      - name: Build Docs
         run: crystal docs
+
       - name: Deploy
-        if: github.ref == 'refs/heads/master'
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: docs
-          CLEAN: true
+          branch: gh-pages
+          folder: docs
+          clean: true
