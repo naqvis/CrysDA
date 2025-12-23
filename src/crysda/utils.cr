@@ -375,6 +375,7 @@ module Crysda
     private HASH_NAN       =      0_u64
     private HASH_INF_PLUS  = 314159_u64
     private HASH_INF_MINUS = (-314159_i64).unsafe_as(UInt64)
+    HASH_NULL      = Int64::MAX - 123000
 
     def initialize
       @total = 17_i64
@@ -399,7 +400,7 @@ module Crysda
     end
 
     def add(val : Nil)
-      @total = Int64::MAX - 123000
+      @total = HASH_NULL
       self
     end
 
@@ -467,6 +468,7 @@ module Crysda
       add(val.hashcode)
     end
 
+    @[AlwaysInline]
     def add(val : Int)
       @total = @total &* @const &+ val
       self
@@ -485,6 +487,46 @@ module Crysda
       ret = @total
       reset
       ret
+    end
+
+    # =========================================================================
+    # Fast row hashing for numeric columns - avoids AnyVal boxing
+    # =========================================================================
+
+    # Hash a single Int32 value (or null)
+    @[AlwaysInline]
+    def self.hash_i32(val : Int32?, seed : Int64 = 17_i64) : Int64
+      return HASH_NULL if val.nil?
+      seed &* 37_i64 &+ val.to_i64
+    end
+
+    # Hash a single Int64 value (or null)
+    @[AlwaysInline]
+    def self.hash_i64(val : Int64?, seed : Int64 = 17_i64) : Int64
+      return HASH_NULL if val.nil?
+      seed &* 37_i64 &+ val
+    end
+
+    # Hash a single Float64 value (or null) - fast path using bit representation
+    @[AlwaysInline]
+    def self.hash_f64(val : Float64?, seed : Int64 = 17_i64) : Int64
+      return HASH_NULL if val.nil?
+      # Use bit representation for consistent hashing
+      seed &* 37_i64 &+ val.unsafe_as(Int64)
+    end
+
+    # Hash a single String value (or null)
+    def self.hash_str(val : String?, seed : Int64 = 17_i64) : Int64
+      return HASH_NULL if val.nil?
+      h = seed
+      val.each_char { |c| h = h &* 37_i64 &+ c.ord }
+      h
+    end
+
+    # Combine multiple hash values
+    @[AlwaysInline]
+    def self.combine(h1 : Int64, h2 : Int64) : Int64
+      h1 &* 37_i64 &+ h2
     end
 
     private def reset

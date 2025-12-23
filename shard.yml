@@ -1,12 +1,14 @@
 name: crysda
-version: 0.1.3
+version: 0.3.0
 
 authors:
   - Ali Naqvi <syed.alinaqvi@gmail.com>
 description: |
-  Crystal Shard for data analysis , wrangling , munging.
+  High-performance Crystal shard for data analysis. Provides DataFrame operations
+  with optimized column storage, SIMD acceleration, and a dplyr/pandas-inspired API
+  for filtering, transforming, aggregating, and reshaping tabular data.
 
-crystal: ~> 0.36.0
+crystal: ~> 1.0
 
 dependencies:
   db:

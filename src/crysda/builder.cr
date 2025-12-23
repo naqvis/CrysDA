@@ -73,13 +73,186 @@ module Crysda
         row_index = 0
       end
 
+      data_records = records[row_index..]
+      num_rows = data_records.size
+
       cols = Array(DataCol).new
-      colnames.each_with_index do |cname, index|
-        rows = records[row_index..].map(&.[index].na_as_nil(na_value))
-        cols << Utils.get_col(cname, rows, true_values, false_values)
+      colnames.each_with_index do |cname, col_idx|
+        cols << build_column_optimized(cname, data_records, col_idx, na_value, true_values, false_values)
       end
 
       SimpleDataFrame.new(cols)
+    end
+
+    # Build column directly with Slice + NullBitmap - avoids intermediate Array(T?)
+    private def build_column_optimized(name : String, records : Array(Array(String)), col_idx : Int32,
+                                       na_value : String, true_values : Array(String), false_values : Array(String)) : DataCol
+      num_rows = records.size
+      return StringCol.new(name, [] of String?) if num_rows == 0
+
+      # Sample first 20 rows to determine type
+      sample_size = Math.min(20, num_rows)
+      samples = Array(String?).new(sample_size) { |i| records[i][col_idx].na_as_nil(na_value) }
+
+      t_vals = true_values.map(&.upcase)
+      f_vals = false_values.map(&.upcase)
+
+      # Try to build optimized columns directly
+      if int32col_samples?(samples)
+        build_int32_col_direct(name, records, col_idx, na_value) ||
+          build_int64_col_direct(name, records, col_idx, na_value) ||
+          build_float64_col_direct(name, records, col_idx, na_value) ||
+          build_string_col_direct(name, records, col_idx, na_value)
+      elsif int64col_samples?(samples)
+        build_int64_col_direct(name, records, col_idx, na_value) ||
+          build_float64_col_direct(name, records, col_idx, na_value) ||
+          build_string_col_direct(name, records, col_idx, na_value)
+      elsif float64col_samples?(samples)
+        build_float64_col_direct(name, records, col_idx, na_value) ||
+          build_string_col_direct(name, records, col_idx, na_value)
+      elsif boolcol_samples?(samples, t_vals, f_vals)
+        build_bool_col_direct(name, records, col_idx, na_value, t_vals, f_vals)
+      else
+        build_string_col_direct(name, records, col_idx, na_value)
+      end
+    end
+
+    # Build Int32Col directly with Slice + NullBitmap
+    private def build_int32_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : Int32Col?
+      num_rows = records.size
+      data = Slice(Int32).new(num_rows, 0)
+      bitmap = NullBitmap.new(num_rows)
+
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        if val == na_value || val.empty?
+          bitmap.set(i)
+        else
+          begin
+            data[i] = val.to_i32
+          rescue
+            return nil # Fall back to next type
+          end
+        end
+      end
+
+      Int32Col.new(name, data, bitmap)
+    end
+
+    # Build Int64Col directly with Slice + NullBitmap
+    private def build_int64_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : Int64Col?
+      num_rows = records.size
+      data = Slice(Int64).new(num_rows, 0_i64)
+      bitmap = NullBitmap.new(num_rows)
+
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        if val == na_value || val.empty?
+          bitmap.set(i)
+        else
+          begin
+            data[i] = val.to_i64
+          rescue
+            return nil
+          end
+        end
+      end
+
+      Int64Col.new(name, data, bitmap)
+    end
+
+    # Build Float64Col directly with Slice + NullBitmap
+    private def build_float64_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : Float64Col?
+      num_rows = records.size
+      data = Slice(Float64).new(num_rows, 0.0)
+      bitmap = NullBitmap.new(num_rows)
+
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        if val == na_value || val.empty?
+          bitmap.set(i)
+        else
+          begin
+            # Handle comma as thousands separator
+            clean_val = val.gsub(',', "")
+            data[i] = clean_val.to_f64
+          rescue
+            return nil
+          end
+        end
+      end
+
+      Float64Col.new(name, data, bitmap)
+    end
+
+    # Build StringCol directly with Array + NullBitmap
+    # Uses string interning for categorical data (low cardinality)
+    private def build_string_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : StringCol
+      num_rows = records.size
+      return StringCol.new(name, [] of String?) if num_rows == 0
+
+      # First pass: collect unique values to determine if categorical
+      pool = StringPool.new
+      data = Array(String).new(num_rows, "")
+      bitmap = NullBitmap.new(num_rows)
+
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        if val == na_value
+          bitmap.set(i)
+        else
+          # Intern strings to save memory for repeated values
+          data[i] = pool.intern(val)
+        end
+      end
+
+      StringCol.new(name, data, bitmap)
+    end
+
+    # Build BoolCol directly
+    private def build_bool_col_direct(name : String, records : Array(Array(String)), col_idx : Int32,
+                                      na_value : String, t_vals : Array(String), f_vals : Array(String)) : BoolCol
+      num_rows = records.size
+      data = Array(Bool?).new(num_rows)
+
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        if val == na_value || val.empty?
+          data << nil
+        else
+          uval = val.upcase
+          if uval.in?(t_vals)
+            data << true
+          elsif uval.in?(f_vals)
+            data << false
+          else
+            data << nil
+          end
+        end
+      end
+
+      BoolCol.new(name, data)
+    end
+
+    # Type detection helpers for samples
+    private def int32col_samples?(samples)
+      samples.all? { |v| v.nil? || v.try(&.to_i32) rescue false }
+    end
+
+    private def int64col_samples?(samples)
+      samples.all? { |v| v.nil? || v.try(&.to_i64) rescue false }
+    end
+
+    private def float64col_samples?(samples)
+      samples.all? { |v| v.nil? || v.try { |s| s.gsub(',', "").to_f64 } rescue false }
+    end
+
+    private def boolcol_samples?(samples, t_vals, f_vals)
+      samples.all? do |v|
+        next true if v.nil?
+        uv = v.upcase
+        uv.in?(t_vals) || uv.in?(f_vals)
+      end
     end
 
     def read_rs(rs : DB::ResultSet)

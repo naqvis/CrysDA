@@ -80,28 +80,92 @@ module Crysda
     def filter(&block : RowPredicate) : DataFrame
       index = block.call(self.ec)
       raise CrysdaException.new("filter index has incompatible length of #{index.size}, rows : #{num_row}") unless index.size == num_row
+
+      # Count matching rows first to pre-allocate
+      new_size = index.count(true)
+      return SimpleDataFrame.new(@cols.map { |c| empty_col_like(c) }) if new_size == 0
+
       SimpleDataFrame.new(
         @cols.map do |c|
-          case c
-          when Float64Col
-            Float64Col.new(c.name, c.values.select_with_index { |_, i| index[i] })
-          when Int32Col
-            Int32Col.new(c.name, c.values.select_with_index { |_, i| index[i] })
-          when Int64Col
-            Int64Col.new(c.name, c.values.select_with_index { |_, i| index[i] })
-          when StringCol
-            StringCol.new(c.name, c.values.select_with_index { |_, i| index[i] })
-          when BoolCol
-            BoolCol.new(c.name, c.values.select_with_index { |_, i| index[i] })
-          when AnyCol
-            AnyCol.new(c.name, c.values.select_with_index { |_, i| index[i] })
-          when DFCol
-            DFCol.new(c.name, c.values.select_with_index { |_, i| index[i] })
-          else
-            raise UnSupportedOperationException.new
-          end
+          filter_column(c, index, new_size)
         end
       )
+    end
+
+    # Create empty column of same type
+    private def empty_col_like(c : DataCol) : DataCol
+      case c
+      when Float64Col then Float64Col.new(c.name, [] of Float64?)
+      when Int32Col   then Int32Col.new(c.name, [] of Int32?)
+      when Int64Col   then Int64Col.new(c.name, [] of Int64?)
+      when StringCol  then StringCol.new(c.name, [] of String?)
+      when BoolCol    then BoolCol.new(c.name, [] of Bool?)
+      when AnyCol     then AnyCol.new(c.name, [] of Any)
+      when DFCol      then DFCol.new(c.name, [] of DataFrame?)
+      else                 raise UnSupportedOperationException.new
+      end
+    end
+
+    # Optimized filter that works directly on internal storage
+    private def filter_column(c : DataCol, index, new_size : Int32) : DataCol
+      case col = c
+      when Float64Col
+        new_data = Slice(Float64).new(new_size, 0.0)
+        new_bitmap = NullBitmap.new(new_size)
+        j = 0
+        col.raw_data.size.times do |i|
+          if index.unsafe_fetch(i)
+            new_data[j] = col.raw_data.unsafe_fetch(i)
+            new_bitmap.set(j) if col.bitmap[i]
+            j += 1
+          end
+        end
+        Float64Col.new(col.name, new_data, new_bitmap)
+      when Int32Col
+        new_data = Slice(Int32).new(new_size, 0)
+        new_bitmap = NullBitmap.new(new_size)
+        j = 0
+        col.raw_data.size.times do |i|
+          if index.unsafe_fetch(i)
+            new_data[j] = col.raw_data.unsafe_fetch(i)
+            new_bitmap.set(j) if col.bitmap[i]
+            j += 1
+          end
+        end
+        Int32Col.new(col.name, new_data, new_bitmap)
+      when Int64Col
+        new_data = Slice(Int64).new(new_size, 0_i64)
+        new_bitmap = NullBitmap.new(new_size)
+        j = 0
+        col.raw_data.size.times do |i|
+          if index.unsafe_fetch(i)
+            new_data[j] = col.raw_data.unsafe_fetch(i)
+            new_bitmap.set(j) if col.bitmap[i]
+            j += 1
+          end
+        end
+        Int64Col.new(col.name, new_data, new_bitmap)
+      when StringCol
+        new_data = Array(String).new(new_size, "")
+        new_bitmap = NullBitmap.new(new_size)
+        j = 0
+        col.raw_data.size.times do |i|
+          if index.unsafe_fetch(i)
+            new_data[j] = col.raw_data.unsafe_fetch(i)
+            new_bitmap.set(j) if col.bitmap[i]
+            j += 1
+          end
+        end
+        StringCol.new(col.name, new_data, new_bitmap)
+      when BoolCol
+        BoolCol.new(col.name, col.values.select_with_index { |_, i| index[i] })
+      when AnyCol
+        AnyCol.new(col.name, col.values.select_with_index { |_, i| index[i] })
+      when DFCol
+        DFCol.new(col.name, col.values.select_with_index { |_, i| index[i] })
+      else
+        raise UnSupportedOperationException.new
+      end
     end
 
     def summarize(sum_rules : Array(ColumnFormula)) : DataFrame
@@ -149,19 +213,44 @@ module Crysda
     def sort_by(by : Iterable(String)) : DataFrame
       permutation = (0..(num_row - 1)).to_a.sort { |a, b| compare(by, a, b) }
 
-      # apply permutation to all columns
+      # apply permutation to all columns using optimized internal access
       SimpleDataFrame.new(cols.map do |v|
-        case v
-        when Int32Col   then Int32Col.new(v.name, Array(Int32?).new(num_row) { |idx| v.values[permutation[idx]] })
-        when Int64Col   then Int64Col.new(v.name, Array(Int64?).new(num_row) { |idx| v.values[permutation[idx]] })
-        when Float64Col then Float64Col.new(v.name, Array(Float64?).new(num_row) { |idx| v.values[permutation[idx]] })
-        when BoolCol    then BoolCol.new(v.name, Array(Bool?).new(num_row) { |idx| v.values[permutation[idx]] })
-        when StringCol  then StringCol.new(v.name, Array(String?).new(num_row) { |idx| v.values[permutation[idx]] })
-        when AnyCol     then AnyCol.new(v.name, Array(Any?).new(num_row) { |idx| v.values[permutation[idx]] })
-        else
-          raise UnSupportedOperationException.new
-        end
+        permute_column(v, permutation)
       end)
+    end
+
+    # Optimized permutation that works directly on internal storage
+    private def permute_column(c : DataCol, perm : Array(Int32)) : DataCol
+      case col = c
+      when Float64Col
+        new_data = Slice(Float64).new(perm.size) { |i| col.raw_data.unsafe_fetch(perm.unsafe_fetch(i)).as(Float64) }
+        new_bitmap = NullBitmap.new(perm.size)
+        perm.each_with_index { |src, dst| new_bitmap.set(dst) if col.bitmap[src] }
+        Float64Col.new(col.name, new_data, new_bitmap)
+      when Int32Col
+        new_data = Slice(Int32).new(perm.size) { |i| col.raw_data.unsafe_fetch(perm.unsafe_fetch(i)).as(Int32) }
+        new_bitmap = NullBitmap.new(perm.size)
+        perm.each_with_index { |src, dst| new_bitmap.set(dst) if col.bitmap[src] }
+        Int32Col.new(col.name, new_data, new_bitmap)
+      when Int64Col
+        new_data = Slice(Int64).new(perm.size) { |i| col.raw_data.unsafe_fetch(perm.unsafe_fetch(i)).as(Int64) }
+        new_bitmap = NullBitmap.new(perm.size)
+        perm.each_with_index { |src, dst| new_bitmap.set(dst) if col.bitmap[src] }
+        Int64Col.new(col.name, new_data, new_bitmap)
+      when StringCol
+        new_data = Array(String).new(perm.size) { |i| col.raw_data.unsafe_fetch(perm.unsafe_fetch(i)) }
+        new_bitmap = NullBitmap.new(perm.size)
+        perm.each_with_index { |src, dst| new_bitmap.set(dst) if col.bitmap[src] }
+        StringCol.new(col.name, new_data, new_bitmap)
+      when BoolCol
+        BoolCol.new(col.name, Array(Bool?).new(perm.size) { |idx| col.values[perm[idx]] })
+      when AnyCol
+        AnyCol.new(col.name, Array(Any?).new(perm.size) { |idx| col.values[perm[idx]] })
+      when DFCol
+        DFCol.new(col.name, Array(DataFrame?).new(perm.size) { |idx| col.values[perm[idx]] })
+      else
+        raise UnSupportedOperationException.new
+      end
     end
 
     def group_by(by : Iterable(String)) : DataFrame
@@ -174,20 +263,28 @@ module Crysda
 
       raise CrysdaException.new("Could not find all grouping columns") unless group_cols.num_col == by.size
 
-      empty_by_hash = Random.rand(Int32)
+      # Special case: empty by list means all rows in one group with a unique random key
+      # This ensures different dataframes get different group keys (important for joins)
+      if by.empty?
+        random_key = Random.rand(Int64)
+        empty_key = GroupKey.new([AnyVal[random_key]])
+        l_groups = [DataGroup.new(empty_key, self)]
+        return GroupedDataFrame.new(by, l_groups)
+      end
 
-      row_hashes = if by.empty?
-                     Array(Int32).new(num_row, empty_by_hash).map { |e| [AnyVal[e]] }
-                   else
-                     group_cols.row_data.each
-                   end
+      # Optimized row hashing - compute hashes directly from column data
+      row_hashes = compute_row_hashes(group_cols)
 
-      group_indices = row_hashes.map_with_index { |group, idx| {group, idx} }
-        .group_by { |v| v[0] }
-        .map do |k, v|
-          group_row_indices = v.map(&.[1])
-          GroupIndex.new(GroupKey.new(k), group_row_indices)
-        end
+      # Group by hash value
+      group_map = Hash(Int64, Array(Int32)).new { |h, k| h[k] = Array(Int32).new }
+      row_hashes.each_with_index { |hash, idx| group_map[hash] << idx }
+
+      # Build group indices with original row values for GroupKey
+      group_indices = group_map.map do |hash, indices|
+        first_idx = indices.first
+        key_vals = group_cols.cols.map { |c| AnyVal[c[first_idx]] }
+        GroupIndex.new(GroupKey.new(key_vals), indices)
+      end
 
       l_groups = group_indices.map { |g| DataGroup.new(g.group_hash, extract_group_by_index(g, self)) }
 
@@ -195,6 +292,65 @@ module Crysda
       l_groups = [DataGroup.new(GroupKey.new([AnyVal[1]]), self)] if l_groups.empty?
 
       GroupedDataFrame.new(by, l_groups)
+    end
+
+    # Optimized row hash computation - avoids AnyVal boxing for numeric columns
+    private def compute_row_hashes(group_cols : DataFrame) : Array(Int64)
+      cols = group_cols.cols
+      n = group_cols.num_row
+
+      # Pre-compute column hashes for each row
+      hashes = Array(Int64).new(n, 17_i64)
+
+      cols.each do |col|
+        case c = col
+        when Int32Col
+          n.times do |i|
+            h = if c.bitmap[i]
+                  HashBuilder::HASH_NULL
+                else
+                  HashBuilder.hash_i32(c.raw_data.unsafe_fetch(i), hashes.unsafe_fetch(i))
+                end
+            hashes[i] = h
+          end
+        when Int64Col
+          n.times do |i|
+            h = if c.bitmap[i]
+                  HashBuilder::HASH_NULL
+                else
+                  HashBuilder.hash_i64(c.raw_data.unsafe_fetch(i), hashes.unsafe_fetch(i))
+                end
+            hashes[i] = h
+          end
+        when Float64Col
+          n.times do |i|
+            h = if c.bitmap[i]
+                  HashBuilder::HASH_NULL
+                else
+                  HashBuilder.hash_f64(c.raw_data.unsafe_fetch(i), hashes.unsafe_fetch(i))
+                end
+            hashes[i] = h
+          end
+        when StringCol
+          n.times do |i|
+            h = if c.bitmap[i]
+                  HashBuilder::HASH_NULL
+                else
+                  HashBuilder.hash_str(c.raw_data.unsafe_fetch(i), hashes.unsafe_fetch(i))
+                end
+            hashes[i] = h
+          end
+        else
+          # Fallback for other column types
+          hasher = HashBuilder.new
+          n.times do |i|
+            hashes[i] = hasher.hashcode(AnyVal[col[i]])
+            hashes[i] = HashBuilder.combine(hashes.unsafe_fetch(i), hashes[i])
+          end
+        end
+      end
+
+      hashes
     end
 
     def ungroup : DataFrame
@@ -223,13 +379,25 @@ module Crysda
     private def extract_group(col : DataCol, gid : GroupIndex) : DataCol
       case c = col
       when Float64Col
-        Float64Col.new(c.name, Array(Float64?).new(gid.size) { |i| c[gid[i]] })
+        new_data = Slice(Float64).new(gid.size) { |i| c.raw_data.unsafe_fetch(gid[i]).as(Float64) }
+        new_bitmap = NullBitmap.new(gid.size)
+        gid.size.times { |i| new_bitmap.set(i) if c.bitmap[gid[i]] }
+        Float64Col.new(c.name, new_data, new_bitmap)
       when Int64Col
-        Int64Col.new(c.name, Array(Int64?).new(gid.size) { |i| c[gid[i]] })
+        new_data = Slice(Int64).new(gid.size) { |i| c.raw_data.unsafe_fetch(gid[i]).as(Int64) }
+        new_bitmap = NullBitmap.new(gid.size)
+        gid.size.times { |i| new_bitmap.set(i) if c.bitmap[gid[i]] }
+        Int64Col.new(c.name, new_data, new_bitmap)
       when Int32Col
-        Int32Col.new(c.name, Array(Int32?).new(gid.size) { |i| c[gid[i]] })
+        new_data = Slice(Int32).new(gid.size) { |i| c.raw_data.unsafe_fetch(gid[i]).as(Int32) }
+        new_bitmap = NullBitmap.new(gid.size)
+        gid.size.times { |i| new_bitmap.set(i) if c.bitmap[gid[i]] }
+        Int32Col.new(c.name, new_data, new_bitmap)
       when StringCol
-        StringCol.new(c.name, Array(String?).new(gid.size) { |i| c[gid[i]] })
+        new_data = Array(String).new(gid.size) { |i| c.raw_data.unsafe_fetch(gid[i]) }
+        new_bitmap = NullBitmap.new(gid.size)
+        gid.size.times { |i| new_bitmap.set(i) if c.bitmap[gid[i]] }
+        StringCol.new(c.name, new_data, new_bitmap)
       when BoolCol
         BoolCol.new(c.name, Array(Bool?).new(gid.size) { |i| c[gid[i]] })
       when AnyCol

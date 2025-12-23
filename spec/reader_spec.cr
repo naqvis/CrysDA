@@ -158,7 +158,7 @@ JS
   end
 
   it "should read database resultset" do
-    DB.open "sqlite3://%3Amemory%3A" do |db|
+    DB.open "sqlite3::memory:" do |db|
       db.exec "create table contacts (name text, age integer, foo number)"
       db.exec "insert into contacts values (?, ?, ?)", "John Doe", 30, 1.5
       db.exec "insert into contacts values (?, ?, ?)", "Sarah", 33, 9.1
@@ -178,7 +178,7 @@ JS
   end
 
   it "should read database resultset and handle null" do
-    DB.open "sqlite3://%3Amemory%3A" do |db|
+    DB.open "sqlite3::memory:" do |db|
       db.exec "create table contacts (name text, age integer, foo number)"
       db.exec "insert into contacts values (?, ?, ?)", "John Doe", 30, nil
       db.exec "insert into contacts values (?, ?, ?)", nil, 33, 9.1
