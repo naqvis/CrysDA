@@ -417,6 +417,8 @@ df[<span class="s">&quot;age&quot;</span>].between(<span class="n">20</span>, <s
 df[<span class="s">&quot;score&quot;</span>].clip(<span class="n">0</span>, <span class="n">100</span>)           <span class="c"># Clamp to range</span>
 df[<span class="s">&quot;value&quot;</span>].ffill                  <span class="c"># Forward fill nulls</span>
 df[<span class="s">&quot;value&quot;</span>].bfill                  <span class="c"># Backward fill nulls</span>
+df[<span class="s">&quot;value&quot;</span>].first                  <span class="c"># First non-null value</span>
+df[<span class="s">&quot;value&quot;</span>].last                   <span class="c"># Last non-null value</span>
 df[<span class="s">&quot;price&quot;</span>].apply { <span class="o">|</span>v<span class="o">|</span> v.<span class="k">as</span>(<span class="t">Float64</span>) <span class="o">*</span> <span class="n">2</span> }  <span class="c"># Transform values</span>
 df[<span class="s">&quot;col1&quot;</span>].coalesce(df[<span class="s">&quot;col2&quot;</span>])    <span class="c"># First non-null from two columns</span>
 
@@ -433,6 +435,8 @@ df.describe                        <span class="c"># Summary statistics</span>
 df.coalesce(<span class="s">&quot;a&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span>)         <span class="c"># First non-null across columns</span>
 df.duplicated(<span class="s">&quot;id&quot;</span>)                <span class="c"># Find duplicates</span>
 df.drop_duplicates(<span class="s">&quot;id&quot;</span>)           <span class="c"># Remove duplicates</span>
+df.nlargest(<span class="n">10</span>, <span class="s">&quot;sales&quot;</span>)           <span class="c"># Top 10 rows by sales</span>
+df.nsmallest(<span class="n">5</span>, <span class="s">&quot;price&quot;</span>)           <span class="c"># Bottom 5 rows by price</span>
 <span class="t">Crysda</span>.concat([df1, df2])          <span class="c"># Vertical stack</span>
 <span class="t">Crysda</span>.concat([df1, df2], axis: <span class="n">1</span>) <span class="c"># Horizontal stack</span>
 
@@ -440,7 +444,12 @@ df.drop_duplicates(<span class="s">&quot;id&quot;</span>)           <span class=
 df.apply_rows(<span class="s">&quot;total&quot;</span>) { <span class="o">|</span>row<span class="o">|</span> row[<span class="s">&quot;price&quot;</span>].as_f <span class="o">*</span> row[<span class="s">&quot;qty&quot;</span>].as_i }
 
 <span class="c"># Pivot tables</span>
-df.pivot_table(<span class="s">&quot;region&quot;</span>, <span class="s">&quot;product&quot;</span>, <span class="s">&quot;sales&quot;</span>, <span class="s">&quot;sum&quot;</span>)</code></pre>
+df.pivot_table(<span class="s">&quot;region&quot;</span>, <span class="s">&quot;product&quot;</span>, <span class="s">&quot;sales&quot;</span>, <span class="s">&quot;sum&quot;</span>)
+
+<span class="c"># JSON output</span>
+df.to_json                         <span class="c"># Convert to JSON string</span>
+df.to_json(pretty: <span class="n">true</span>)           <span class="c"># Pretty-printed JSON</span>
+df.write_json(<span class="s">&quot;output.json&quot;</span>)       <span class="c"># Write to file</span></code></pre>
 <h3><a id="performance" class="anchor" href="#performance">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -543,6 +552,12 @@ df.separate(<span class="s">&quot;date&quot;</span>, into: [<span class="s">&quo
 
 <span class="c"># Combine columns</span>
 df.unite(<span class="s">&quot;full_name&quot;</span>, [<span class="s">&quot;first&quot;</span>, <span class="s">&quot;last&quot;</span>], sep: <span class="s">&quot; &quot;</span>)</code></pre>
+<h2><a id="plotting" class="anchor" href="#plotting">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Plotting</h2>
+<p>For data visualization, see <a href="https://github.com/naqvis/crysda-plot">crysda-plot</a>.</p>
 <h2><a id="documentation" class="anchor" href="#documentation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>

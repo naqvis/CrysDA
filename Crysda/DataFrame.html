@@ -333,21 +333,21 @@ DataFrame is an immutable object, any mutation will return a new object.</p>
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L11" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L11" target="_blank">
         crysda/dataframe.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L2" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L2" target="_blank">
         crysda/joins.cr
       </a>
     
     <br/>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L2" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L2" target="_blank">
         crysda/reshape.cr
       </a>
     
@@ -764,6 +764,20 @@ DataFrame is an immutable object, any mutation will return a new object.</p>
       </li>
     
       <li class="entry-summary">
+        <a href="#nlargest%28n%3AInt32%2C%2Acolumns%3AString%29%3ADataFrame-instance-method" class="signature"><strong>#nlargest</strong>(n : Int32, *columns : String) : DataFrame</a>
+        
+          <div class="summary"><p>Get the n largest rows by column value <code>df.nlargest(10, &quot;sales&quot;)        # Top 10 by sales df.nlargest(5, &quot;score&quot;, &quot;name&quot;) # Top 5 by score, ties broken by name</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nsmallest%28n%3AInt32%2C%2Acolumns%3AString%29%3ADataFrame-instance-method" class="signature"><strong>#nsmallest</strong>(n : Int32, *columns : String) : DataFrame</a>
+        
+          <div class="summary"><p>Get the n smallest rows by column value <code>df.nsmallest(10, &quot;price&quot;)      # Bottom 10 by price df.nsmallest(5, &quot;age&quot;, &quot;name&quot;) # Bottom 5 by age, ties broken by name</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#num_col%3AInt32-instance-method" class="signature"><strong>#num_col</strong> : Int32</a>
         
           <div class="summary"><p>Number of columns in this dataframe</p></div>
@@ -1144,6 +1158,13 @@ DataFrame is an immutable object, any mutation will return a new object.</p>
       </li>
     
       <li class="entry-summary">
+        <a href="#to_json%28pretty%3ABool%3Dfalse%29%3AString-instance-method" class="signature"><strong>#to_json</strong>(pretty : Bool = <span class="n">false</span>) : String</a>
+        
+          <div class="summary"><p>Convert DataFrame to JSON string</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#to_s%28io%3ANil%29-instance-method" class="signature"><strong>#to_s</strong>(io : Nil)</a>
         
       </li>
@@ -1212,6 +1233,20 @@ DataFrame is an immutable object, any mutation will return a new object.</p>
         
       </li>
     
+      <li class="entry-summary">
+        <a href="#write_json%28filename%3AString%2Cpretty%3ABool%3Dfalse%29%3ANil-instance-method" class="signature"><strong>#write_json</strong>(filename : String, pretty : Bool = <span class="n">false</span>) : Nil</a>
+        
+          <div class="summary"><p>Write DataFrame to JSON file (array of objects format) <code>df.write_json(&quot;output.json&quot;) df.write_json(&quot;output.json&quot;, pretty: true)</code></p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#write_json%28io%3AIO%2Cpretty%3ABool%3Dfalse%29%3ANil-instance-method" class="signature"><strong>#write_json</strong>(io : IO, pretty : Bool = <span class="n">false</span>) : Nil</a>
+        
+          <div class="summary"><p>Write DataFrame to IO as JSON (array of objects format)</p></div>
+        
+      </li>
+    
   </ul>
 
 
@@ -1252,7 +1287,7 @@ DataFrame is an immutable object, any mutation will return a new object.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1273,7 +1308,7 @@ DataFrame is an immutable object, any mutation will return a new object.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L62" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L62" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1294,7 +1329,7 @@ DataFrame is an immutable object, any mutation will return a new object.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1317,7 +1352,7 @@ df.add_column(<span class="s">&quot;age_3y_later&quot;</span>) { <span class="o"
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L71" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L71" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1333,7 +1368,7 @@ df.add_column(<span class="s">&quot;age_3y_later&quot;</span>) { <span class="o"
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L86" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L86" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1358,7 +1393,7 @@ df.add_column(<span class="s">&quot;age_3y_later&quot;</span>) { <span class="o"
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L82" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L82" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1380,7 +1415,7 @@ The new row length must match the number of columns in the DataFrame</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L92" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L92" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1401,7 +1436,7 @@ The new row length must match the number of columns in the DataFrame</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L100" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L100" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1425,7 +1460,7 @@ df.apply_rows(<span class="s">&quot;full_name&quot;</span>) { <span class="o">|<
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L981" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L981" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1446,7 +1481,7 @@ df.apply_rows(<span class="s">&quot;full_name&quot;</span>) { <span class="o">|<
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L163" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L163" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1469,7 +1504,7 @@ Grouping will be discarded when binding rows</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L107" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1485,7 +1520,7 @@ Grouping will be discarded when binding rows</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L134" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L134" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1501,7 +1536,7 @@ Grouping will be discarded when binding rows</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L146" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L146" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1538,7 +1573,7 @@ df.bind_rows(row1, row2)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L130" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L130" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1554,7 +1589,7 @@ df.bind_rows(row1, row2)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L138" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L138" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1570,7 +1605,7 @@ df.bind_rows(row1, row2)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L142" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L142" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1591,7 +1626,7 @@ df.bind_rows(row1, row2)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L891" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L891" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1612,7 +1647,7 @@ df.bind_rows(row1, row2)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1633,7 +1668,7 @@ df.bind_rows(row1, row2)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L215" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L215" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1649,7 +1684,7 @@ df.bind_rows(row1, row2)</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L198" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L198" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1675,7 +1710,7 @@ name  : The name of the count column resulting table.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L194" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L194" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1698,7 +1733,7 @@ ungrouped receiver will simply count the rows in the data.frame</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L210" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L210" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1719,7 +1754,7 @@ ungrouped receiver will simply count the rows in the data.frame</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L830" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L830" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1735,7 +1770,7 @@ ungrouped receiver will simply count the rows in the data.frame</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L221" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L221" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1757,7 +1792,7 @@ selects : Variables to use when determining uniqueness. If there are multiple ro
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L217" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L217" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1778,7 +1813,7 @@ selects : Variables to use when determining uniqueness. If there are multiple ro
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L939" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L939" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1800,7 +1835,7 @@ If columns are specified, only check those columns for nulls</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L728" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L728" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1821,7 +1856,7 @@ If columns are specified, only check those columns for nulls</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L744" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L744" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1842,7 +1877,7 @@ If columns are specified, only check those columns for nulls</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L919" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L919" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1864,7 +1899,7 @@ missing values.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L221" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L221" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1885,7 +1920,7 @@ missing values.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L758" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L758" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1906,7 +1941,7 @@ missing values.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L770" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L770" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1928,7 +1963,7 @@ Returns a new DataFrame with nulls replaced</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L750" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L750" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1950,7 +1985,7 @@ the filter() function is used to subset a data frame, retaining all rows that sa
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1975,7 +2010,7 @@ df.filter { <span class="o">|</span>e<span class="o">|</span> e[<span class="s">
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L238" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L238" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2003,7 +2038,7 @@ df.filter_by_row { <span class="o">|</span>f<span class="o">|</span> f[<span cla
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L252" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L252" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2031,7 +2066,7 @@ df.filter_by_row_with_index { <span class="o">|</span>f, i<span class="o">|</spa
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L269" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L269" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2058,7 +2093,7 @@ column names are actually numeric, integer, or logical.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L73" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L73" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2074,7 +2109,7 @@ column names are actually numeric, integer, or logical.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L97" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L97" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2098,7 +2133,7 @@ converts it into a grouped data-frame where operations are performed &quot;by gr
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L45" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L45" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2122,7 +2157,7 @@ converts it into a grouped data-frame where operations are performed &quot;by gr
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L281" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L281" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2145,7 +2180,7 @@ converts it into a grouped data-frame where operations are performed &quot;by gr
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L294" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L294" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2161,7 +2196,7 @@ converts it into a grouped data-frame where operations are performed &quot;by gr
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L306" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L306" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2177,7 +2212,7 @@ converts it into a grouped data-frame where operations are performed &quot;by gr
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L310" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L310" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2200,7 +2235,7 @@ converts it into a grouped data-frame where operations are performed &quot;by gr
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L302" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L302" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2222,7 +2257,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L52" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L52" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2243,7 +2278,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L55" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L55" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2264,7 +2299,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L318" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L318" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2280,7 +2315,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2296,7 +2331,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2312,7 +2347,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2328,7 +2363,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2344,7 +2379,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L14" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L14" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2365,7 +2400,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2386,7 +2421,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L323" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L323" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2407,7 +2442,7 @@ An empty data-frame for ungrouped data</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2435,7 +2470,53 @@ also see https://github.com/tidyverse/tidyr/blob/master/R/nest.R</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L169" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L169" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nlargest(n:Int32,*columns:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>nlargest</strong>(n : Int32, *columns : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#nlargest%28n%3AInt32%2C%2Acolumns%3AString%29%3ADataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get the n largest rows by column value</p>
+<pre><code class="language-crystal">df.nlargest(<span class="n">10</span>, <span class="s">&quot;sales&quot;</span>)        <span class="c"># Top 10 by sales</span>
+df.nlargest(<span class="n">5</span>, <span class="s">&quot;score&quot;</span>, <span class="s">&quot;name&quot;</span>) <span class="c"># Top 5 by score, ties broken by name</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L1025" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nsmallest(n:Int32,*columns:String):DataFrame-instance-method">
+      <div class="signature">
+        
+        def <strong>nsmallest</strong>(n : Int32, *columns : String) : <a href="../Crysda/DataFrame.html">DataFrame</a>
+
+        <a class="method-permalink" href="#nsmallest%28n%3AInt32%2C%2Acolumns%3AString%29%3ADataFrame-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get the n smallest rows by column value</p>
+<pre><code class="language-crystal">df.nsmallest(<span class="n">10</span>, <span class="s">&quot;price&quot;</span>)      <span class="c"># Bottom 10 by price</span>
+df.nsmallest(<span class="n">5</span>, <span class="s">&quot;age&quot;</span>, <span class="s">&quot;name&quot;</span>) <span class="c"># Bottom 5 by age, ties broken by name</span></code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L1034" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2456,7 +2537,7 @@ also see https://github.com/tidyverse/tidyr/blob/master/R/nest.R</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L15" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L15" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2477,7 +2558,7 @@ also see https://github.com/tidyverse/tidyr/blob/master/R/nest.R</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2493,7 +2574,7 @@ also see https://github.com/tidyverse/tidyr/blob/master/R/nest.R</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L57" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2509,7 +2590,7 @@ also see https://github.com/tidyverse/tidyr/blob/master/R/nest.R</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2535,7 +2616,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L997" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L997" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2556,7 +2637,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L335" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L335" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2572,7 +2653,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L351" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L351" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2593,7 +2674,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L356" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L356" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2614,7 +2695,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L347" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L347" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2630,7 +2711,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L360" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L360" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2651,7 +2732,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L365" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L365" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2672,7 +2753,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L342" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L342" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2693,7 +2774,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L375" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L375" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2709,7 +2790,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L383" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L383" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2730,7 +2811,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L370" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L370" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2746,7 +2827,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L379" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L379" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2762,7 +2843,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2778,7 +2859,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2799,7 +2880,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L25" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L25" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2820,7 +2901,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L401" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L401" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2841,7 +2922,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2862,7 +2943,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L406" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L406" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2883,7 +2964,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L811" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L811" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2904,7 +2985,7 @@ aggfunc: Aggregation function (&quot;sum&quot;, &quot;mean&quot;, &quot;count&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L819" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L819" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2927,7 +3008,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L417" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L417" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2950,7 +3031,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L424" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L424" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2971,7 +3052,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L443" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L443" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -2992,7 +3073,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3013,7 +3094,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L470" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L470" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3029,7 +3110,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L483" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L483" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3045,7 +3126,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L465" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L465" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3066,7 +3147,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L475" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L475" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3082,7 +3163,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L479" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L479" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3103,7 +3184,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L461" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L461" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3124,7 +3205,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L39" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L39" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3140,7 +3221,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L43" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L43" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3156,7 +3237,7 @@ replace - Sample with or without replacement</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/joins.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/joins.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3182,7 +3263,7 @@ convert - If set, attempt to do a type conversion will be run on all new columns
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L131" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L131" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3203,7 +3284,7 @@ convert - If set, attempt to do a type conversion will be run on all new columns
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L493" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L493" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3224,7 +3305,7 @@ convert - If set, attempt to do a type conversion will be run on all new columns
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L488" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L488" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3245,7 +3326,7 @@ convert - If set, attempt to do a type conversion will be run on all new columns
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L909" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L909" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3266,7 +3347,7 @@ convert - If set, attempt to do a type conversion will be run on all new columns
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L508" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L508" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3287,7 +3368,7 @@ convert - If set, attempt to do a type conversion will be run on all new columns
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L503" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L503" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3310,7 +3391,7 @@ primary attribute to sort by. Additional ones are used to resolve ties.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L39" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L39" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3326,7 +3407,7 @@ primary attribute to sort by. Additional ones are used to resolve ties.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L534" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L534" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3342,7 +3423,7 @@ primary attribute to sort by. Additional ones are used to resolve ties.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L522" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L522" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3358,7 +3439,7 @@ primary attribute to sort by. Additional ones are used to resolve ties.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L526" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L526" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3374,7 +3455,7 @@ primary attribute to sort by. Additional ones are used to resolve ties.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L530" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L530" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3396,7 +3477,7 @@ primary attribute to sort by. Additional ones are used to resolve ties.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L514" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L514" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3422,7 +3503,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3438,7 +3519,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L553" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L553" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3460,7 +3541,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L59" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L59" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3476,7 +3557,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L549" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L549" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3492,7 +3573,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L557" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L557" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3508,7 +3589,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L561" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L561" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3524,7 +3605,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L569" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L569" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3540,7 +3621,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L573" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L573" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3556,7 +3637,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L565" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L565" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3572,7 +3653,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L589" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L589" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3588,7 +3669,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L581" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L581" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3604,7 +3685,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L585" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L585" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3625,7 +3706,28 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L599" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L599" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_json(pretty:Bool=false):String-instance-method">
+      <div class="signature">
+        
+        def <strong>to_json</strong>(pretty : Bool = <span class="n">false</span>) : String
+
+        <a class="method-permalink" href="#to_json%28pretty%3ABool%3Dfalse%29%3AString-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convert DataFrame to JSON string</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L1075" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3641,7 +3743,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L670" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L670" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3657,7 +3759,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L666" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L666" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3678,7 +3780,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L604" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L604" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3699,7 +3801,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L594" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L594" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3720,7 +3822,7 @@ was a mix of variables that was coerced to a string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L48" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L48" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3746,7 +3848,7 @@ remove - If true, remove input columns from output data frame.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L109" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L109" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3762,7 +3864,7 @@ remove - If true, remove input columns from output data frame.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L120" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L120" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3783,7 +3885,7 @@ remove - If true, remove input columns from output data frame.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/reshape.cr#L188" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/reshape.cr#L188" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3804,7 +3906,7 @@ remove - If true, remove input columns from output data frame.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L825" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L825" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3825,7 +3927,7 @@ remove - If true, remove input columns from output data frame.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L675" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L675" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3841,7 +3943,51 @@ remove - If true, remove input columns from output data frame.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/dataframe.cr#L681" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L681" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="write_json(filename:String,pretty:Bool=false):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>write_json</strong>(filename : String, pretty : Bool = <span class="n">false</span>) : Nil
+
+        <a class="method-permalink" href="#write_json%28filename%3AString%2Cpretty%3ABool%3Dfalse%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Write DataFrame to JSON file (array of objects format)</p>
+<pre><code class="language-crystal">df.write_json(<span class="s">&quot;output.json&quot;</span>)
+df.write_json(<span class="s">&quot;output.json&quot;</span>, pretty: <span class="n">true</span>)</code></pre>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L1047" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="write_json(io:IO,pretty:Bool=false):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>write_json</strong>(io : IO, pretty : Bool = <span class="n">false</span>) : Nil
+
+        <a class="method-permalink" href="#write_json%28io%3AIO%2Cpretty%3ABool%3Dfalse%29%3ANil-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Write DataFrame to IO as JSON (array of objects format)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/dataframe.cr#L1054" target="_blank">View source</a>]
         
       </div>
     </div>
