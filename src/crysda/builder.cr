@@ -8,13 +8,14 @@ module Crysda
   # :nodoc:
   def self.get_col_type(col : DataCol, wrap_squares = false)
     val = case col
-          when Int32Col   then "Int32"
-          when Int64Col   then "Int64"
-          when Float64Col then "Float64"
-          when StringCol  then "String"
-          when BoolCol    then "Bool"
-          when DFCol      then "DataFrame"
-          when AnyCol     then guess_any_type(col)
+          when Int32Col    then "Int32"
+          when Int64Col    then "Int64"
+          when Float64Col  then "Float64"
+          when StringCol   then "String"
+          when BoolCol     then "Bool"
+          when DateTimeCol then "DateTime"
+          when DFCol       then "DataFrame"
+          when AnyCol      then guess_any_type(col)
           else
             raise CrysdaException.new("Unknown type #{typeof(col)}")
           end
@@ -112,6 +113,9 @@ module Crysda
           build_string_col_direct(name, records, col_idx, na_value)
       elsif boolcol_samples?(samples, t_vals, f_vals)
         build_bool_col_direct(name, records, col_idx, na_value, t_vals, f_vals)
+      elsif datetime_samples?(samples)
+        build_datetime_col_direct(name, records, col_idx, na_value) ||
+          build_string_col_direct(name, records, col_idx, na_value)
       else
         build_string_col_direct(name, records, col_idx, na_value)
       end
@@ -253,6 +257,66 @@ module Crysda
         uv = v.upcase
         uv.in?(t_vals) || uv.in?(f_vals)
       end
+    end
+
+    private def datetime_samples?(samples)
+      samples.all? do |v|
+        next true if v.nil?
+        parse_datetime_sample(v) != nil
+      end
+    end
+
+    private def parse_datetime_sample(s : String) : Time?
+      DateTimeCol::DATETIME_FORMATS.each do |fmt|
+        begin
+          return Time.parse(s, fmt, Time::Location::UTC)
+        rescue
+          next
+        end
+      end
+      nil
+    end
+
+    # Build DateTimeCol directly with Slice + NullBitmap
+    private def build_datetime_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : DateTimeCol?
+      num_rows = records.size
+      data = Slice(Int64).new(num_rows, 0_i64)
+      bitmap = NullBitmap.new(num_rows)
+
+      # Detect format from first non-null value
+      detected_format : String? = nil
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        next if val == na_value || val.empty?
+        DateTimeCol::DATETIME_FORMATS.each do |fmt|
+          begin
+            Time.parse(val, fmt, Time::Location::UTC)
+            detected_format = fmt
+            break
+          rescue
+            next
+          end
+        end
+        break if detected_format
+      end
+
+      return nil unless detected_format
+
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        if val == na_value || val.empty?
+          bitmap.set(i)
+        else
+          begin
+            time = Time.parse(val, detected_format, Time::Location::UTC)
+            data[i] = time.to_unix
+          rescue
+            return nil # Fall back to string
+          end
+        end
+      end
+
+      DateTimeCol.new(name, data, bitmap)
     end
 
     def read_rs(rs : DB::ResultSet)

@@ -189,5 +189,153 @@ module Crysda
           v["prev_uuid"][0].should eq(uuid)
         end
     end
+
+    # DateTimeCol tests
+    describe DateTimeCol do
+      it "creates DateTimeCol from Time array" do
+        times = [
+          Time.utc(2023, 1, 15, 10, 30, 0),
+          Time.utc(2023, 6, 20, 14, 45, 30),
+          nil,
+          Time.utc(2023, 12, 31, 23, 59, 59),
+        ]
+        col = DateTimeCol.new("dates", times)
+        col.size.should eq(4)
+        col.has_nulls?.should be_true
+        col[0].should eq(Time.utc(2023, 1, 15, 10, 30, 0))
+        col[2].should be_nil
+      end
+
+      it "parses datetime strings with auto-detection" do
+        strings = ["2023-01-15", "2023-06-20", nil, "2023-12-31"]
+        col = DateTimeCol.parse("dates", strings)
+        col.size.should eq(4)
+        col[0].not_nil!.year.should eq(2023)
+        col[0].not_nil!.month.should eq(1)
+        col[0].not_nil!.day.should eq(15)
+        col[2].should be_nil
+      end
+
+      it "parses datetime strings with explicit format" do
+        strings = ["15/01/2023", "20/06/2023", "31/12/2023"]
+        col = DateTimeCol.parse("dates", strings, "%d/%m/%Y")
+        col[0].not_nil!.day.should eq(15)
+        col[0].not_nil!.month.should eq(1)
+        col[1].not_nil!.month.should eq(6)
+      end
+
+      it "extracts year component" do
+        times = [Time.utc(2020, 1, 1), Time.utc(2021, 6, 15), Time.utc(2022, 12, 31)]
+        col = DateTimeCol.new("dates", times)
+        years = col.year
+        years[0].should eq(2020)
+        years[1].should eq(2021)
+        years[2].should eq(2022)
+      end
+
+      it "extracts month component" do
+        times = [Time.utc(2023, 1, 1), Time.utc(2023, 6, 15), Time.utc(2023, 12, 31)]
+        col = DateTimeCol.new("dates", times)
+        months = col.month
+        months[0].should eq(1)
+        months[1].should eq(6)
+        months[2].should eq(12)
+      end
+
+      it "extracts day component" do
+        times = [Time.utc(2023, 1, 1), Time.utc(2023, 6, 15), Time.utc(2023, 12, 31)]
+        col = DateTimeCol.new("dates", times)
+        days = col.day
+        days[0].should eq(1)
+        days[1].should eq(15)
+        days[2].should eq(31)
+      end
+
+      it "extracts hour, minute, second components" do
+        times = [Time.utc(2023, 1, 1, 10, 30, 45), Time.utc(2023, 1, 1, 23, 59, 0)]
+        col = DateTimeCol.new("dates", times)
+        col.hour[0].should eq(10)
+        col.hour[1].should eq(23)
+        col.minute[0].should eq(30)
+        col.minute[1].should eq(59)
+        col.second[0].should eq(45)
+        col.second[1].should eq(0)
+      end
+
+      it "extracts day_of_week" do
+        # Crystal's DayOfWeek: Monday=1, Tuesday=2, ..., Sunday=7
+        times = [Time.utc(2023, 1, 1), Time.utc(2023, 1, 2), Time.utc(2023, 1, 7)]
+        col = DateTimeCol.new("dates", times)
+        dow = col.day_of_week
+        dow[0].should eq(7) # Sunday
+        dow[1].should eq(1) # Monday
+        dow[2].should eq(6) # Saturday
+      end
+
+      it "extracts day_of_year" do
+        times = [Time.utc(2023, 1, 1), Time.utc(2023, 2, 1), Time.utc(2023, 12, 31)]
+        col = DateTimeCol.new("dates", times)
+        doy = col.day_of_year
+        doy[0].should eq(1)
+        doy[1].should eq(32)
+        doy[2].should eq(365)
+      end
+
+      it "calculates min and max" do
+        times = [Time.utc(2023, 6, 15), Time.utc(2020, 1, 1), Time.utc(2025, 12, 31)]
+        col = DateTimeCol.new("dates", times)
+        col.min.should eq(Time.utc(2020, 1, 1))
+        col.max.should eq(Time.utc(2025, 12, 31))
+      end
+
+      it "handles min/max with nulls" do
+        times = [Time.utc(2023, 6, 15), nil, Time.utc(2020, 1, 1)]
+        col = DateTimeCol.new("dates", times)
+        expect_raises(MissingValueException) { col.min }
+        col.min(remove_na: true).should eq(Time.utc(2020, 1, 1))
+        col.max(remove_na: true).should eq(Time.utc(2023, 6, 15))
+      end
+
+      it "compares with Time values" do
+        times = [Time.utc(2020, 1, 1), Time.utc(2023, 6, 15), Time.utc(2025, 12, 31)]
+        col = DateTimeCol.new("dates", times)
+        threshold = Time.utc(2023, 1, 1)
+        (col > threshold).should eq([false, true, true])
+        (col >= threshold).should eq([false, true, true])
+        (col < threshold).should eq([true, false, false])
+        (col <= threshold).should eq([true, false, false])
+      end
+
+      it "formats with strftime" do
+        times = [Time.utc(2023, 1, 15, 10, 30, 0), Time.utc(2023, 12, 31, 23, 59, 59)]
+        col = DateTimeCol.new("dates", times)
+        formatted = col.strftime("%Y-%m-%d")
+        formatted[0].should eq("2023-01-15")
+        formatted[1].should eq("2023-12-31")
+      end
+
+      it "supports lazy iteration" do
+        times = [Time.utc(2023, 1, 1), nil, Time.utc(2023, 12, 31)]
+        col = DateTimeCol.new("dates", times)
+
+        # each
+        collected = [] of Time?
+        col.each { |v| collected << v }
+        collected.size.should eq(3)
+        collected[1].should be_nil
+
+        # each_non_null
+        non_null = [] of Time
+        col.each_non_null { |v| non_null << v }
+        non_null.size.should eq(2)
+      end
+
+      it "creates from epoch seconds" do
+        epochs = [1672531200_i64, 1687219200_i64, nil] # 2023-01-01, 2023-06-20
+        col = DateTimeCol.from_epoch("dates", epochs)
+        col[0].not_nil!.year.should eq(2023)
+        col[2].should be_nil
+      end
+    end
   end
 end

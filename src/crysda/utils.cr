@@ -175,6 +175,8 @@ module Crysda
         Float64Col.new(name, Array(Float64?).new(arr.size) { |i| arr[i].as?(Float64) })
       when BoolCol
         BoolCol.new(name, Array(Bool?).new(arr.size) { |i| arr[i].as?(Bool) })
+      when DateTimeCol
+        DateTimeCol.new(name, Array(Time?).new(arr.size) { |i| arr[i].as?(Time) })
       when DFCol
         DFCol.new(name, Array(DataFrame?).new(arr.size) { |i| arr[i].as?(DataFrame) })
       else
@@ -195,6 +197,8 @@ module Crysda
         Float64Col.new(name, Array(Float64?).new(arr.size) { |i| arr[i].as?(Float64) })
       when Type(Bool?).of_type?(arr)
         BoolCol.new(name, Array(Bool?).new(arr.size) { |i| arr[i].as?(Bool) })
+      when Type(Time?).of_type?(arr)
+        DateTimeCol.new(name, Array(Time?).new(arr.size) { |i| arr[i].as?(Time) })
       when arr.size == 0
         AnyCol.new(name, [] of Any)
       when Type(DataFrame).of_type?(arr)
@@ -236,6 +240,7 @@ module Crysda
       when Array(Int64), Array(Int64?)         then Int64Col.new(name, Array(Int64?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
       when Array(Bool), Array(Bool?)           then BoolCol.new(name, Array(Bool?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
       when Array(String), Array(String?)       then StringCol.new(name, Array(String?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
+      when Array(Time), Array(Time?)           then DateTimeCol.new(name, Array(Time?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
       when Array(CustomColumnValue)            then AnyCol.new(name, Array(Any).new(arrified_mutation.size) { |i| arrified_mutation[i] })
       when Array(DataFrame), Array(DataFrame?) then handle_union(name, arrified_mutation)
       when Array(Any)

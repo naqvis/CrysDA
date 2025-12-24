@@ -19,7 +19,7 @@ module Crysda
     end
 
     def self.new(*cols : DataCol)
-      new(cols.to_a)
+      new(cols.to_a.map(&.as(DataCol)))
     end
 
     def self.new
@@ -95,14 +95,15 @@ module Crysda
     # Create empty column of same type
     private def empty_col_like(c : DataCol) : DataCol
       case c
-      when Float64Col then Float64Col.new(c.name, [] of Float64?)
-      when Int32Col   then Int32Col.new(c.name, [] of Int32?)
-      when Int64Col   then Int64Col.new(c.name, [] of Int64?)
-      when StringCol  then StringCol.new(c.name, [] of String?)
-      when BoolCol    then BoolCol.new(c.name, [] of Bool?)
-      when AnyCol     then AnyCol.new(c.name, [] of Any)
-      when DFCol      then DFCol.new(c.name, [] of DataFrame?)
-      else                 raise UnSupportedOperationException.new
+      when Float64Col  then Float64Col.new(c.name, [] of Float64?)
+      when Int32Col    then Int32Col.new(c.name, [] of Int32?)
+      when Int64Col    then Int64Col.new(c.name, [] of Int64?)
+      when StringCol   then StringCol.new(c.name, [] of String?)
+      when BoolCol     then BoolCol.new(c.name, [] of Bool?)
+      when DateTimeCol then DateTimeCol.new(c.name, [] of Time?)
+      when AnyCol      then AnyCol.new(c.name, [] of Any)
+      when DFCol       then DFCol.new(c.name, [] of DataFrame?)
+      else                  raise UnSupportedOperationException.new
       end
     end
 
@@ -159,6 +160,18 @@ module Crysda
         StringCol.new(col.name, new_data, new_bitmap)
       when BoolCol
         BoolCol.new(col.name, col.values.select_with_index { |_, i| index[i] })
+      when DateTimeCol
+        new_data = Slice(Int64).new(new_size, 0_i64)
+        new_bitmap = NullBitmap.new(new_size)
+        j = 0
+        col.raw_data.size.times do |i|
+          if index.unsafe_fetch(i)
+            new_data[j] = col.raw_data.unsafe_fetch(i)
+            new_bitmap.set(j) if col.bitmap[i]
+            j += 1
+          end
+        end
+        DateTimeCol.new(col.name, new_data, new_bitmap)
       when AnyCol
         AnyCol.new(col.name, col.values.select_with_index { |_, i| index[i] })
       when DFCol
@@ -244,6 +257,11 @@ module Crysda
         StringCol.new(col.name, new_data, new_bitmap)
       when BoolCol
         BoolCol.new(col.name, Array(Bool?).new(perm.size) { |idx| col.values[perm[idx]] })
+      when DateTimeCol
+        new_data = Slice(Int64).new(perm.size) { |i| col.raw_data.unsafe_fetch(perm.unsafe_fetch(i)).as(Int64) }
+        new_bitmap = NullBitmap.new(perm.size)
+        perm.each_with_index { |src, dst| new_bitmap.set(dst) if col.bitmap[src] }
+        DateTimeCol.new(col.name, new_data, new_bitmap)
       when AnyCol
         AnyCol.new(col.name, Array(Any?).new(perm.size) { |idx| col.values[perm[idx]] })
       when DFCol
@@ -340,6 +358,15 @@ module Crysda
                 end
             hashes[i] = h
           end
+        when DateTimeCol
+          n.times do |i|
+            h = if c.bitmap[i]
+                  HashBuilder::HASH_NULL
+                else
+                  HashBuilder.hash_i64(c.raw_data.unsafe_fetch(i), hashes.unsafe_fetch(i))
+                end
+            hashes[i] = h
+          end
         else
           # Fallback for other column types
           hasher = HashBuilder.new
@@ -400,6 +427,11 @@ module Crysda
         StringCol.new(c.name, new_data, new_bitmap)
       when BoolCol
         BoolCol.new(c.name, Array(Bool?).new(gid.size) { |i| c[gid[i]] })
+      when DateTimeCol
+        new_data = Slice(Int64).new(gid.size) { |i| c.raw_data.unsafe_fetch(gid[i]).as(Int64) }
+        new_bitmap = NullBitmap.new(gid.size)
+        gid.size.times { |i| new_bitmap.set(i) if c.bitmap[gid[i]] }
+        DateTimeCol.new(c.name, new_data, new_bitmap)
       when AnyCol
         AnyCol.new(c.name, Array(Any).new(gid.size) { |i| c[gid[i]] })
       else

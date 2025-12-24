@@ -61,7 +61,94 @@ A DataFrame: 49 x 5
 - Numeric: `Int32Col`, `Int64Col`, `Float64Col`
 - Text: `StringCol` with automatic interning for categorical data
 - Boolean: `BoolCol`
+- DateTime: `DateTimeCol` with component extraction and formatting
 - Nested: `DFCol` for hierarchical data
+
+### Missing Data
+
+```crystal
+df.dropna                      # Remove rows with any nulls
+df.dropna("col1", "col2")      # Check only specific columns
+df.fillna(0)                   # Fill all nulls with value
+df.fillna({"age" => 0, "name" => "Unknown"})  # Column-specific fills
+```
+
+### String Operations
+
+```crystal
+# No casting needed - use str_ prefix methods
+df["name"].str_contains("john")        # Check substring
+df["name"].str_contains(/\d+/)         # Regex match
+df["name"].str_starts_with("Dr.")      # Prefix check
+df["name"].str_ends_with("Jr.")        # Suffix check
+df["name"].str_extract(/(\d+)/)        # Extract regex groups
+df["name"].str_replace("old", "new")   # Substitute patterns
+df["name"].str_upcase                  # Convert to uppercase
+df["name"].str_downcase                # Convert to lowercase
+df["name"].str_strip                   # Trim whitespace
+df["name"].str_len                     # String lengths
+
+# Use in filters
+df.filter { |e| e["email"].str_contains("@gmail.com") }
+
+# Or use the block-based matching for simple cases
+df.filter { |e| e["name"].matching { |s| s.starts_with?("A") } }
+```
+
+### Window Functions
+
+```crystal
+col = df["price"].as(Float64Col)
+col.rolling_mean(3)            # 3-period moving average
+col.rolling_sum(5)             # 5-period moving sum
+col.rolling_min(3)             # Moving minimum
+col.rolling_max(3)             # Moving maximum
+col.rolling_std(3)             # Moving standard deviation
+col.ewm_mean(10)               # Exponential weighted moving average
+col.diff                       # Difference from previous value
+```
+
+### Convenience APIs
+
+Column operations:
+
+```crystal
+df["age"].unique                   # Distinct non-null values
+df["age"].nunique                  # Count of unique values
+df["age"].in?([25, 30, 35])        # Membership check
+df["age"].between(20, 40)          # Range check (inclusive)
+df["score"].clip(0, 100)           # Clamp to range
+df["value"].ffill                  # Forward fill nulls
+df["value"].bfill                  # Backward fill nulls
+df["price"].apply { |v| v.as(Float64) * 2 }  # Transform values
+df["col1"].coalesce(df["col2"])    # First non-null from two columns
+
+# Binning/Discretization
+df["age"].cut([0, 18, 35, 65, 100], labels: ["child", "young", "adult", "senior"])
+df["score"].qcut(4)                # Quartile-based binning
+df["score"].qcut(4, labels: ["Q1", "Q2", "Q3", "Q4"])
+```
+
+DataFrame operations:
+
+```crystal
+df.sample(10)                      # Random n rows
+df.sample(0.1)                     # Random fraction
+df.shuffle                         # Randomize order
+df.value_counts("category")        # Count occurrences
+df.describe                        # Summary statistics
+df.coalesce("a", "b", "c")         # First non-null across columns
+df.duplicated("id")                # Find duplicates
+df.drop_duplicates("id")           # Remove duplicates
+Crysda.concat([df1, df2])          # Vertical stack
+Crysda.concat([df1, df2], axis: 1) # Horizontal stack
+
+# Row-wise operations
+df.apply_rows("total") { |row| row["price"].as_f * row["qty"].as_i }
+
+# Pivot tables
+df.pivot_table("region", "product", "sales", "sum")
+```
 
 ### Performance
 

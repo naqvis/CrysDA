@@ -653,6 +653,496 @@ module Crysda
       map { |e| yield e.to_s }.map { |e| e.nil? ? missing_as : e.not_nil! }
     end
 
+    # =========================================================================
+    # String convenience methods - delegate to StringCol
+    # =========================================================================
+
+    # Check if strings contain a pattern
+    def str_contains(pattern : String | Regex, case_sensitive : Bool = true) : Array(Bool)
+      case col = self
+      when StringCol
+        pattern.is_a?(Regex) ? col.contains(pattern) : col.contains(pattern, case_sensitive)
+      else
+        raise InvalidColumnOperationException.new("str_contains requires StringCol, got #{self.class}")
+      end
+    end
+
+    # Check if strings start with prefix
+    def str_starts_with(prefix : String, case_sensitive : Bool = true) : Array(Bool)
+      case col = self
+      when StringCol then col.starts_with(prefix, case_sensitive)
+      else
+        raise InvalidColumnOperationException.new("str_starts_with requires StringCol, got #{self.class}")
+      end
+    end
+
+    # Check if strings end with suffix
+    def str_ends_with(suffix : String, case_sensitive : Bool = true) : Array(Bool)
+      case col = self
+      when StringCol then col.ends_with(suffix, case_sensitive)
+      else
+        raise InvalidColumnOperationException.new("str_ends_with requires StringCol, got #{self.class}")
+      end
+    end
+
+    # Extract regex pattern from strings
+    def str_extract(pattern : Regex) : StringCol
+      case col = self
+      when StringCol then col.extract(pattern)
+      else
+        raise InvalidColumnOperationException.new("str_extract requires StringCol, got #{self.class}")
+      end
+    end
+
+    # Replace pattern in strings
+    def str_replace(pattern : String | Regex, replacement : String) : StringCol
+      case col = self
+      when StringCol
+        pattern.is_a?(Regex) ? col.replace(pattern, replacement) : col.replace(pattern, replacement)
+      else
+        raise InvalidColumnOperationException.new("str_replace requires StringCol, got #{self.class}")
+      end
+    end
+
+    # Convert strings to uppercase
+    def str_upcase : StringCol
+      case col = self
+      when StringCol then col.upcase
+      else
+        raise InvalidColumnOperationException.new("str_upcase requires StringCol, got #{self.class}")
+      end
+    end
+
+    # Convert strings to lowercase
+    def str_downcase : StringCol
+      case col = self
+      when StringCol then col.downcase
+      else
+        raise InvalidColumnOperationException.new("str_downcase requires StringCol, got #{self.class}")
+      end
+    end
+
+    # Strip whitespace from strings
+    def str_strip : StringCol
+      case col = self
+      when StringCol then col.strip
+      else
+        raise InvalidColumnOperationException.new("str_strip requires StringCol, got #{self.class}")
+      end
+    end
+
+    # Get string lengths
+    def str_len : Int32Col
+      case col = self
+      when StringCol then col.len
+      else
+        raise InvalidColumnOperationException.new("str_len requires StringCol, got #{self.class}")
+      end
+    end
+
+    # Substring extraction
+    def str_slice(start : Int32, length : Int32? = nil) : StringCol
+      case col = self
+      when StringCol then col.slice(start, length)
+      else
+        raise InvalidColumnOperationException.new("str_slice requires StringCol, got #{self.class}")
+      end
+    end
+
+    # =========================================================================
+    # Value inspection convenience methods
+    # =========================================================================
+
+    # Get unique values in the column
+    def unique : Array
+      values.compact.uniq
+    end
+
+    # Count of unique values
+    def nunique : Int32
+      unique.size
+    end
+
+    # Check if values are in a given set
+    def in?(set : Array) : Array(Bool)
+      values.map { |v| v.nil? ? false : set.includes?(v) }
+    end
+
+    # Check if values are in a given set (alias)
+    def is_in(set : Array) : Array(Bool)
+      in?(set)
+    end
+
+    # Check if numeric values are between min and max (inclusive)
+    def between(min_val, max_val) : Array(Bool)
+      case col = self
+      when Float64Col
+        min_f = min_val.to_f64
+        max_f = max_val.to_f64
+        Array(Bool).new(col.values.size) do |i|
+          v = col.unsafe_fetch(i)
+          v.nil? ? false : (v >= min_f && v <= max_f)
+        end
+      when Int32Col
+        min_i = min_val.to_i32
+        max_i = max_val.to_i32
+        Array(Bool).new(col.values.size) do |i|
+          v = col.unsafe_fetch(i)
+          v.nil? ? false : (v >= min_i && v <= max_i)
+        end
+      when Int64Col
+        min_i = min_val.to_i64
+        max_i = max_val.to_i64
+        Array(Bool).new(col.values.size) do |i|
+          v = col.unsafe_fetch(i)
+          v.nil? ? false : (v >= min_i && v <= max_i)
+        end
+      else
+        raise InvalidColumnOperationException.new("between requires numeric column, got #{self.class}")
+      end
+    end
+
+    # Clip values to a range
+    def clip(min_val, max_val) : DataCol
+      case col = self
+      when Float64Col
+        min_f = min_val.to_f64
+        max_f = max_val.to_f64
+        result = Slice(Float64).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v < min_f ? min_f : (v > max_f ? max_f : v)
+        end
+        Float64Col.new(Crysda.temp_colname, result, col.bitmap)
+      when Int32Col
+        min_i = min_val.to_i32
+        max_i = max_val.to_i32
+        result = Slice(Int32).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v < min_i ? min_i : (v > max_i ? max_i : v)
+        end
+        Int32Col.new(Crysda.temp_colname, result, col.bitmap)
+      when Int64Col
+        min_i = min_val.to_i64
+        max_i = max_val.to_i64
+        result = Slice(Int64).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v < min_i ? min_i : (v > max_i ? max_i : v)
+        end
+        Int64Col.new(Crysda.temp_colname, result, col.bitmap)
+      else
+        raise InvalidColumnOperationException.new("clip requires numeric column, got #{self.class}")
+      end
+    end
+
+    # Clip values to minimum
+    def clip_lower(min_val) : DataCol
+      case col = self
+      when Float64Col
+        min_f = min_val.to_f64
+        result = Slice(Float64).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v < min_f ? min_f : v
+        end
+        Float64Col.new(Crysda.temp_colname, result, col.bitmap)
+      when Int32Col
+        min_i = min_val.to_i32
+        result = Slice(Int32).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v < min_i ? min_i : v
+        end
+        Int32Col.new(Crysda.temp_colname, result, col.bitmap)
+      when Int64Col
+        min_i = min_val.to_i64
+        result = Slice(Int64).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v < min_i ? min_i : v
+        end
+        Int64Col.new(Crysda.temp_colname, result, col.bitmap)
+      else
+        raise InvalidColumnOperationException.new("clip_lower requires numeric column, got #{self.class}")
+      end
+    end
+
+    # Clip values to maximum
+    def clip_upper(max_val) : DataCol
+      case col = self
+      when Float64Col
+        max_f = max_val.to_f64
+        result = Slice(Float64).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v > max_f ? max_f : v
+        end
+        Float64Col.new(Crysda.temp_colname, result, col.bitmap)
+      when Int32Col
+        max_i = max_val.to_i32
+        result = Slice(Int32).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v > max_i ? max_i : v
+        end
+        Int32Col.new(Crysda.temp_colname, result, col.bitmap)
+      when Int64Col
+        max_i = max_val.to_i64
+        result = Slice(Int64).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v > max_i ? max_i : v
+        end
+        Int64Col.new(Crysda.temp_colname, result, col.bitmap)
+      else
+        raise InvalidColumnOperationException.new("clip_upper requires numeric column, got #{self.class}")
+      end
+    end
+
+    # Forward fill nulls (propagate last valid value)
+    def ffill : DataCol
+      case col = self
+      when Float64Col
+        result = Slice(Float64).new(col.values.size, 0.0)
+        result_bitmap = NullBitmap.new(col.values.size)
+        last_valid_f64 : Float64? = nil
+        col.values.size.times do |i|
+          if col.bitmap[i]
+            if lv = last_valid_f64
+              result[i] = lv
+            else
+              result_bitmap.set(i)
+            end
+          else
+            last_valid_f64 = col.raw_data.unsafe_fetch(i)
+            result[i] = last_valid_f64.not_nil!
+          end
+        end
+        Float64Col.new(Crysda.temp_colname, result, result_bitmap)
+      when Int32Col
+        result = Slice(Int32).new(col.values.size, 0)
+        result_bitmap = NullBitmap.new(col.values.size)
+        last_valid_i32 : Int32? = nil
+        col.values.size.times do |i|
+          if col.bitmap[i]
+            if lv = last_valid_i32
+              result[i] = lv
+            else
+              result_bitmap.set(i)
+            end
+          else
+            last_valid_i32 = col.raw_data.unsafe_fetch(i)
+            result[i] = last_valid_i32.not_nil!
+          end
+        end
+        Int32Col.new(Crysda.temp_colname, result, result_bitmap)
+      when Int64Col
+        result = Slice(Int64).new(col.values.size, 0_i64)
+        result_bitmap = NullBitmap.new(col.values.size)
+        last_valid_i64 : Int64? = nil
+        col.values.size.times do |i|
+          if col.bitmap[i]
+            if lv = last_valid_i64
+              result[i] = lv
+            else
+              result_bitmap.set(i)
+            end
+          else
+            last_valid_i64 = col.raw_data.unsafe_fetch(i)
+            result[i] = last_valid_i64.not_nil!
+          end
+        end
+        Int64Col.new(Crysda.temp_colname, result, result_bitmap)
+      when StringCol
+        result = Array(String).new(col.values.size, "")
+        result_bitmap = NullBitmap.new(col.values.size)
+        last_valid_str : String? = nil
+        col.values.size.times do |i|
+          if col.bitmap[i]
+            if lv = last_valid_str
+              result[i] = lv
+            else
+              result_bitmap.set(i)
+            end
+          else
+            last_valid_str = col.raw_data.unsafe_fetch(i)
+            result[i] = last_valid_str.not_nil!
+          end
+        end
+        StringCol.new(Crysda.temp_colname, result, result_bitmap)
+      else
+        raise InvalidColumnOperationException.new("ffill not supported for #{self.class}")
+      end
+    end
+
+    # Backward fill nulls (propagate next valid value)
+    def bfill : DataCol
+      case col = self
+      when Float64Col
+        result = Slice(Float64).new(col.values.size, 0.0)
+        result_bitmap = NullBitmap.new(col.values.size)
+        next_valid_f64 : Float64? = nil
+        (col.values.size - 1).downto(0) do |i|
+          if col.bitmap[i]
+            if nv = next_valid_f64
+              result[i] = nv
+            else
+              result_bitmap.set(i)
+            end
+          else
+            next_valid_f64 = col.raw_data.unsafe_fetch(i)
+            result[i] = next_valid_f64.not_nil!
+          end
+        end
+        Float64Col.new(Crysda.temp_colname, result, result_bitmap)
+      when Int32Col
+        result = Slice(Int32).new(col.values.size, 0)
+        result_bitmap = NullBitmap.new(col.values.size)
+        next_valid_i32 : Int32? = nil
+        (col.values.size - 1).downto(0) do |i|
+          if col.bitmap[i]
+            if nv = next_valid_i32
+              result[i] = nv
+            else
+              result_bitmap.set(i)
+            end
+          else
+            next_valid_i32 = col.raw_data.unsafe_fetch(i)
+            result[i] = next_valid_i32.not_nil!
+          end
+        end
+        Int32Col.new(Crysda.temp_colname, result, result_bitmap)
+      when Int64Col
+        result = Slice(Int64).new(col.values.size, 0_i64)
+        result_bitmap = NullBitmap.new(col.values.size)
+        next_valid_i64 : Int64? = nil
+        (col.values.size - 1).downto(0) do |i|
+          if col.bitmap[i]
+            if nv = next_valid_i64
+              result[i] = nv
+            else
+              result_bitmap.set(i)
+            end
+          else
+            next_valid_i64 = col.raw_data.unsafe_fetch(i)
+            result[i] = next_valid_i64.not_nil!
+          end
+        end
+        Int64Col.new(Crysda.temp_colname, result, result_bitmap)
+      when StringCol
+        result = Array(String).new(col.values.size, "")
+        result_bitmap = NullBitmap.new(col.values.size)
+        next_valid_str : String? = nil
+        (col.values.size - 1).downto(0) do |i|
+          if col.bitmap[i]
+            if nv = next_valid_str
+              result[i] = nv
+            else
+              result_bitmap.set(i)
+            end
+          else
+            next_valid_str = col.raw_data.unsafe_fetch(i)
+            result[i] = next_valid_str.not_nil!
+          end
+        end
+        StringCol.new(Crysda.temp_colname, result, result_bitmap)
+      else
+        raise InvalidColumnOperationException.new("bfill not supported for #{self.class}")
+      end
+    end
+
+    # Apply a function to each non-null value
+    def apply(&block : Any -> Any) : DataCol
+      result = values.map { |v| v.nil? ? nil : yield(v) }
+      Utils.handle_union(Crysda.temp_colname, result)
+    end
+
+    # Bin values into discrete intervals (like pandas cut)
+    # bins: Array of bin edges (must be sorted ascending)
+    # labels: Optional labels for each bin (size must be bins.size - 1)
+    # right: If true (default), bins are (left, right], otherwise [left, right)
+    def cut(bins : Array(Number), labels : Array(String)? = nil, right : Bool = true) : StringCol
+      raise InvalidColumnOperationException.new("bins must have at least 2 edges") if bins.size < 2
+      if labels && labels.size != bins.size - 1
+        raise InvalidColumnOperationException.new("labels size (#{labels.size}) must equal bins.size - 1 (#{bins.size - 1})")
+      end
+
+      bin_labels = labels || (0...bins.size - 1).map { |i|
+        right ? "(#{bins[i]}, #{bins[i + 1]}]" : "[#{bins[i]}, #{bins[i + 1]})"
+      }
+
+      result = Array(String?).new(values.size) do |i|
+        v = case col = self
+            when Float64Col then col.unsafe_fetch(i)
+            when Int32Col   then col.unsafe_fetch(i).try(&.to_f64)
+            when Int64Col   then col.unsafe_fetch(i).try(&.to_f64)
+            else                 nil
+            end
+
+        next nil if v.nil?
+        val = v.not_nil!
+
+        # Find the bin
+        bin_idx : Int32? = nil
+        (0...bins.size - 1).each do |j|
+          lower = bins[j].to_f64
+          upper = bins[j + 1].to_f64
+          in_bin = if right
+                     val > lower && val <= upper
+                   else
+                     val >= lower && val < upper
+                   end
+          if in_bin
+            bin_idx = j
+            break
+          end
+        end
+        bin_idx ? bin_labels[bin_idx] : nil
+      end
+
+      StringCol.new(Crysda.temp_colname, result)
+    end
+
+    # Quantile-based binning (like pandas qcut)
+    # q: Number of quantiles (e.g., 4 for quartiles, 10 for deciles)
+    # labels: Optional labels for each bin
+    def qcut(q : Int32, labels : Array(String)? = nil) : StringCol
+      raise InvalidColumnOperationException.new("q must be at least 2") if q < 2
+      if labels && labels.size != q
+        raise InvalidColumnOperationException.new("labels size (#{labels.size}) must equal q (#{q})")
+      end
+
+      # Get non-null values and compute quantiles
+      vals = case col = self
+             when Float64Col then col.values.compact
+             when Int32Col   then col.values.compact.map(&.to_f64)
+             when Int64Col   then col.values.compact.map(&.to_f64)
+             else                 raise InvalidColumnOperationException.new("qcut requires numeric column")
+             end
+
+      return StringCol.new(Crysda.temp_colname, Array(String?).new(values.size, nil)) if vals.empty?
+
+      sorted = vals.sort
+      n = sorted.size
+
+      # Compute bin edges at quantile boundaries
+      bins = Array(Float64).new(q + 1) do |i|
+        if i == 0
+          sorted.first - 0.001 # Slightly below min to include it
+        elsif i == q
+          sorted.last
+        else
+          idx = (n * i / q).to_i
+          idx = n - 1 if idx >= n
+          sorted[idx]
+        end
+      end
+
+      cut(bins, labels, right: true)
+    end
+
+    # Column-level coalesce - return first non-null from self or other
+    def coalesce(other : DataCol) : DataCol
+      result = Array(Any).new(values.size) do |i|
+        v = self[i]
+        v.nil? ? other[i] : v
+      end
+      Utils.handle_union(Crysda.temp_colname, result)
+    end
+
     def as_s
       case self
       when Int32Col, Int64Col, Float64Col, BoolCol, AnyCol
@@ -1051,6 +1541,220 @@ module Crysda
         end
       end
       Math.sqrt(sum_sq / (count - 1))
+    end
+
+    # =========================================================================
+    # Window Functions
+    # =========================================================================
+
+    # Rolling mean (moving average) with specified window size
+    def rolling_mean(window : Int32, min_periods : Int32? = nil) : Float64Col
+      min_p = min_periods || window
+      result = Slice(Float64).new(@data.size, 0.0)
+      result_bitmap = NullBitmap.new(@data.size)
+
+      @data.size.times do |i|
+        if @null_bitmap[i]
+          result_bitmap.set(i)
+          next
+        end
+
+        start_idx = Math.max(0, i - window + 1)
+        sum = 0.0
+        count = 0
+
+        (start_idx..i).each do |j|
+          unless @null_bitmap[j]
+            sum += @data.unsafe_fetch(j)
+            count += 1
+          end
+        end
+
+        if count >= min_p
+          result[i] = sum / count
+        else
+          result_bitmap.set(i)
+        end
+      end
+
+      Float64Col.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    # Rolling sum with specified window size
+    def rolling_sum(window : Int32, min_periods : Int32? = nil) : Float64Col
+      min_p = min_periods || window
+      result = Slice(Float64).new(@data.size, 0.0)
+      result_bitmap = NullBitmap.new(@data.size)
+
+      @data.size.times do |i|
+        if @null_bitmap[i]
+          result_bitmap.set(i)
+          next
+        end
+
+        start_idx = Math.max(0, i - window + 1)
+        sum = 0.0
+        count = 0
+
+        (start_idx..i).each do |j|
+          unless @null_bitmap[j]
+            sum += @data.unsafe_fetch(j)
+            count += 1
+          end
+        end
+
+        if count >= min_p
+          result[i] = sum
+        else
+          result_bitmap.set(i)
+        end
+      end
+
+      Float64Col.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    # Rolling minimum with specified window size
+    def rolling_min(window : Int32, min_periods : Int32? = nil) : Float64Col
+      min_p = min_periods || window
+      result = Slice(Float64).new(@data.size, 0.0)
+      result_bitmap = NullBitmap.new(@data.size)
+
+      @data.size.times do |i|
+        if @null_bitmap[i]
+          result_bitmap.set(i)
+          next
+        end
+
+        start_idx = Math.max(0, i - window + 1)
+        min_val = Float64::MAX
+        count = 0
+
+        (start_idx..i).each do |j|
+          unless @null_bitmap[j]
+            v = @data.unsafe_fetch(j)
+            min_val = v if v < min_val
+            count += 1
+          end
+        end
+
+        if count >= min_p
+          result[i] = min_val
+        else
+          result_bitmap.set(i)
+        end
+      end
+
+      Float64Col.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    # Rolling maximum with specified window size
+    def rolling_max(window : Int32, min_periods : Int32? = nil) : Float64Col
+      min_p = min_periods || window
+      result = Slice(Float64).new(@data.size, 0.0)
+      result_bitmap = NullBitmap.new(@data.size)
+
+      @data.size.times do |i|
+        if @null_bitmap[i]
+          result_bitmap.set(i)
+          next
+        end
+
+        start_idx = Math.max(0, i - window + 1)
+        max_val = -Float64::MAX
+        count = 0
+
+        (start_idx..i).each do |j|
+          unless @null_bitmap[j]
+            v = @data.unsafe_fetch(j)
+            max_val = v if v > max_val
+            count += 1
+          end
+        end
+
+        if count >= min_p
+          result[i] = max_val
+        else
+          result_bitmap.set(i)
+        end
+      end
+
+      Float64Col.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    # Rolling standard deviation with specified window size
+    def rolling_std(window : Int32, min_periods : Int32? = nil) : Float64Col
+      min_p = min_periods || window
+      result = Slice(Float64).new(@data.size, 0.0)
+      result_bitmap = NullBitmap.new(@data.size)
+
+      @data.size.times do |i|
+        if @null_bitmap[i]
+          result_bitmap.set(i)
+          next
+        end
+
+        start_idx = Math.max(0, i - window + 1)
+        values = Array(Float64).new
+        (start_idx..i).each do |j|
+          values << @data.unsafe_fetch(j) unless @null_bitmap[j]
+        end
+
+        if values.size >= min_p && values.size > 1
+          mean = values.sum / values.size
+          sum_sq = values.sum { |v| (v - mean) ** 2 }
+          result[i] = Math.sqrt(sum_sq / (values.size - 1))
+        else
+          result_bitmap.set(i)
+        end
+      end
+
+      Float64Col.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    # Exponential weighted moving average
+    def ewm_mean(span : Int32) : Float64Col
+      alpha = 2.0 / (span + 1)
+      result = Slice(Float64).new(@data.size, 0.0)
+      result_bitmap = NullBitmap.new(@data.size)
+
+      ewm = 0.0
+      initialized = false
+
+      @data.size.times do |i|
+        if @null_bitmap[i]
+          result_bitmap.set(i)
+        elsif !initialized
+          ewm = @data.unsafe_fetch(i)
+          result[i] = ewm
+          initialized = true
+        else
+          ewm = alpha * @data.unsafe_fetch(i) + (1 - alpha) * ewm
+          result[i] = ewm
+        end
+      end
+
+      Float64Col.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    # Difference between current and previous value
+    def diff(periods : Int32 = 1) : Float64Col
+      result = Slice(Float64).new(@data.size, 0.0)
+      result_bitmap = NullBitmap.new(@data.size)
+
+      @data.size.times do |i|
+        if i < periods || @null_bitmap[i]
+          result_bitmap.set(i)
+        else
+          prev_idx = i - periods
+          if @null_bitmap[prev_idx]
+            result_bitmap.set(i)
+          else
+            result[i] = @data.unsafe_fetch(i) - @data.unsafe_fetch(prev_idx)
+          end
+        end
+      end
+
+      Float64Col.new(Crysda.temp_colname, result, result_bitmap)
     end
   end
 
@@ -1466,6 +2170,59 @@ module Crysda
       end
       Math.sqrt(sum_sq / (count - 1))
     end
+
+    # =========================================================================
+    # Window Functions (delegate to Float64 for precision)
+    # =========================================================================
+
+    def rolling_mean(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_mean(window, min_periods)
+    end
+
+    def rolling_sum(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_sum(window, min_periods)
+    end
+
+    def rolling_min(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_min(window, min_periods)
+    end
+
+    def rolling_max(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_max(window, min_periods)
+    end
+
+    def rolling_std(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_std(window, min_periods)
+    end
+
+    def ewm_mean(span : Int32) : Float64Col
+      to_f64_col.ewm_mean(span)
+    end
+
+    def diff(periods : Int32 = 1) : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      result_bitmap = NullBitmap.new(@data.size)
+
+      @data.size.times do |i|
+        if i < periods || @null_bitmap[i]
+          result_bitmap.set(i)
+        else
+          prev_idx = i - periods
+          if @null_bitmap[prev_idx]
+            result_bitmap.set(i)
+          else
+            result[i] = @data.unsafe_fetch(i) - @data.unsafe_fetch(prev_idx)
+          end
+        end
+      end
+
+      Int32Col.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    private def to_f64_col : Float64Col
+      data = Slice(Float64).new(@data.size) { |i| @data.unsafe_fetch(i).to_f64 }
+      Float64Col.new(@name, data, @null_bitmap)
+    end
   end
 
   # ===========================================================================
@@ -1872,6 +2629,59 @@ module Crysda
       end
       Math.sqrt(sum_sq / (count - 1))
     end
+
+    # =========================================================================
+    # Window Functions (delegate to Float64 for precision)
+    # =========================================================================
+
+    def rolling_mean(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_mean(window, min_periods)
+    end
+
+    def rolling_sum(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_sum(window, min_periods)
+    end
+
+    def rolling_min(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_min(window, min_periods)
+    end
+
+    def rolling_max(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_max(window, min_periods)
+    end
+
+    def rolling_std(window : Int32, min_periods : Int32? = nil) : Float64Col
+      to_f64_col.rolling_std(window, min_periods)
+    end
+
+    def ewm_mean(span : Int32) : Float64Col
+      to_f64_col.ewm_mean(span)
+    end
+
+    def diff(periods : Int32 = 1) : Int64Col
+      result = Slice(Int64).new(@data.size, 0_i64)
+      result_bitmap = NullBitmap.new(@data.size)
+
+      @data.size.times do |i|
+        if i < periods || @null_bitmap[i]
+          result_bitmap.set(i)
+        else
+          prev_idx = i - periods
+          if @null_bitmap[prev_idx]
+            result_bitmap.set(i)
+          else
+            result[i] = @data.unsafe_fetch(i) - @data.unsafe_fetch(prev_idx)
+          end
+        end
+      end
+
+      Int64Col.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    private def to_f64_col : Float64Col
+      data = Slice(Float64).new(@data.size) { |i| @data.unsafe_fetch(i).to_f64 }
+      Float64Col.new(@name, data, @null_bitmap)
+    end
   end
 
   # ===========================================================================
@@ -2094,6 +2904,195 @@ module Crysda
     protected def na_aware_plus(first : String?, second : String?)
       (first.nil? || second.nil?) ? nil : first.not_nil! + second.not_nil!
     end
+
+    # =========================================================================
+    # String Operations
+    # =========================================================================
+
+    # Check if strings contain a pattern (string or regex)
+    def contains(pattern : String, case_sensitive : Bool = true) : Array(Bool)
+      pat = case_sensitive ? pattern : pattern.downcase
+      Array(Bool).new(@data.size) do |i|
+        if @null_bitmap[i]
+          false
+        else
+          str = case_sensitive ? @data.unsafe_fetch(i) : @data.unsafe_fetch(i).downcase
+          str.includes?(pat)
+        end
+      end
+    end
+
+    # Check if strings contain a regex pattern
+    def contains(pattern : Regex) : Array(Bool)
+      Array(Bool).new(@data.size) do |i|
+        @null_bitmap[i] ? false : pattern.matches?(@data.unsafe_fetch(i))
+      end
+    end
+
+    # Check if strings start with prefix
+    def starts_with(prefix : String, case_sensitive : Bool = true) : Array(Bool)
+      pat = case_sensitive ? prefix : prefix.downcase
+      Array(Bool).new(@data.size) do |i|
+        if @null_bitmap[i]
+          false
+        else
+          str = case_sensitive ? @data.unsafe_fetch(i) : @data.unsafe_fetch(i).downcase
+          str.starts_with?(pat)
+        end
+      end
+    end
+
+    # Check if strings end with suffix
+    def ends_with(suffix : String, case_sensitive : Bool = true) : Array(Bool)
+      pat = case_sensitive ? suffix : suffix.downcase
+      Array(Bool).new(@data.size) do |i|
+        if @null_bitmap[i]
+          false
+        else
+          str = case_sensitive ? @data.unsafe_fetch(i) : @data.unsafe_fetch(i).downcase
+          str.ends_with?(pat)
+        end
+      end
+    end
+
+    # Extract first match of regex pattern, returns StringCol
+    # If regex has capture groups, returns the first capture group
+    def extract(pattern : Regex) : StringCol
+      result = Array(String).new(@data.size, "")
+      bitmap = NullBitmap.new(@data.size)
+
+      @data.size.times do |i|
+        if @null_bitmap[i]
+          bitmap.set(i)
+        else
+          match = pattern.match(@data.unsafe_fetch(i))
+          if match
+            # If there are capture groups, return first group, otherwise full match
+            result[i] = match[1]? || match[0]
+          else
+            bitmap.set(i)
+          end
+        end
+      end
+      StringCol.new(Crysda.temp_colname, result, bitmap)
+    end
+
+    # Replace pattern with replacement string
+    def replace(pattern : String, replacement : String) : StringCol
+      result = Array(String).new(@data.size) do |i|
+        @null_bitmap[i] ? "" : @data.unsafe_fetch(i).gsub(pattern, replacement)
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Replace regex pattern with replacement string
+    def replace(pattern : Regex, replacement : String) : StringCol
+      result = Array(String).new(@data.size) do |i|
+        @null_bitmap[i] ? "" : @data.unsafe_fetch(i).gsub(pattern, replacement)
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Convert to uppercase
+    def upcase : StringCol
+      result = Array(String).new(@data.size) do |i|
+        @null_bitmap[i] ? "" : @data.unsafe_fetch(i).upcase
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Convert to lowercase
+    def downcase : StringCol
+      result = Array(String).new(@data.size) do |i|
+        @null_bitmap[i] ? "" : @data.unsafe_fetch(i).downcase
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Strip whitespace from both ends
+    def strip : StringCol
+      result = Array(String).new(@data.size) do |i|
+        @null_bitmap[i] ? "" : @data.unsafe_fetch(i).strip
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Strip whitespace from left
+    def lstrip : StringCol
+      result = Array(String).new(@data.size) do |i|
+        @null_bitmap[i] ? "" : @data.unsafe_fetch(i).lstrip
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Strip whitespace from right
+    def rstrip : StringCol
+      result = Array(String).new(@data.size) do |i|
+        @null_bitmap[i] ? "" : @data.unsafe_fetch(i).rstrip
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Get string length
+    def len : Int32Col
+      result = Slice(Int32).new(@data.size) do |i|
+        @null_bitmap[i] ? 0 : @data.unsafe_fetch(i).size
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Substring extraction
+    def slice(start : Int32, length : Int32? = nil) : StringCol
+      result = Array(String).new(@data.size) do |i|
+        if @null_bitmap[i]
+          ""
+        else
+          str = @data.unsafe_fetch(i)
+          if len = length
+            str[start, len]? || ""
+          else
+            str[start..]? || ""
+          end
+        end
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Pad string to specified width (left pad)
+    def pad_left(width : Int32, pad_char : Char = ' ') : StringCol
+      result = Array(String).new(@data.size) do |i|
+        @null_bitmap[i] ? "" : @data.unsafe_fetch(i).rjust(width, pad_char)
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Pad string to specified width (right pad)
+    def pad_right(width : Int32, pad_char : Char = ' ') : StringCol
+      result = Array(String).new(@data.size) do |i|
+        @null_bitmap[i] ? "" : @data.unsafe_fetch(i).ljust(width, pad_char)
+      end
+      StringCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Check if strings match regex exactly
+    def matches(pattern : Regex) : Array(Bool)
+      Array(Bool).new(@data.size) do |i|
+        if @null_bitmap[i]
+          false
+        else
+          match = pattern.match(@data.unsafe_fetch(i))
+          match ? match[0] == @data.unsafe_fetch(i) : false
+        end
+      end
+    end
+
+    # Count occurrences of pattern in each string
+    def count(pattern : String) : Int32Col
+      result = Slice(Int32).new(@data.size) do |i|
+        @null_bitmap[i] ? 0 : @data.unsafe_fetch(i).count(pattern)
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
   end
 
   # ===========================================================================
@@ -2183,6 +3182,295 @@ module Crysda
       else
         (a != b) ? a ? -1 : 1 : 0
       end
+    end
+  end
+
+  # ===========================================================================
+  # DateTime Column - stores Time values with optimized internal storage
+  # ===========================================================================
+  struct DateTimeCol < DataCol
+    @data : Slice(Int64) # Unix epoch seconds
+    @null_bitmap : NullBitmap
+    @cached_values : Array(Time?)?
+
+    # Common date/time formats for parsing
+    DATETIME_FORMATS = [
+      "%Y-%m-%d %H:%M:%S",
+      "%Y-%m-%dT%H:%M:%S",
+      "%Y-%m-%dT%H:%M:%SZ",
+      "%Y-%m-%d %H:%M",
+      "%Y-%m-%d",
+      "%d/%m/%Y %H:%M:%S",
+      "%d/%m/%Y",
+      "%m/%d/%Y %H:%M:%S",
+      "%m/%d/%Y",
+      "%Y%m%d",
+    ]
+
+    def initialize(@name : String, val : Array(Time?))
+      super(@name)
+      @data = Slice(Int64).new(val.size, 0_i64)
+      @null_bitmap = NullBitmap.new(val.size)
+      val.each_with_index do |v, i|
+        if v.nil?
+          @null_bitmap.set(i)
+        else
+          @data[i] = v.to_unix
+        end
+      end
+      @cached_values = nil
+    end
+
+    protected def initialize(@name : String, @data : Slice(Int64), @null_bitmap : NullBitmap)
+      super(@name)
+      @cached_values = nil
+    end
+
+    # Create from array of epoch seconds
+    def self.from_epoch(name : String, epochs : Array(Int64?)) : DateTimeCol
+      data = Slice(Int64).new(epochs.size, 0_i64)
+      bitmap = NullBitmap.new(epochs.size)
+      epochs.each_with_index do |v, i|
+        if v.nil?
+          bitmap.set(i)
+        else
+          data[i] = v
+        end
+      end
+      new(name, data, bitmap)
+    end
+
+    # Parse strings to DateTime using common formats
+    def self.parse(name : String, strings : Array(String?), format : String? = nil) : DateTimeCol
+      data = Slice(Int64).new(strings.size, 0_i64)
+      bitmap = NullBitmap.new(strings.size)
+
+      strings.each_with_index do |s, i|
+        if s.nil? || s.empty?
+          bitmap.set(i)
+        else
+          time = parse_datetime(s, format)
+          if time.nil?
+            bitmap.set(i)
+          else
+            data[i] = time.to_unix
+          end
+        end
+      end
+      new(name, data, bitmap)
+    end
+
+    # Try parsing with specified format or auto-detect
+    protected def self.parse_datetime(s : String, format : String? = nil) : Time?
+      if fmt = format
+        Time.parse(s, fmt, Time::Location::UTC) rescue nil
+      else
+        DATETIME_FORMATS.each do |fmt|
+          begin
+            return Time.parse(s, fmt, Time::Location::UTC)
+          rescue
+            next
+          end
+        end
+        nil
+      end
+    end
+
+    @[AlwaysInline]
+    def has_nulls? : Bool
+      @null_bitmap.any?
+    end
+
+    def values : Array(Time?)
+      @cached_values ||= Array(Time?).new(@data.size) do |i|
+        @null_bitmap[i] ? nil : Time.unix(@data.unsafe_fetch(i))
+      end
+    end
+
+    # Lazy iteration
+    def each(&) : Nil
+      @data.size.times do |i|
+        yield @null_bitmap[i] ? nil : Time.unix(@data.unsafe_fetch(i))
+      end
+    end
+
+    def each_with_index(&) : Nil
+      @data.size.times do |i|
+        yield (@null_bitmap[i] ? nil : Time.unix(@data.unsafe_fetch(i))), i
+      end
+    end
+
+    def each_non_null(&) : Nil
+      unless has_nulls?
+        @data.each { |v| yield Time.unix(v) }
+        return
+      end
+      @data.size.times do |i|
+        yield Time.unix(@data.unsafe_fetch(i)) unless @null_bitmap[i]
+      end
+    end
+
+    @[AlwaysInline]
+    def unsafe_fetch(index : Int32) : Time?
+      @null_bitmap[index] ? nil : Time.unix(@data.unsafe_fetch(index))
+    end
+
+    protected def raw_data : Slice(Int64)
+      @data
+    end
+
+    protected def bitmap : NullBitmap
+      @null_bitmap
+    end
+
+    def compare(left : Int32, right : Int32, null_last = true) : Int32
+      a_null = @null_bitmap[left]
+      b_null = @null_bitmap[right]
+      a = a_null ? nil : @data.unsafe_fetch(left)
+      b = b_null ? nil : @data.unsafe_fetch(right)
+      case
+      when a == b then 0
+      when a.nil? then null_last ? 1 : -1
+      when b.nil? then null_last ? -1 : 1
+      else
+        a.not_nil! <=> b.not_nil!
+      end
+    end
+
+    # Comparison operators
+    {% for op in %w(> >= < <= ==) %}
+    def {{op.id}}(val : Time)
+      epoch = val.to_unix
+      unless has_nulls?
+        return Array(Bool).new(@data.size) { |i| @data.unsafe_fetch(i) {{op.id}} epoch }
+      end
+      Array(Bool).new(@data.size) { |i| !@null_bitmap[i] && @data.unsafe_fetch(i) {{op.id}} epoch }
+    end
+    {% end %}
+
+    # Extract year component
+    def year : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix(@data.unsafe_fetch(i)).year unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Extract month component (1-12)
+    def month : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix(@data.unsafe_fetch(i)).month unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Extract day component (1-31)
+    def day : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix(@data.unsafe_fetch(i)).day unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Extract hour component (0-23)
+    def hour : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix(@data.unsafe_fetch(i)).hour unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Extract minute component (0-59)
+    def minute : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix(@data.unsafe_fetch(i)).minute unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Extract second component (0-59)
+    def second : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix(@data.unsafe_fetch(i)).second unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Extract day of week (0=Sunday, 6=Saturday)
+    def day_of_week : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix(@data.unsafe_fetch(i)).day_of_week.value unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Extract day of year (1-366)
+    def day_of_year : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix(@data.unsafe_fetch(i)).day_of_year unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Get min datetime
+    def min(remove_na = false) : Time
+      unless has_nulls?
+        result = @data[0]
+        @data.each { |v| result = v if v < result }
+        return Time.unix(result)
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      result = Int64::MAX
+      found = false
+      @data.size.times do |i|
+        unless @null_bitmap[i]
+          v = @data.unsafe_fetch(i)
+          if !found || v < result
+            result = v
+            found = true
+          end
+        end
+      end
+      Time.unix(result)
+    end
+
+    # Get max datetime
+    def max(remove_na = false) : Time
+      unless has_nulls?
+        result = @data[0]
+        @data.each { |v| result = v if v > result }
+        return Time.unix(result)
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      result = Int64::MIN
+      found = false
+      @data.size.times do |i|
+        unless @null_bitmap[i]
+          v = @data.unsafe_fetch(i)
+          if !found || v > result
+            result = v
+            found = true
+          end
+        end
+      end
+      Time.unix(result)
+    end
+
+    # Format as strings
+    def strftime(format : String) : StringCol
+      data = Array(String).new(@data.size, "")
+      @data.size.times do |i|
+        data[i] = Time.unix(@data.unsafe_fetch(i)).to_s(format) unless @null_bitmap[i]
+      end
+      StringCol.new(Crysda.temp_colname, data, @null_bitmap)
     end
   end
 end

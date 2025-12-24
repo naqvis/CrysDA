@@ -719,6 +719,228 @@ module Crysda
         .try { |c| ColumnSelector.new { |_| c } }
     end
 
+    # ==========================================================================
+    # Missing Data Operations
+    # ==========================================================================
+
+    # Drop rows containing any null values
+    # If columns are specified, only check those columns for nulls
+    def dropna(columns : Array(String)? = nil) : DataFrame
+      check_cols = columns || names
+      filter do |_|
+        # Build array of booleans - true if row has no nulls in checked columns
+        result = Array(Bool).new(num_row, true)
+        check_cols.each do |col_name|
+          col = self[col_name]
+          col.values.each_with_index do |v, i|
+            result[i] = false if v.nil?
+          end
+        end
+        result
+      end
+    end
+
+    # Drop rows containing any null values in specified columns
+    def dropna(*columns : String) : DataFrame
+      dropna(columns.to_a)
+    end
+
+    # Fill null values in all columns with a default value
+    # Returns a new DataFrame with nulls replaced
+    def fillna(value) : DataFrame
+      new_cols = cols.map do |col|
+        fill_column_na(col, value)
+      end
+      Crysda.dataframe_of(new_cols)
+    end
+
+    # Fill null values in specific columns
+    def fillna(columns : Array(String), value) : DataFrame
+      new_cols = cols.map do |col|
+        if columns.includes?(col.name)
+          fill_column_na(col, value)
+        else
+          col
+        end
+      end
+      Crysda.dataframe_of(new_cols)
+    end
+
+    # Fill null values in specific columns using a hash of column => value
+    def fillna(values : Hash(String, _)) : DataFrame
+      new_cols = cols.map do |col|
+        if fill_val = values[col.name]?
+          fill_column_na(col, fill_val)
+        else
+          col
+        end
+      end
+      Crysda.dataframe_of(new_cols)
+    end
+
+    private def fill_column_na(col : DataCol, value) : DataCol
+      case c = col
+      when Float64Col
+        fill_val = value.is_a?(Number) ? value.to_f64 : 0.0
+        Float64Col.new(c.name, c.values.map { |v| v.nil? ? fill_val : v })
+      when Int32Col
+        fill_val = value.is_a?(Number) ? value.to_i32 : 0
+        Int32Col.new(c.name, c.values.map { |v| v.nil? ? fill_val : v })
+      when Int64Col
+        fill_val = value.is_a?(Number) ? value.to_i64 : 0_i64
+        Int64Col.new(c.name, c.values.map { |v| v.nil? ? fill_val : v })
+      when StringCol
+        fill_val = value.to_s
+        StringCol.new(c.name, c.values.map { |v| v.nil? ? fill_val : v })
+      when BoolCol
+        fill_val = value.is_a?(Bool) ? value : false
+        BoolCol.new(c.name, c.values.map { |v| v.nil? ? fill_val : v })
+      when DateTimeCol
+        fill_val = value.is_a?(Time) ? value : Time.utc
+        DateTimeCol.new(c.name, c.values.map { |v| v.nil? ? fill_val : v })
+      else
+        col # Return unchanged for unsupported types
+      end
+    end
+
+    # ==========================================================================
+    # Sampling & Exploration
+    # ==========================================================================
+
+    # Random sample of rows
+    def sample(n : Int32, seed : Int32? = nil) : DataFrame
+      return self if n >= num_row
+      rng = seed ? Random.new(seed) : Random::DEFAULT
+      indices = (0...num_row).to_a.sample(n, rng)
+      filter { |_| Array(Bool).new(num_row) { |i| indices.includes?(i) } }
+    end
+
+    # Random sample by fraction
+    def sample(frac : Float64, seed : Int32? = nil) : DataFrame
+      n = (num_row * frac).to_i
+      sample(n, seed)
+    end
+
+    # Value counts for a column - returns DataFrame with value and count
+    def value_counts(column : String) : DataFrame
+      count(column).sort_desc_by("n")
+    end
+
+    # Describe numeric columns with summary statistics
+    def describe : DataFrame
+      numeric_cols = cols.select { |c| c.is_a?(Float64Col) || c.is_a?(Int32Col) || c.is_a?(Int64Col) }
+      return DataFrame.empty if numeric_cols.empty?
+
+      stats = ["count", "mean", "std", "min", "25%", "50%", "75%", "max"]
+      result_data = Hash(String, Array(Float64?)).new
+
+      result_data["statistic"] = [] of Float64? # placeholder, will be replaced
+
+      numeric_cols.each do |col|
+        vals = case c = col
+               when Float64Col then c.values.compact
+               when Int32Col   then c.values.compact.map(&.to_f64)
+               when Int64Col   then c.values.compact.map(&.to_f64)
+               else                 [] of Float64
+               end
+
+        sorted = vals.sort
+        n = vals.size
+
+        col_stats = Array(Float64?).new
+        col_stats << n.to_f64                     # count
+        col_stats << (n > 0 ? vals.sum / n : nil) # mean
+        if n > 1
+          mean = vals.sum / n
+          variance = vals.sum { |v| (v - mean) ** 2 } / (n - 1)
+          col_stats << Math.sqrt(variance) # std
+        else
+          col_stats << nil
+        end
+        col_stats << (n > 0 ? sorted.first : nil) # min
+        col_stats << percentile(sorted, 0.25)     # 25%
+        col_stats << percentile(sorted, 0.50)     # 50%
+        col_stats << percentile(sorted, 0.75)     # 75%
+        col_stats << (n > 0 ? sorted.last : nil)  # max
+
+        result_data[col.name] = col_stats
+      end
+
+      # Build DataFrame
+      stat_col = StringCol.new("statistic", stats.map { |s| s.as(String?) })
+      data_cols = [stat_col.as(DataCol)] + numeric_cols.map do |col|
+        Float64Col.new(col.name, result_data[col.name]).as(DataCol)
+      end
+      Crysda.dataframe_of(data_cols)
+    end
+
+    private def percentile(sorted : Array(Float64), p : Float64) : Float64?
+      return nil if sorted.empty?
+      return sorted.first if sorted.size == 1
+      k = (sorted.size - 1) * p
+      f = k.floor.to_i
+      c = k.ceil.to_i
+      if f == c
+        sorted[f]
+      else
+        sorted[f] * (c - k) + sorted[c] * (k - f)
+      end
+    end
+
+    # Get first non-null value from multiple columns (coalesce)
+    def coalesce(*columns : String) : DataCol
+      cols_to_check = columns.map { |c| self[c] }
+      result = Array(Any | DataFrame).new(num_row) { nil }
+
+      num_row.times do |i|
+        cols_to_check.each do |col|
+          val = col.values[i]
+          unless val.nil?
+            result[i] = val
+            break
+          end
+        end
+      end
+
+      Utils.handle_union(Crysda.temp_colname, result)
+    end
+
+    # Shuffle rows randomly
+    def shuffle(seed : Int32? = nil) : DataFrame
+      rng = seed ? Random.new(seed) : Random::DEFAULT
+      indices = (0...num_row).to_a.shuffle(rng)
+      # Use sort_by with the shuffled indices
+      add_column("_shuffle_idx_") { |_| indices }
+        .sort_by("_shuffle_idx_")
+        .reject("_shuffle_idx_")
+    end
+
+    # Get duplicate rows
+    def duplicated(*columns : String) : Array(Bool)
+      check_cols = columns.empty? ? names : columns.to_a
+      seen = Set(Int64).new
+      hasher = HashBuilder.new
+
+      Array(Bool).new(num_row) do |i|
+        hash = 17_i64
+        check_cols.each do |col_name|
+          hash = hasher.hashcode(AnyVal[self[col_name][i]])
+        end
+        if seen.includes?(hash)
+          true
+        else
+          seen.add(hash)
+          false
+        end
+      end
+    end
+
+    # Drop duplicate rows
+    def drop_duplicates(*columns : String) : DataFrame
+      dups = duplicated(*columns)
+      filter { |_| dups.map { |d| !d } }
+    end
+
     private def col_select_as_names(selector : ColumnSelector)
       validate_column_selector(selector)
       which = selector.call(ColNames.new(names))
@@ -748,6 +970,64 @@ module Crysda
       else
         raise CrysdaException.new("Unknown type #{typeof(self)}")
       end
+    end
+
+    # Apply a function to each row, returning a new DataFrame with the result column added
+    # The block receives a DataFrameRow and should return a scalar value
+    # ```
+    # df.apply_rows("total") { |row| row["price"].as_f * row["qty"].as_i }
+    # df.apply_rows("full_name") { |row| "#{row["first"].as_s} #{row["last"].as_s}" }
+    # ```
+    def apply_rows(col_name : String, &row_func : (DataFrameRow) -> Any) : DataFrame
+      results = Array(Any).new.tap do |arr|
+        rows.each { |row| arr << row_func.call(row) }
+      end
+      new_col = Utils.handle_union(col_name, results)
+      SimpleDataFrame.new(cols + [new_col])
+    end
+
+    # Pivot table - reshape data by aggregating values
+    # index: Column(s) to use as row index
+    # columns: Column to pivot into new columns
+    # values: Column containing values to aggregate
+    # aggfunc: Aggregation function ("sum", "mean", "count", "min", "max")
+    # ```
+    # df.pivot_table("region", "product", "sales", "sum")
+    # ```
+    def pivot_table(index : String | Array(String), columns : String, values : String, aggfunc : String = "mean") : DataFrame
+      idx_cols = index.is_a?(String) ? [index] : index
+
+      # Group by index columns and pivot column, then aggregate
+      grouped = group_by(idx_cols + [columns])
+
+      aggregated = case aggfunc.downcase
+                   when "sum"   then grouped.summarize("_value_") { |e| e[values].sum(true) }
+                   when "mean"  then grouped.summarize("_value_") { |e| e[values].mean(true) }
+                   when "count" then grouped.summarize("_value_") { |e| e.df.num_row }
+                   when "min"   then grouped.summarize("_value_") { |e| e[values].min(true) }
+                   when "max"   then grouped.summarize("_value_") { |e| e[values].max(true) }
+                   else              raise CrysdaException.new("Unknown aggfunc: #{aggfunc}")
+                   end
+
+      # Spread the pivot column
+      aggregated.spread(columns, "_value_")
+    end
+  end
+
+  # Concatenate multiple DataFrames
+  # axis: 0 for vertical (row-wise), 1 for horizontal (column-wise)
+  def self.concat(dfs : Array(DataFrame), axis : Int32 = 0) : DataFrame
+    raise CrysdaException.new("Cannot concat empty array") if dfs.empty?
+    return dfs.first if dfs.size == 1
+
+    if axis == 0
+      # Vertical concatenation (bind_rows)
+      DataFrame.bind_rows(dfs)
+    else
+      # Horizontal concatenation (bind_cols)
+      raise CrysdaException.new("All DataFrames must have same number of rows for axis=1") unless dfs.map(&.num_row).uniq.size == 1
+      result_cols = dfs.flat_map(&.cols)
+      SimpleDataFrame.new(result_cols)
     end
   end
 
