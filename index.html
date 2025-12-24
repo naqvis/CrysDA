@@ -147,6 +147,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/DateTimeCol" data-name="crysda::datetimecol">
+      <a href="Crysda/DateTimeCol.html">DateTimeCol</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/DFCol" data-name="crysda::dfcol">
       <a href="Crysda/DFCol.html">DFCol</a>
       
@@ -352,8 +357,90 @@ flights
 <li>Numeric: <code>Int32Col</code>, <code>Int64Col</code>, <code>Float64Col</code></li>
 <li>Text: <code>StringCol</code> with automatic interning for categorical data</li>
 <li>Boolean: <code>BoolCol</code></li>
+<li>DateTime: <code>DateTimeCol</code> with component extraction and formatting</li>
 <li>Nested: <code>DFCol</code> for hierarchical data</li>
 </ul>
+<h3><a id="missing-data" class="anchor" href="#missing-data">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Missing Data</h3>
+<pre><code class="language-crystal">df.dropna                      <span class="c"># Remove rows with any nulls</span>
+df.dropna(<span class="s">&quot;col1&quot;</span>, <span class="s">&quot;col2&quot;</span>)      <span class="c"># Check only specific columns</span>
+df.fillna(<span class="n">0</span>)                   <span class="c"># Fill all nulls with value</span>
+df.fillna({<span class="s">&quot;age&quot;</span> <span class="o">=&gt;</span> <span class="n">0</span>, <span class="s">&quot;name&quot;</span> <span class="o">=&gt;</span> <span class="s">&quot;Unknown&quot;</span>})  <span class="c"># Column-specific fills</span></code></pre>
+<h3><a id="string-operations" class="anchor" href="#string-operations">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>String Operations</h3>
+<pre><code class="language-crystal"># No casting needed - use str_ prefix methods
+df[&quot;name&quot;].str_contains(&quot;john&quot;)        # Check substring
+df[&quot;name&quot;].str_contains(/\d+/)         # Regex match
+df[&quot;name&quot;].str_starts_with(&quot;Dr.&quot;)      # Prefix check
+df[&quot;name&quot;].str_ends_with(&quot;Jr.&quot;)        # Suffix check
+df[&quot;name&quot;].str_extract(/(\d+)/)        # Extract regex groups
+df[&quot;name&quot;].str_replace(&quot;old&quot;, &quot;new&quot;)   # Substitute patterns
+df[&quot;name&quot;].str_upcase                  # Convert to uppercase
+df[&quot;name&quot;].str_downcase                # Convert to lowercase
+df[&quot;name&quot;].str_strip                   # Trim whitespace
+df[&quot;name&quot;].str_len                     # String lengths
+
+# Use in filters
+df.filter { |e| e[&quot;email&quot;].str_contains(&quot;@gmail.com&quot;) }
+
+# Or use the block-based matching for simple cases
+df.filter { |e| e[&quot;name&quot;].matching { |s| s.starts_with?(&quot;A&quot;) } }</code></pre>
+<h3><a id="window-functions" class="anchor" href="#window-functions">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Window Functions</h3>
+<pre><code class="language-crystal">col <span class="o">=</span> df[<span class="s">&quot;price&quot;</span>].<span class="k">as</span>(<span class="t">Float64Col</span>)
+col.rolling_mean(<span class="n">3</span>)            <span class="c"># 3-period moving average</span>
+col.rolling_sum(<span class="n">5</span>)             <span class="c"># 5-period moving sum</span>
+col.rolling_min(<span class="n">3</span>)             <span class="c"># Moving minimum</span>
+col.rolling_max(<span class="n">3</span>)             <span class="c"># Moving maximum</span>
+col.rolling_std(<span class="n">3</span>)             <span class="c"># Moving standard deviation</span>
+col.ewm_mean(<span class="n">10</span>)               <span class="c"># Exponential weighted moving average</span>
+col.diff                       <span class="c"># Difference from previous value</span></code></pre>
+<h3><a id="convenience-ap-is" class="anchor" href="#convenience-ap-is">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Convenience APIs</h3>
+<p>Column operations:</p>
+<pre><code class="language-crystal">df[<span class="s">&quot;age&quot;</span>].unique                   <span class="c"># Distinct non-null values</span>
+df[<span class="s">&quot;age&quot;</span>].nunique                  <span class="c"># Count of unique values</span>
+df[<span class="s">&quot;age&quot;</span>].in?([<span class="n">25</span>, <span class="n">30</span>, <span class="n">35</span>])        <span class="c"># Membership check</span>
+df[<span class="s">&quot;age&quot;</span>].between(<span class="n">20</span>, <span class="n">40</span>)          <span class="c"># Range check (inclusive)</span>
+df[<span class="s">&quot;score&quot;</span>].clip(<span class="n">0</span>, <span class="n">100</span>)           <span class="c"># Clamp to range</span>
+df[<span class="s">&quot;value&quot;</span>].ffill                  <span class="c"># Forward fill nulls</span>
+df[<span class="s">&quot;value&quot;</span>].bfill                  <span class="c"># Backward fill nulls</span>
+df[<span class="s">&quot;price&quot;</span>].apply { <span class="o">|</span>v<span class="o">|</span> v.<span class="k">as</span>(<span class="t">Float64</span>) <span class="o">*</span> <span class="n">2</span> }  <span class="c"># Transform values</span>
+df[<span class="s">&quot;col1&quot;</span>].coalesce(df[<span class="s">&quot;col2&quot;</span>])    <span class="c"># First non-null from two columns</span>
+
+<span class="c"># Binning/Discretization</span>
+df[<span class="s">&quot;age&quot;</span>].cut([<span class="n">0</span>, <span class="n">18</span>, <span class="n">35</span>, <span class="n">65</span>, <span class="n">100</span>], labels: [<span class="s">&quot;child&quot;</span>, <span class="s">&quot;young&quot;</span>, <span class="s">&quot;adult&quot;</span>, <span class="s">&quot;senior&quot;</span>])
+df[<span class="s">&quot;score&quot;</span>].qcut(<span class="n">4</span>)                <span class="c"># Quartile-based binning</span>
+df[<span class="s">&quot;score&quot;</span>].qcut(<span class="n">4</span>, labels: [<span class="s">&quot;Q1&quot;</span>, <span class="s">&quot;Q2&quot;</span>, <span class="s">&quot;Q3&quot;</span>, <span class="s">&quot;Q4&quot;</span>])</code></pre>
+<p>DataFrame operations:</p>
+<pre><code class="language-crystal">df.sample(<span class="n">10</span>)                      <span class="c"># Random n rows</span>
+df.sample(<span class="n">0.1</span>)                     <span class="c"># Random fraction</span>
+df.shuffle                         <span class="c"># Randomize order</span>
+df.value_counts(<span class="s">&quot;category&quot;</span>)        <span class="c"># Count occurrences</span>
+df.describe                        <span class="c"># Summary statistics</span>
+df.coalesce(<span class="s">&quot;a&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span>)         <span class="c"># First non-null across columns</span>
+df.duplicated(<span class="s">&quot;id&quot;</span>)                <span class="c"># Find duplicates</span>
+df.drop_duplicates(<span class="s">&quot;id&quot;</span>)           <span class="c"># Remove duplicates</span>
+<span class="t">Crysda</span>.concat([df1, df2])          <span class="c"># Vertical stack</span>
+<span class="t">Crysda</span>.concat([df1, df2], axis: <span class="n">1</span>) <span class="c"># Horizontal stack</span>
+
+<span class="c"># Row-wise operations</span>
+df.apply_rows(<span class="s">&quot;total&quot;</span>) { <span class="o">|</span>row<span class="o">|</span> row[<span class="s">&quot;price&quot;</span>].as_f <span class="o">*</span> row[<span class="s">&quot;qty&quot;</span>].as_i }
+
+<span class="c"># Pivot tables</span>
+df.pivot_table(<span class="s">&quot;region&quot;</span>, <span class="s">&quot;product&quot;</span>, <span class="s">&quot;sales&quot;</span>, <span class="s">&quot;sum&quot;</span>)</code></pre>
 <h3><a id="performance" class="anchor" href="#performance">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>

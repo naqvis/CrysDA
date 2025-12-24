@@ -147,6 +147,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/DateTimeCol" data-name="crysda::datetimecol">
+      <a href="../Crysda/DateTimeCol.html">DateTimeCol</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/DFCol" data-name="crysda::dfcol">
       <a href="../Crysda/DFCol.html">DFCol</a>
       
@@ -333,7 +338,7 @@ String Column</h1>
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1947" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2757" target="_blank">
         crysda/columns.cr
       </a>
     
@@ -445,6 +450,34 @@ String Column</h1>
       </li>
     
       <li class="entry-summary">
+        <a href="#contains%28pattern%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="signature"><strong>#contains</strong>(pattern : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</a>
+        
+          <div class="summary"><p>Check if strings contain a pattern (string or regex)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#contains%28pattern%3ARegex%29%3AArray%28Bool%29-instance-method" class="signature"><strong>#contains</strong>(pattern : Regex) : Array(Bool)</a>
+        
+          <div class="summary"><p>Check if strings contain a regex pattern</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#count%28pattern%3AString%29%3AInt32Col-instance-method" class="signature"><strong>#count</strong>(pattern : String) : Int32Col</a>
+        
+          <div class="summary"><p>Count occurrences of pattern in each string</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#downcase%3AStringCol-instance-method" class="signature"><strong>#downcase</strong> : StringCol</a>
+        
+          <div class="summary"><p>Convert to lowercase</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#each%28%26%29%3ANil-instance-method" class="signature"><strong>#each</strong>(&) : Nil</a>
         
           <div class="summary"><p>Lazy iteration - yields values without materializing full array</p></div>
@@ -466,12 +499,103 @@ String Column</h1>
       </li>
     
       <li class="entry-summary">
+        <a href="#ends_with%28suffix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="signature"><strong>#ends_with</strong>(suffix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</a>
+        
+          <div class="summary"><p>Check if strings end with suffix</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#extract%28pattern%3ARegex%29%3AStringCol-instance-method" class="signature"><strong>#extract</strong>(pattern : Regex) : StringCol</a>
+        
+          <div class="summary"><p>Extract first match of regex pattern, returns StringCol If regex has capture groups, returns the first capture group</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#has_nulls%3F%3ABool-instance-method" class="signature"><strong>#has_nulls?</strong> : Bool</a>
         
       </li>
     
       <li class="entry-summary">
+        <a href="#len%3AInt32Col-instance-method" class="signature"><strong>#len</strong> : Int32Col</a>
+        
+          <div class="summary"><p>Get string length</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#lstrip%3AStringCol-instance-method" class="signature"><strong>#lstrip</strong> : StringCol</a>
+        
+          <div class="summary"><p>Strip whitespace from left</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#matches%28pattern%3ARegex%29%3AArray%28Bool%29-instance-method" class="signature"><strong>#matches</strong>(pattern : Regex) : Array(Bool)</a>
+        
+          <div class="summary"><p>Check if strings match regex exactly</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pad_left%28width%3AInt32%2Cpad_char%3AChar%3D%27%27%29%3AStringCol-instance-method" class="signature"><strong>#pad_left</strong>(width : Int32, pad_char : Char = <span class="s">&#39; &#39;</span>) : StringCol</a>
+        
+          <div class="summary"><p>Pad string to specified width (left pad)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#pad_right%28width%3AInt32%2Cpad_char%3AChar%3D%27%27%29%3AStringCol-instance-method" class="signature"><strong>#pad_right</strong>(width : Int32, pad_char : Char = <span class="s">&#39; &#39;</span>) : StringCol</a>
+        
+          <div class="summary"><p>Pad string to specified width (right pad)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#plus%28val%3ADataCol%29-instance-method" class="signature"><strong>#plus</strong>(val : DataCol)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#replace%28pattern%3AString%2Creplacement%3AString%29%3AStringCol-instance-method" class="signature"><strong>#replace</strong>(pattern : String, replacement : String) : StringCol</a>
+        
+          <div class="summary"><p>Replace pattern with replacement string</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#replace%28pattern%3ARegex%2Creplacement%3AString%29%3AStringCol-instance-method" class="signature"><strong>#replace</strong>(pattern : Regex, replacement : String) : StringCol</a>
+        
+          <div class="summary"><p>Replace regex pattern with replacement string</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rstrip%3AStringCol-instance-method" class="signature"><strong>#rstrip</strong> : StringCol</a>
+        
+          <div class="summary"><p>Strip whitespace from right</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#slice%28start%3AInt32%2Clength%3AInt32%7CNil%3Dnil%29%3AStringCol-instance-method" class="signature"><strong>#slice</strong>(start : Int32, length : Int32 | Nil = <span class="n">nil</span>) : StringCol</a>
+        
+          <div class="summary"><p>Substring extraction</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#starts_with%28prefix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="signature"><strong>#starts_with</strong>(prefix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</a>
+        
+          <div class="summary"><p>Check if strings start with prefix</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#strip%3AStringCol-instance-method" class="signature"><strong>#strip</strong> : StringCol</a>
+        
+          <div class="summary"><p>Strip whitespace from both ends</p></div>
         
       </li>
     
@@ -486,6 +610,13 @@ String Column</h1>
         <a href="#unsafe_fetch%28index%3AInt32%29%3AString%7CNil-instance-method" class="signature"><strong>#unsafe_fetch</strong>(index : Int32) : String | Nil</a>
         
           <div class="summary"><p>Direct index access without array materialization</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#upcase%3AStringCol-instance-method" class="signature"><strong>#upcase</strong> : StringCol</a>
+        
+          <div class="summary"><p>Convert to uppercase</p></div>
         
       </li>
     
@@ -560,6 +691,11 @@ String Column</h1>
     []?</a>, 
     
   
+    <a href="../Crysda/DataCol.html#apply%28%26block%3AAny-%3EAny%29%3ADataCol-instance-method" class="tooltip">
+      <span>apply(&block : Any -> Any) : DataCol</span>
+    apply</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#as_b-instance-method" class="tooltip">
       <span>as_b</span>
     as_b</a>, 
@@ -585,6 +721,36 @@ String Column</h1>
     as_s</a>, 
     
   
+    <a href="../Crysda/DataCol.html#between%28min_val%2Cmax_val%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>between(min_val, max_val) : Array(Bool)</span>
+    between</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#bfill%3ADataCol-instance-method" class="tooltip">
+      <span>bfill : DataCol</span>
+    bfill</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#clip%28min_val%2Cmax_val%29%3ADataCol-instance-method" class="tooltip">
+      <span>clip(min_val, max_val) : DataCol</span>
+    clip</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#clip_lower%28min_val%29%3ADataCol-instance-method" class="tooltip">
+      <span>clip_lower(min_val) : DataCol</span>
+    clip_lower</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#clip_upper%28max_val%29%3ADataCol-instance-method" class="tooltip">
+      <span>clip_upper(max_val) : DataCol</span>
+    clip_upper</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#coalesce%28other%3ADataCol%29%3ADataCol-instance-method" class="tooltip">
+      <span>coalesce(other : DataCol) : DataCol</span>
+    coalesce</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="tooltip">
       <span>compare(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</span>
     compare</a>, 
@@ -593,6 +759,11 @@ String Column</h1>
     <a href="../Crysda/DataCol.html#cumsum-instance-method" class="tooltip">
       <span>cumsum</span>
     cumsum</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#cut%28bins%3AArray%28Number%29%2Clabels%3AArray%28String%29%7CNil%3Dnil%2Cright%3ABool%3Dtrue%29%3AStringCol-instance-method" class="tooltip">
+      <span>cut(bins : Array(Number), labels : Array(String) | Nil = <span class="n">nil</span>, right : Bool = <span class="n">true</span>) : StringCol</span>
+    cut</a>, 
     
   
     <a href="../Crysda/DataCol.html#desc-instance-method" class="tooltip">
@@ -610,6 +781,11 @@ String Column</h1>
     equals</a>, 
     
   
+    <a href="../Crysda/DataCol.html#ffill%3ADataCol-instance-method" class="tooltip">
+      <span>ffill : DataCol</span>
+    ffill</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#has_nulls%3F-instance-method" class="tooltip">
       <span>has_nulls?</span>
     has_nulls?</a>, 
@@ -618,6 +794,16 @@ String Column</h1>
     <a href="../Crysda/DataCol.html#hash%28hasher%29-instance-method" class="tooltip">
       <span>hash(hasher)</span>
     hash</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#in%3F%28set%3AArray%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>in?(set : Array) : Array(Bool)</span>
+    in?</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#is_in%28set%3AArray%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>is_in(set : Array) : Array(Bool)</span>
+    is_in</a>, 
     
   
     <a href="../Crysda/DataCol.html#is_na-instance-method" class="tooltip">
@@ -680,6 +866,11 @@ String Column</h1>
     name</a>, 
     
   
+    <a href="../Crysda/DataCol.html#nunique%3AInt32-instance-method" class="tooltip">
+      <span>nunique : Int32</span>
+    nunique</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#order%28na_last%3Dtrue%29-instance-method" class="tooltip">
       <span>order(na_last = <span class="n">true</span>)</span>
     order</a>, 
@@ -693,6 +884,11 @@ String Column</h1>
     <a href="../Crysda/DataCol.html#plus%28val%29-instance-method" class="tooltip">
       <span>plus(val)</span>
     plus</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#qcut%28q%3AInt32%2Clabels%3AArray%28String%29%7CNil%3Dnil%29%3AStringCol-instance-method" class="tooltip">
+      <span>qcut(q : Int32, labels : Array(String) | Nil = <span class="n">nil</span>) : StringCol</span>
+    qcut</a>, 
     
   
     <a href="../Crysda/DataCol.html#rank%28na_last%3Dtrue%29-instance-method" class="tooltip">
@@ -710,6 +906,56 @@ String Column</h1>
     size</a>, 
     
   
+    <a href="../Crysda/DataCol.html#str_contains%28pattern%3AString%7CRegex%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>str_contains(pattern : String | Regex, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</span>
+    str_contains</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_downcase%3AStringCol-instance-method" class="tooltip">
+      <span>str_downcase : StringCol</span>
+    str_downcase</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_ends_with%28suffix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>str_ends_with(suffix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</span>
+    str_ends_with</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_extract%28pattern%3ARegex%29%3AStringCol-instance-method" class="tooltip">
+      <span>str_extract(pattern : Regex) : StringCol</span>
+    str_extract</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_len%3AInt32Col-instance-method" class="tooltip">
+      <span>str_len : Int32Col</span>
+    str_len</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_replace%28pattern%3AString%7CRegex%2Creplacement%3AString%29%3AStringCol-instance-method" class="tooltip">
+      <span>str_replace(pattern : String | Regex, replacement : String) : StringCol</span>
+    str_replace</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_slice%28start%3AInt32%2Clength%3AInt32%7CNil%3Dnil%29%3AStringCol-instance-method" class="tooltip">
+      <span>str_slice(start : Int32, length : Int32 | Nil = <span class="n">nil</span>) : StringCol</span>
+    str_slice</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_starts_with%28prefix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>str_starts_with(prefix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</span>
+    str_starts_with</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_strip%3AStringCol-instance-method" class="tooltip">
+      <span>str_strip : StringCol</span>
+    str_strip</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_upcase%3AStringCol-instance-method" class="tooltip">
+      <span>str_upcase : StringCol</span>
+    str_upcase</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#sum%28remove_na%3Dfalse%29-instance-method" class="tooltip">
       <span>sum(remove_na = <span class="n">false</span>)</span>
     sum</a>, 
@@ -723,6 +969,11 @@ String Column</h1>
     <a href="../Crysda/DataCol.html#to_s%28io%3AIO%29%3ANil-instance-method" class="tooltip">
       <span>to_s(io : IO) : Nil<br/>to_s</span>
     to_s</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#unique%3AArray-instance-method" class="tooltip">
+      <span>unique : Array</span>
+    unique</a>, 
     
   
     <a href="../Crysda/DataCol.html#values%3AArray-instance-method" class="tooltip">
@@ -818,7 +1069,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1989" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2799" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -839,7 +1090,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1972" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2782" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -855,7 +1106,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1952" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2762" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -887,7 +1138,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2070" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2880" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -903,7 +1154,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2070" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2880" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -919,7 +1170,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2070" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2880" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -935,7 +1186,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2070" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2880" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -951,7 +1202,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2070" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2880" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -967,7 +1218,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2070" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2880" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -983,7 +1234,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2070" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2880" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -999,7 +1250,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2070" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2880" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1020,7 +1271,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2051" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2861" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1036,7 +1287,91 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2056" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2866" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="contains(pattern:String,case_sensitive:Bool=true):Array(Bool)-instance-method">
+      <div class="signature">
+        
+        def <strong>contains</strong>(pattern : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)
+
+        <a class="method-permalink" href="#contains%28pattern%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Check if strings contain a pattern (string or regex)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2913" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="contains(pattern:Regex):Array(Bool)-instance-method">
+      <div class="signature">
+        
+        def <strong>contains</strong>(pattern : Regex) : Array(Bool)
+
+        <a class="method-permalink" href="#contains%28pattern%3ARegex%29%3AArray%28Bool%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Check if strings contain a regex pattern</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2926" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="count(pattern:String):Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>count</strong>(pattern : String) : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#count%28pattern%3AString%29%3AInt32Col-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Count occurrences of pattern in each string</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3090" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="downcase:StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>downcase</strong> : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#downcase%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convert to lowercase</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3005" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1057,7 +1392,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2007" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2817" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1078,7 +1413,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2021" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2831" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1099,7 +1434,50 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2014" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2824" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ends_with(suffix:String,case_sensitive:Bool=true):Array(Bool)-instance-method">
+      <div class="signature">
+        
+        def <strong>ends_with</strong>(suffix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)
+
+        <a class="method-permalink" href="#ends_with%28suffix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Check if strings end with suffix</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2946" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="extract(pattern:Regex):StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>extract</strong>(pattern : Regex) : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#extract%28pattern%3ARegex%29%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Extract first match of regex pattern, returns StringCol
+If regex has capture groups, returns the first capture group</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2960" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1115,7 +1493,112 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1996" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2806" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="len:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>len</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#len%3AInt32Col-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get string length</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3037" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="lstrip:StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>lstrip</strong> : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#lstrip%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Strip whitespace from left</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3021" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="matches(pattern:Regex):Array(Bool)-instance-method">
+      <div class="signature">
+        
+        def <strong>matches</strong>(pattern : Regex) : Array(Bool)
+
+        <a class="method-permalink" href="#matches%28pattern%3ARegex%29%3AArray%28Bool%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Check if strings match regex exactly</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3078" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pad_left(width:Int32,pad_char:Char=&#39;&#39;):StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>pad_left</strong>(width : Int32, pad_char : Char = <span class="s">&#39; &#39;</span>) : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#pad_left%28width%3AInt32%2Cpad_char%3AChar%3D%27%27%29%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pad string to specified width (left pad)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3062" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="pad_right(width:Int32,pad_char:Char=&#39;&#39;):StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>pad_right</strong>(width : Int32, pad_char : Char = <span class="s">&#39; &#39;</span>) : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#pad_right%28width%3AInt32%2Cpad_char%3AChar%3D%27%27%29%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Pad string to specified width (right pad)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3070" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1131,7 +1614,133 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2088" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2898" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="replace(pattern:String,replacement:String):StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>replace</strong>(pattern : String, replacement : String) : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#replace%28pattern%3AString%2Creplacement%3AString%29%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Replace pattern with replacement string</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2981" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="replace(pattern:Regex,replacement:String):StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>replace</strong>(pattern : Regex, replacement : String) : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#replace%28pattern%3ARegex%2Creplacement%3AString%29%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Replace regex pattern with replacement string</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2989" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rstrip:StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>rstrip</strong> : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#rstrip%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Strip whitespace from right</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3029" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="slice(start:Int32,length:Int32|Nil=nil):StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>slice</strong>(start : Int32, length : Int32 | Nil = <span class="n">nil</span>) : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#slice%28start%3AInt32%2Clength%3AInt32%7CNil%3Dnil%29%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Substring extraction</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3045" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="starts_with(prefix:String,case_sensitive:Bool=true):Array(Bool)-instance-method">
+      <div class="signature">
+        
+        def <strong>starts_with</strong>(prefix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)
+
+        <a class="method-permalink" href="#starts_with%28prefix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Check if strings start with prefix</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2933" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="strip:StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>strip</strong> : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#strip%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Strip whitespace from both ends</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3013" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1152,7 +1761,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2046" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2856" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1173,7 +1782,28 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2033" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2843" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="upcase:StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>upcase</strong> : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#upcase%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Convert to uppercase</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2997" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1189,7 +1819,7 @@ String Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2000" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2810" target="_blank">View source</a>]
         
       </div>
     </div>

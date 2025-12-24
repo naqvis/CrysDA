@@ -147,6 +147,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/DateTimeCol" data-name="crysda::datetimecol">
+      <a href="../Crysda/DateTimeCol.html">DateTimeCol</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/DFCol" data-name="crysda::dfcol">
       <a href="../Crysda/DFCol.html">DFCol</a>
       
@@ -333,7 +338,7 @@ Any Column</h1>
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2132" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3131" target="_blank">
         crysda/columns.cr
       </a>
     
@@ -459,6 +464,11 @@ Any Column</h1>
     []?</a>, 
     
   
+    <a href="../Crysda/DataCol.html#apply%28%26block%3AAny-%3EAny%29%3ADataCol-instance-method" class="tooltip">
+      <span>apply(&block : Any -> Any) : DataCol</span>
+    apply</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#as_b-instance-method" class="tooltip">
       <span>as_b</span>
     as_b</a>, 
@@ -484,6 +494,36 @@ Any Column</h1>
     as_s</a>, 
     
   
+    <a href="../Crysda/DataCol.html#between%28min_val%2Cmax_val%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>between(min_val, max_val) : Array(Bool)</span>
+    between</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#bfill%3ADataCol-instance-method" class="tooltip">
+      <span>bfill : DataCol</span>
+    bfill</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#clip%28min_val%2Cmax_val%29%3ADataCol-instance-method" class="tooltip">
+      <span>clip(min_val, max_val) : DataCol</span>
+    clip</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#clip_lower%28min_val%29%3ADataCol-instance-method" class="tooltip">
+      <span>clip_lower(min_val) : DataCol</span>
+    clip_lower</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#clip_upper%28max_val%29%3ADataCol-instance-method" class="tooltip">
+      <span>clip_upper(max_val) : DataCol</span>
+    clip_upper</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#coalesce%28other%3ADataCol%29%3ADataCol-instance-method" class="tooltip">
+      <span>coalesce(other : DataCol) : DataCol</span>
+    coalesce</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="tooltip">
       <span>compare(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</span>
     compare</a>, 
@@ -492,6 +532,11 @@ Any Column</h1>
     <a href="../Crysda/DataCol.html#cumsum-instance-method" class="tooltip">
       <span>cumsum</span>
     cumsum</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#cut%28bins%3AArray%28Number%29%2Clabels%3AArray%28String%29%7CNil%3Dnil%2Cright%3ABool%3Dtrue%29%3AStringCol-instance-method" class="tooltip">
+      <span>cut(bins : Array(Number), labels : Array(String) | Nil = <span class="n">nil</span>, right : Bool = <span class="n">true</span>) : StringCol</span>
+    cut</a>, 
     
   
     <a href="../Crysda/DataCol.html#desc-instance-method" class="tooltip">
@@ -509,6 +554,11 @@ Any Column</h1>
     equals</a>, 
     
   
+    <a href="../Crysda/DataCol.html#ffill%3ADataCol-instance-method" class="tooltip">
+      <span>ffill : DataCol</span>
+    ffill</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#has_nulls%3F-instance-method" class="tooltip">
       <span>has_nulls?</span>
     has_nulls?</a>, 
@@ -517,6 +567,16 @@ Any Column</h1>
     <a href="../Crysda/DataCol.html#hash%28hasher%29-instance-method" class="tooltip">
       <span>hash(hasher)</span>
     hash</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#in%3F%28set%3AArray%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>in?(set : Array) : Array(Bool)</span>
+    in?</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#is_in%28set%3AArray%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>is_in(set : Array) : Array(Bool)</span>
+    is_in</a>, 
     
   
     <a href="../Crysda/DataCol.html#is_na-instance-method" class="tooltip">
@@ -579,6 +639,11 @@ Any Column</h1>
     name</a>, 
     
   
+    <a href="../Crysda/DataCol.html#nunique%3AInt32-instance-method" class="tooltip">
+      <span>nunique : Int32</span>
+    nunique</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#order%28na_last%3Dtrue%29-instance-method" class="tooltip">
       <span>order(na_last = <span class="n">true</span>)</span>
     order</a>, 
@@ -592,6 +657,11 @@ Any Column</h1>
     <a href="../Crysda/DataCol.html#plus%28val%29-instance-method" class="tooltip">
       <span>plus(val)</span>
     plus</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#qcut%28q%3AInt32%2Clabels%3AArray%28String%29%7CNil%3Dnil%29%3AStringCol-instance-method" class="tooltip">
+      <span>qcut(q : Int32, labels : Array(String) | Nil = <span class="n">nil</span>) : StringCol</span>
+    qcut</a>, 
     
   
     <a href="../Crysda/DataCol.html#rank%28na_last%3Dtrue%29-instance-method" class="tooltip">
@@ -609,6 +679,56 @@ Any Column</h1>
     size</a>, 
     
   
+    <a href="../Crysda/DataCol.html#str_contains%28pattern%3AString%7CRegex%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>str_contains(pattern : String | Regex, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</span>
+    str_contains</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_downcase%3AStringCol-instance-method" class="tooltip">
+      <span>str_downcase : StringCol</span>
+    str_downcase</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_ends_with%28suffix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>str_ends_with(suffix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</span>
+    str_ends_with</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_extract%28pattern%3ARegex%29%3AStringCol-instance-method" class="tooltip">
+      <span>str_extract(pattern : Regex) : StringCol</span>
+    str_extract</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_len%3AInt32Col-instance-method" class="tooltip">
+      <span>str_len : Int32Col</span>
+    str_len</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_replace%28pattern%3AString%7CRegex%2Creplacement%3AString%29%3AStringCol-instance-method" class="tooltip">
+      <span>str_replace(pattern : String | Regex, replacement : String) : StringCol</span>
+    str_replace</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_slice%28start%3AInt32%2Clength%3AInt32%7CNil%3Dnil%29%3AStringCol-instance-method" class="tooltip">
+      <span>str_slice(start : Int32, length : Int32 | Nil = <span class="n">nil</span>) : StringCol</span>
+    str_slice</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_starts_with%28prefix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>str_starts_with(prefix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</span>
+    str_starts_with</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_strip%3AStringCol-instance-method" class="tooltip">
+      <span>str_strip : StringCol</span>
+    str_strip</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_upcase%3AStringCol-instance-method" class="tooltip">
+      <span>str_upcase : StringCol</span>
+    str_upcase</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#sum%28remove_na%3Dfalse%29-instance-method" class="tooltip">
       <span>sum(remove_na = <span class="n">false</span>)</span>
     sum</a>, 
@@ -622,6 +742,11 @@ Any Column</h1>
     <a href="../Crysda/DataCol.html#to_s%28io%3AIO%29%3ANil-instance-method" class="tooltip">
       <span>to_s(io : IO) : Nil<br/>to_s</span>
     to_s</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#unique%3AArray-instance-method" class="tooltip">
+      <span>unique : Array</span>
+    unique</a>, 
     
   
     <a href="../Crysda/DataCol.html#values%3AArray-instance-method" class="tooltip">
@@ -712,7 +837,7 @@ Any Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2133" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3132" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -744,7 +869,7 @@ Any Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2146" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3145" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -760,7 +885,7 @@ Any Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2142" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3141" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -776,7 +901,7 @@ Any Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L2138" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L3137" target="_blank">View source</a>]
         
       </div>
     </div>

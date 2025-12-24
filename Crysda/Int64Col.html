@@ -147,6 +147,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/DateTimeCol" data-name="crysda::datetimecol">
+      <a href="../Crysda/DateTimeCol.html">DateTimeCol</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/DFCol" data-name="crysda::dfcol">
       <a href="../Crysda/DFCol.html">DFCol</a>
       
@@ -333,7 +338,7 @@ Optimized Int64 Column</h1>
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1474" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2231" target="_blank">
         crysda/columns.cr
       </a>
     
@@ -439,6 +444,11 @@ Optimized Int64 Column</h1>
       </li>
     
       <li class="entry-summary">
+        <a href="#diff%28periods%3AInt32%3D1%29%3AInt64Col-instance-method" class="signature"><strong>#diff</strong>(periods : Int32 = <span class="n">1</span>) : Int64Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#div%28val%29-instance-method" class="signature"><strong>#div</strong>(val)</a>
         
       </li>
@@ -461,6 +471,11 @@ Optimized Int64 Column</h1>
         <a href="#each_with_index%28%26%29%3ANil-instance-method" class="signature"><strong>#each_with_index</strong>(&) : Nil</a>
         
           <div class="summary"><p>Lazy iteration with index</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#ewm_mean%28span%3AInt32%29%3AFloat64Col-instance-method" class="signature"><strong>#ewm_mean</strong>(span : Int32) : Float64Col</a>
         
       </li>
     
@@ -506,6 +521,31 @@ Optimized Int64 Column</h1>
     
       <li class="entry-summary">
         <a href="#plus%28val%29-instance-method" class="signature"><strong>#plus</strong>(val)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rolling_max%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method" class="signature"><strong>#rolling_max</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : Float64Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rolling_mean%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method" class="signature"><strong>#rolling_mean</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : Float64Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rolling_min%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method" class="signature"><strong>#rolling_min</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : Float64Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rolling_std%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method" class="signature"><strong>#rolling_std</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : Float64Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#rolling_sum%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method" class="signature"><strong>#rolling_sum</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : Float64Col</a>
         
       </li>
     
@@ -592,6 +632,11 @@ Optimized Int64 Column</h1>
     []?</a>, 
     
   
+    <a href="../Crysda/DataCol.html#apply%28%26block%3AAny-%3EAny%29%3ADataCol-instance-method" class="tooltip">
+      <span>apply(&block : Any -> Any) : DataCol</span>
+    apply</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#as_b-instance-method" class="tooltip">
       <span>as_b</span>
     as_b</a>, 
@@ -617,6 +662,36 @@ Optimized Int64 Column</h1>
     as_s</a>, 
     
   
+    <a href="../Crysda/DataCol.html#between%28min_val%2Cmax_val%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>between(min_val, max_val) : Array(Bool)</span>
+    between</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#bfill%3ADataCol-instance-method" class="tooltip">
+      <span>bfill : DataCol</span>
+    bfill</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#clip%28min_val%2Cmax_val%29%3ADataCol-instance-method" class="tooltip">
+      <span>clip(min_val, max_val) : DataCol</span>
+    clip</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#clip_lower%28min_val%29%3ADataCol-instance-method" class="tooltip">
+      <span>clip_lower(min_val) : DataCol</span>
+    clip_lower</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#clip_upper%28max_val%29%3ADataCol-instance-method" class="tooltip">
+      <span>clip_upper(max_val) : DataCol</span>
+    clip_upper</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#coalesce%28other%3ADataCol%29%3ADataCol-instance-method" class="tooltip">
+      <span>coalesce(other : DataCol) : DataCol</span>
+    coalesce</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="tooltip">
       <span>compare(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</span>
     compare</a>, 
@@ -625,6 +700,11 @@ Optimized Int64 Column</h1>
     <a href="../Crysda/DataCol.html#cumsum-instance-method" class="tooltip">
       <span>cumsum</span>
     cumsum</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#cut%28bins%3AArray%28Number%29%2Clabels%3AArray%28String%29%7CNil%3Dnil%2Cright%3ABool%3Dtrue%29%3AStringCol-instance-method" class="tooltip">
+      <span>cut(bins : Array(Number), labels : Array(String) | Nil = <span class="n">nil</span>, right : Bool = <span class="n">true</span>) : StringCol</span>
+    cut</a>, 
     
   
     <a href="../Crysda/DataCol.html#desc-instance-method" class="tooltip">
@@ -642,6 +722,11 @@ Optimized Int64 Column</h1>
     equals</a>, 
     
   
+    <a href="../Crysda/DataCol.html#ffill%3ADataCol-instance-method" class="tooltip">
+      <span>ffill : DataCol</span>
+    ffill</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#has_nulls%3F-instance-method" class="tooltip">
       <span>has_nulls?</span>
     has_nulls?</a>, 
@@ -650,6 +735,16 @@ Optimized Int64 Column</h1>
     <a href="../Crysda/DataCol.html#hash%28hasher%29-instance-method" class="tooltip">
       <span>hash(hasher)</span>
     hash</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#in%3F%28set%3AArray%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>in?(set : Array) : Array(Bool)</span>
+    in?</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#is_in%28set%3AArray%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>is_in(set : Array) : Array(Bool)</span>
+    is_in</a>, 
     
   
     <a href="../Crysda/DataCol.html#is_na-instance-method" class="tooltip">
@@ -712,6 +807,11 @@ Optimized Int64 Column</h1>
     name</a>, 
     
   
+    <a href="../Crysda/DataCol.html#nunique%3AInt32-instance-method" class="tooltip">
+      <span>nunique : Int32</span>
+    nunique</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#order%28na_last%3Dtrue%29-instance-method" class="tooltip">
       <span>order(na_last = <span class="n">true</span>)</span>
     order</a>, 
@@ -725,6 +825,11 @@ Optimized Int64 Column</h1>
     <a href="../Crysda/DataCol.html#plus%28val%29-instance-method" class="tooltip">
       <span>plus(val)</span>
     plus</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#qcut%28q%3AInt32%2Clabels%3AArray%28String%29%7CNil%3Dnil%29%3AStringCol-instance-method" class="tooltip">
+      <span>qcut(q : Int32, labels : Array(String) | Nil = <span class="n">nil</span>) : StringCol</span>
+    qcut</a>, 
     
   
     <a href="../Crysda/DataCol.html#rank%28na_last%3Dtrue%29-instance-method" class="tooltip">
@@ -742,6 +847,56 @@ Optimized Int64 Column</h1>
     size</a>, 
     
   
+    <a href="../Crysda/DataCol.html#str_contains%28pattern%3AString%7CRegex%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>str_contains(pattern : String | Regex, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</span>
+    str_contains</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_downcase%3AStringCol-instance-method" class="tooltip">
+      <span>str_downcase : StringCol</span>
+    str_downcase</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_ends_with%28suffix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>str_ends_with(suffix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</span>
+    str_ends_with</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_extract%28pattern%3ARegex%29%3AStringCol-instance-method" class="tooltip">
+      <span>str_extract(pattern : Regex) : StringCol</span>
+    str_extract</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_len%3AInt32Col-instance-method" class="tooltip">
+      <span>str_len : Int32Col</span>
+    str_len</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_replace%28pattern%3AString%7CRegex%2Creplacement%3AString%29%3AStringCol-instance-method" class="tooltip">
+      <span>str_replace(pattern : String | Regex, replacement : String) : StringCol</span>
+    str_replace</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_slice%28start%3AInt32%2Clength%3AInt32%7CNil%3Dnil%29%3AStringCol-instance-method" class="tooltip">
+      <span>str_slice(start : Int32, length : Int32 | Nil = <span class="n">nil</span>) : StringCol</span>
+    str_slice</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_starts_with%28prefix%3AString%2Ccase_sensitive%3ABool%3Dtrue%29%3AArray%28Bool%29-instance-method" class="tooltip">
+      <span>str_starts_with(prefix : String, case_sensitive : Bool = <span class="n">true</span>) : Array(Bool)</span>
+    str_starts_with</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_strip%3AStringCol-instance-method" class="tooltip">
+      <span>str_strip : StringCol</span>
+    str_strip</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#str_upcase%3AStringCol-instance-method" class="tooltip">
+      <span>str_upcase : StringCol</span>
+    str_upcase</a>, 
+    
+  
     <a href="../Crysda/DataCol.html#sum%28remove_na%3Dfalse%29-instance-method" class="tooltip">
       <span>sum(remove_na = <span class="n">false</span>)</span>
     sum</a>, 
@@ -755,6 +910,11 @@ Optimized Int64 Column</h1>
     <a href="../Crysda/DataCol.html#to_s%28io%3AIO%29%3ANil-instance-method" class="tooltip">
       <span>to_s(io : IO) : Nil<br/>to_s</span>
     to_s</a>, 
+    
+  
+    <a href="../Crysda/DataCol.html#unique%3AArray-instance-method" class="tooltip">
+      <span>unique : Array</span>
+    unique</a>, 
     
   
     <a href="../Crysda/DataCol.html#values%3AArray-instance-method" class="tooltip">
@@ -845,7 +1005,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1498" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2255" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -861,7 +1021,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1479" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2236" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -893,7 +1053,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -909,7 +1069,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -925,7 +1085,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -941,7 +1101,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -957,7 +1117,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -973,7 +1133,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -989,7 +1149,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1005,7 +1165,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1021,7 +1181,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1037,7 +1197,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1567" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1053,7 +1213,23 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1553" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2310" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="diff(periods:Int32=1):Int64Col-instance-method">
+      <div class="signature">
+        
+        def <strong>diff</strong>(periods : Int32 = <span class="n">1</span>) : <a href="../Crysda/Int64Col.html">Int64Col</a>
+
+        <a class="method-permalink" href="#diff%28periods%3AInt32%3D1%29%3AInt64Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2661" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1069,7 +1245,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1609" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2366" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1090,7 +1266,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1515" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2272" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1111,7 +1287,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1529" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2286" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1132,7 +1308,23 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1522" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2279" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="ewm_mean(span:Int32):Float64Col-instance-method">
+      <div class="signature">
+        
+        def <strong>ewm_mean</strong>(span : Int32) : <a href="../Crysda/Float64Col.html">Float64Col</a>
+
+        <a class="method-permalink" href="#ewm_mean%28span%3AInt32%29%3AFloat64Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2657" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1148,7 +1340,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1504" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2261" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1164,7 +1356,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1597" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2354" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1180,7 +1372,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1822" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2579" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1196,7 +1388,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1783" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2540" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1212,7 +1404,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1843" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2600" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1228,7 +1420,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1801" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2558" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1244,7 +1436,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1857" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2614" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1260,7 +1452,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1771" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2528" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1276,7 +1468,87 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1585" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2342" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rolling_max(window:Int32,min_periods:Int32|Nil=nil):Float64Col-instance-method">
+      <div class="signature">
+        
+        def <strong>rolling_max</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : <a href="../Crysda/Float64Col.html">Float64Col</a>
+
+        <a class="method-permalink" href="#rolling_max%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2649" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rolling_mean(window:Int32,min_periods:Int32|Nil=nil):Float64Col-instance-method">
+      <div class="signature">
+        
+        def <strong>rolling_mean</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : <a href="../Crysda/Float64Col.html">Float64Col</a>
+
+        <a class="method-permalink" href="#rolling_mean%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2637" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rolling_min(window:Int32,min_periods:Int32|Nil=nil):Float64Col-instance-method">
+      <div class="signature">
+        
+        def <strong>rolling_min</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : <a href="../Crysda/Float64Col.html">Float64Col</a>
+
+        <a class="method-permalink" href="#rolling_min%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2645" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rolling_std(window:Int32,min_periods:Int32|Nil=nil):Float64Col-instance-method">
+      <div class="signature">
+        
+        def <strong>rolling_std</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : <a href="../Crysda/Float64Col.html">Float64Col</a>
+
+        <a class="method-permalink" href="#rolling_std%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2653" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="rolling_sum(window:Int32,min_periods:Int32|Nil=nil):Float64Col-instance-method">
+      <div class="signature">
+        
+        def <strong>rolling_sum</strong>(window : Int32, min_periods : Int32 | Nil = <span class="n">nil</span>) : <a href="../Crysda/Float64Col.html">Float64Col</a>
+
+        <a class="method-permalink" href="#rolling_sum%28window%3AInt32%2Cmin_periods%3AInt32%7CNil%3Dnil%29%3AFloat64Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2641" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1292,7 +1564,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1617" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2374" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1313,7 +1585,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1541" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2298" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1329,7 +1601,7 @@ Optimized Int64 Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/6535d494c3973c9da794df751aa1b164f3d07d36/src/crysda/columns.cr#L1508" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/0470e65783f2c005630bd2e60778d8fcbde5bed6/src/crysda/columns.cr#L2265" target="_blank">View source</a>]
         
       </div>
     </div>
