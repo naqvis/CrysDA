@@ -255,6 +255,10 @@ df.separate("date", into: ["year", "month", "day"], sep: "-")
 df.unite("full_name", ["first", "last"], sep: " ")
 ```
 
+## Plotting
+
+For data visualization, see [crysda-plot](https://github.com/naqvis/crysda-plot).
+
 ## Documentation
 
 - [API Reference](https://naqvis.github.io/CrysDA/)
