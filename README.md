@@ -120,6 +120,8 @@ df["age"].between(20, 40)          # Range check (inclusive)
 df["score"].clip(0, 100)           # Clamp to range
 df["value"].ffill                  # Forward fill nulls
 df["value"].bfill                  # Backward fill nulls
+df["value"].first                  # First non-null value
+df["value"].last                   # Last non-null value
 df["price"].apply { |v| v.as(Float64) * 2 }  # Transform values
 df["col1"].coalesce(df["col2"])    # First non-null from two columns
 
@@ -140,6 +142,8 @@ df.describe                        # Summary statistics
 df.coalesce("a", "b", "c")         # First non-null across columns
 df.duplicated("id")                # Find duplicates
 df.drop_duplicates("id")           # Remove duplicates
+df.nlargest(10, "sales")           # Top 10 rows by sales
+df.nsmallest(5, "price")           # Bottom 5 rows by price
 Crysda.concat([df1, df2])          # Vertical stack
 Crysda.concat([df1, df2], axis: 1) # Horizontal stack
 
@@ -148,6 +152,11 @@ df.apply_rows("total") { |row| row["price"].as_f * row["qty"].as_i }
 
 # Pivot tables
 df.pivot_table("region", "product", "sales", "sum")
+
+# JSON output
+df.to_json                         # Convert to JSON string
+df.to_json(pretty: true)           # Pretty-printed JSON
+df.write_json("output.json")       # Write to file
 ```
 
 ### Performance

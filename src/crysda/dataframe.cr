@@ -1012,6 +1012,88 @@ module Crysda
       # Spread the pivot column
       aggregated.spread(columns, "_value_")
     end
+
+    # ==========================================================================
+    # Top/Bottom N Rows
+    # ==========================================================================
+
+    # Get the n largest rows by column value
+    # ```
+    # df.nlargest(10, "sales")        # Top 10 by sales
+    # df.nlargest(5, "score", "name") # Top 5 by score, ties broken by name
+    # ```
+    def nlargest(n : Int32, *columns : String) : DataFrame
+      sort_desc_by(*columns).take(n)
+    end
+
+    # Get the n smallest rows by column value
+    # ```
+    # df.nsmallest(10, "price")      # Bottom 10 by price
+    # df.nsmallest(5, "age", "name") # Bottom 5 by age, ties broken by name
+    # ```
+    def nsmallest(n : Int32, *columns : String) : DataFrame
+      sort_by(*columns).take(n)
+    end
+
+    # ==========================================================================
+    # JSON Output
+    # ==========================================================================
+
+    # Write DataFrame to JSON file (array of objects format)
+    # ```
+    # df.write_json("output.json")
+    # df.write_json("output.json", pretty: true)
+    # ```
+    def write_json(filename : String, pretty : Bool = false) : Nil
+      File.open(filename, "w") do |file|
+        write_json(file, pretty)
+      end
+    end
+
+    # Write DataFrame to IO as JSON (array of objects format)
+    def write_json(io : IO, pretty : Bool = false) : Nil
+      builder = JSON::Builder.new(io)
+      builder.indent = 2 if pretty
+
+      builder.document do
+        builder.array do
+          rows.each do |row|
+            builder.object do
+              row.each do |col_name, val|
+                builder.field(col_name) do
+                  write_json_value(builder, val.raw)
+                end
+              end
+            end
+          end
+        end
+      end
+      io.puts if pretty
+    end
+
+    # Convert DataFrame to JSON string
+    def to_json(pretty : Bool = false) : String
+      io = IO::Memory.new
+      write_json(io, pretty)
+      io.to_s
+    end
+
+    private def write_json_value(builder : JSON::Builder, value) : Nil
+      case v = value
+      when Nil       then builder.null
+      when Bool      then builder.bool(v)
+      when Int32     then builder.number(v)
+      when Int64     then builder.number(v)
+      when Float32   then builder.number(v)
+      when Float64   then builder.number(v)
+      when String    then builder.string(v)
+      when Time      then builder.string(v.to_rfc3339)
+      when UUID      then builder.string(v.to_s)
+      when JSON::Any then v.to_json(builder)
+      when DataFrame then builder.string("<DataFrame>")
+      else                builder.string(v.to_s)
+      end
+    end
   end
 
   # Concatenate multiple DataFrames

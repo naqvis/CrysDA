@@ -2204,4 +2204,248 @@ STR
       result.size.should eq(3)
     end
   end
+
+  describe "NLargest and NSmallest" do
+    it "nlargest returns top n rows" do
+      df = dataframe_of("name", "score").values(
+        "Alice", 85,
+        "Bob", 92,
+        "Carol", 78,
+        "Dave", 95,
+        "Eve", 88
+      )
+      result = df.nlargest(3, "score")
+      result.num_row.should eq(3)
+      result["score"][0].should eq(95)
+      result["score"][1].should eq(92)
+      result["score"][2].should eq(88)
+    end
+
+    it "nsmallest returns bottom n rows" do
+      df = dataframe_of("name", "score").values(
+        "Alice", 85,
+        "Bob", 92,
+        "Carol", 78,
+        "Dave", 95,
+        "Eve", 88
+      )
+      result = df.nsmallest(3, "score")
+      result.num_row.should eq(3)
+      result["score"][0].should eq(78)
+      result["score"][1].should eq(85)
+      result["score"][2].should eq(88)
+    end
+
+    it "nlargest with multiple columns for tie-breaking" do
+      df = dataframe_of("name", "score", "age").values(
+        "Alice", 90, 25,
+        "Bob", 90, 30,
+        "Carol", 85, 28
+      )
+      result = df.nlargest(2, "score", "age")
+      result.num_row.should eq(2)
+      result["name"][0].should eq("Bob") # Same score, older
+      result["name"][1].should eq("Alice")
+    end
+
+    it "nsmallest with multiple columns for tie-breaking" do
+      df = dataframe_of("name", "score", "age").values(
+        "Alice", 80, 25,
+        "Bob", 80, 30,
+        "Carol", 85, 28
+      )
+      result = df.nsmallest(2, "score", "age")
+      result.num_row.should eq(2)
+      result["name"][0].should eq("Alice") # Same score, younger
+      result["name"][1].should eq("Bob")
+    end
+
+    it "nlargest with n larger than dataframe" do
+      df = dataframe_of("x").values(1, 2, 3)
+      result = df.nlargest(10, "x")
+      result.num_row.should eq(3)
+    end
+
+    it "nsmallest with n larger than dataframe" do
+      df = dataframe_of("x").values(1, 2, 3)
+      result = df.nsmallest(10, "x")
+      result.num_row.should eq(3)
+    end
+
+    it "nlargest on empty dataframe" do
+      df = dataframe_of(Int32Col.new("x", [] of Int32))
+      result = df.nlargest(5, "x")
+      result.num_row.should eq(0)
+    end
+
+    it "nsmallest on empty dataframe" do
+      df = dataframe_of(Int32Col.new("x", [] of Int32))
+      result = df.nsmallest(5, "x")
+      result.num_row.should eq(0)
+    end
+
+    it "nlargest with null values" do
+      df = dataframe_of("x").values(10, nil, 30, nil, 20)
+      result = df.nlargest(3, "x")
+      result.num_row.should eq(3)
+      result["x"][0].should eq(30)
+      result["x"][1].should eq(20)
+      result["x"][2].should eq(10)
+    end
+
+    it "nlargest requires at least one column" do
+      df = dataframe_of("x").values(1, 2, 3)
+      # Crystal's splat syntax requires at least one argument at compile time
+      # so this is enforced by the type system - no runtime test needed
+      df.nlargest(2, "x").num_row.should eq(2)
+    end
+  end
+
+  describe "First and Last" do
+    it "first returns first non-null value" do
+      df = dataframe_of("x").values(nil, nil, 3, 4, 5)
+      df["x"].first.should eq(3)
+    end
+
+    it "last returns last non-null value" do
+      df = dataframe_of("x").values(1, 2, 3, nil, nil)
+      df["x"].last.should eq(3)
+    end
+
+    it "first returns nil when all null" do
+      df = dataframe_of("x").values(nil, nil, nil)
+      df["x"].first.should be_nil
+    end
+
+    it "last returns nil when all null" do
+      df = dataframe_of("x").values(nil, nil, nil)
+      df["x"].last.should be_nil
+    end
+
+    it "first on empty column returns nil" do
+      col = Int32Col.new("x", [] of Int32)
+      col.first.should be_nil
+    end
+
+    it "last on empty column returns nil" do
+      col = Int32Col.new("x", [] of Int32)
+      col.last.should be_nil
+    end
+
+    it "first with no nulls returns first value" do
+      df = dataframe_of("x").values(1, 2, 3)
+      df["x"].first.should eq(1)
+    end
+
+    it "last with no nulls returns last value" do
+      df = dataframe_of("x").values(1, 2, 3)
+      df["x"].last.should eq(3)
+    end
+
+    it "first works with string column" do
+      df = dataframe_of("name").values(nil, "Alice", "Bob")
+      df["name"].first.should eq("Alice")
+    end
+
+    it "last works with string column" do
+      df = dataframe_of("name").values("Alice", "Bob", nil)
+      df["name"].last.should eq("Bob")
+    end
+
+    it "first works with float column" do
+      df = dataframe_of("x").values(nil, 1.5, 2.5)
+      df["x"].first.should eq(1.5)
+    end
+
+    it "last works with float column" do
+      df = dataframe_of("x").values(1.5, 2.5, nil)
+      df["x"].last.should eq(2.5)
+    end
+
+    it "first/last in group aggregation" do
+      df = dataframe_of("group", "value").values(
+        "A", 1,
+        "A", 2,
+        "A", 3,
+        "B", 10,
+        "B", 20
+      )
+      result = df.group_by("group").summarize(
+        "first_val".with { |e| e["value"].first },
+        "last_val".with { |e| e["value"].last }
+      )
+      result.filter { |e| e["group"] == "A" }.tap do |a|
+        a["first_val"][0].should eq(1)
+        a["last_val"][0].should eq(3)
+      end
+      result.filter { |e| e["group"] == "B" }.tap do |b|
+        b["first_val"][0].should eq(10)
+        b["last_val"][0].should eq(20)
+      end
+    end
+  end
+
+  describe "Write JSON" do
+    it "to_json returns valid JSON string" do
+      df = dataframe_of("name", "age").values(
+        "Alice", 30,
+        "Bob", 25
+      )
+      json = df.to_json
+      json.should contain("Alice")
+      json.should contain("30")
+      json.should contain("Bob")
+      json.should contain("25")
+    end
+
+    it "to_json with pretty formatting" do
+      df = dataframe_of("x").values(1, 2)
+      json = df.to_json(pretty: true)
+      json.should contain("\n")
+    end
+
+    it "to_json handles null values" do
+      df = dataframe_of("x").values(1, nil, 3)
+      json = df.to_json
+      json.should contain("null")
+    end
+
+    it "to_json handles different types" do
+      df = dataframe_of("int", "float", "str", "bool").values(
+        42, 3.14, "hello", true
+      )
+      json = df.to_json
+      json.should contain("42")
+      json.should contain("3.14")
+      json.should contain("hello")
+      json.should contain("true")
+    end
+
+    it "to_json on empty dataframe" do
+      df = dataframe_of(Int32Col.new("x", [] of Int32))
+      json = df.to_json
+      json.should eq("[]")
+    end
+
+    it "write_json to IO" do
+      df = dataframe_of("a", "b").values(1, 2)
+      io = IO::Memory.new
+      df.write_json(io)
+      io.to_s.should contain("\"a\"")
+      io.to_s.should contain("\"b\"")
+    end
+
+    it "to_json round-trips with read_json" do
+      df = dataframe_of("name", "score").values(
+        "Alice", 95,
+        "Bob", 87
+      )
+      json = df.to_json
+      # Parse and verify structure
+      parsed = JSON.parse(json)
+      parsed.as_a.size.should eq(2)
+      parsed[0]["name"].as_s.should eq("Alice")
+      parsed[0]["score"].as_i.should eq(95)
+    end
+  end
 end

@@ -492,3 +492,51 @@ df.pivot_table(["region", "year"], "product", "sales", "count")
 ```
 
 Supported aggregation functions: `"sum"`, `"mean"`, `"count"`, `"min"`, `"max"`
+
+### Top/Bottom N Rows
+
+```crystal
+# Get top N rows by column value
+df.nlargest(10, "sales")           # Top 10 by sales
+df.nlargest(5, "score", "name")    # Top 5 by score, ties broken by name
+
+# Get bottom N rows by column value
+df.nsmallest(10, "price")          # Bottom 10 by price
+df.nsmallest(5, "age", "name")     # Bottom 5 by age, ties broken by name
+```
+
+### First/Last Values
+
+Get first or last non-null value from a column - useful in group aggregations:
+
+```crystal
+df["value"].first                  # First non-null value
+df["value"].last                   # Last non-null value
+
+# In group aggregations
+df.group_by("customer_id").summarize(
+  "first_order".with { |e| e["order_date"].first },
+  "last_order".with { |e| e["order_date"].last }
+)
+```
+
+### JSON Output
+
+```crystal
+# Convert to JSON string
+df.to_json                         # Compact JSON
+df.to_json(pretty: true)           # Pretty-printed JSON
+
+# Write to file
+df.write_json("output.json")
+df.write_json("output.json", pretty: true)
+```
+
+Output format is array of objects:
+
+```json
+[
+  { "name": "Alice", "age": 30 },
+  { "name": "Bob", "age": 25 }
+]
+```

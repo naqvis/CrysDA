@@ -617,6 +617,18 @@ module Crysda
       end
     end
 
+    # Get first non-null value from column
+    def first : Any
+      values.each { |v| return v.as(Any) unless v.nil? }
+      nil
+    end
+
+    # Get last non-null value from column
+    def last : Any
+      values.reverse_each { |v| return v.as(Any) unless v.nil? }
+      nil
+    end
+
     def pct_change : DataCol
       self / lag(1) + (-1)
     end
