@@ -240,6 +240,12 @@ module Crysda
         StringCol.new(name, col.values.dup.as(Array(String?)))
       when BoolCol
         BoolCol.new(name, col.values.dup.as(Array(Bool?)))
+      when DateTimeCol
+        DateTimeCol.new(name, col.values.dup.as(Array(Time?)))
+      when TimestampCol
+        TimestampCol.new(name, col.values.dup.as(Array(Time?)))
+      when BigDecimalCol
+        BigDecimalCol.new(name, col.values.dup.as(Array(BigDecimal?)))
       else
         AnyCol.new(name, col.values.dup.as(Array(Any)))
       end

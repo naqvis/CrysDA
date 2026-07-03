@@ -54,15 +54,21 @@ A DataFrame: 49 x 5
 
 - **CSV/TSV** - Plain or compressed (gzip), local or remote URLs
 - **JSON** - Array of objects format
-- **Database** - Direct SQL query results to DataFrame
+- **Database** - Direct SQL query results to DataFrame (with extension API for custom DB types)
 
 ### Column Types
 
-- Numeric: `Int32Col`, `Int64Col`, `Float64Col`
+- Numeric: `Int32Col`, `Int64Col`, `Float64Col`, `BigDecimalCol`
 - Text: `StringCol` with automatic interning for categorical data
 - Boolean: `BoolCol`
-- DateTime: `DateTimeCol` with component extraction and formatting
+- DateTime: `DateTimeCol` (millisecond precision) with component extraction and formatting
+- Timestamp: `TimestampCol` (nanosecond precision) for high-resolution time data
 - Nested: `DFCol` for hierarchical data
+
+Numeric types are auto-detected on CSV import:
+- Integer values → `Int32Col` or `Int64Col`
+- Decimal values → `Float64Col` (unless Float64 loses precision, then `BigDecimalCol`)
+- `BigDecimalCol` preserves arbitrary-precision decimal values from CSV or DB sources
 
 ### Missing Data
 
@@ -179,6 +185,13 @@ df = Crysda.read_csv("data.csv")
 df = Crysda.read_csv("http://example.com/data.csv")  # from URL
 df = Crysda.read_csv("data.tsv.gz", separator: '\t') # compressed TSV
 
+# From DB result set
+DB.open "postgres://localhost/mydb" do |db|
+  db.query "SELECT * FROM events" do |rs|
+    df = Crysda.from(rs)
+  end
+end
+
 # From code
 df = Crysda.dataframe_of("name", "age", "score").values(
   "Alice", 30, 95.5,
@@ -186,6 +199,22 @@ df = Crysda.dataframe_of("name", "age", "score").values(
   "Carol", 35, 92.3
 )
 ```
+
+#### Custom DB Types (Converter Registry)
+
+DB drivers may return types not in CrysDA's `Any` union (e.g., `PG::Numeric`). Register a converter to handle them:
+
+```crystal
+Crysda.register_converter("PG::Numeric") { |s| s.to_f64 }
+
+DB.open "postgres://localhost/mydb" do |db|
+  db.query "SELECT amount FROM transactions" do |rs|
+    df = Crysda.from(rs)
+  end
+end
+```
+
+The converter receives the value's string representation (`to_json` if available, fallback `to_s`). Unregistered types auto-convert to `StringCol`.
 
 ### Inspecting Data
 

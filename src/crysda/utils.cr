@@ -91,7 +91,7 @@ module Crysda
     # Checks that the underlying value is `DataFrame`, and returns its value.
     # Returns `nil` otherwise.
     def as_df? : DataFrame?
-      as_s if @raw.is_a?(DataFrame)
+      as_df if @raw.is_a?(DataFrame)
     end
 
     # Checks that the underlying value is `Nil`, and returns `nil`.
@@ -109,7 +109,7 @@ module Crysda
     # Checks that the underlying value is `Time`, and returns its value.
     # Returns `nil` otherwise.
     def as_t? : Time?
-      as_s if @raw.is_a?(Time)
+      as_t if @raw.is_a?(Time)
     end
 
     def to_s
@@ -177,6 +177,10 @@ module Crysda
         BoolCol.new(name, Array(Bool?).new(arr.size) { |i| arr[i].as?(Bool) })
       when DateTimeCol
         DateTimeCol.new(name, Array(Time?).new(arr.size) { |i| arr[i].as?(Time) })
+      when TimestampCol
+        TimestampCol.new(name, Array(Time?).new(arr.size) { |i| arr[i].as?(Time) })
+      when BigDecimalCol
+        BigDecimalCol.new(name, Array(BigDecimal?).new(arr.size) { |i| arr[i].as?(BigDecimal) })
       when DFCol
         DFCol.new(name, Array(DataFrame?).new(arr.size) { |i| arr[i].as?(DataFrame) })
       else
@@ -198,7 +202,19 @@ module Crysda
       when Type(Bool?).of_type?(arr)
         BoolCol.new(name, Array(Bool?).new(arr.size) { |i| arr[i].as?(Bool) })
       when Type(Time?).of_type?(arr)
-        DateTimeCol.new(name, Array(Time?).new(arr.size) { |i| arr[i].as?(Time) })
+        has_sub_ms = false
+        arr.each do |v|
+          if t = v.as?(Time)
+            has_sub_ms = true if t.nanosecond % 1_000_000 != 0
+          end
+        end
+        if has_sub_ms
+          TimestampCol.new(name, Array(Time?).new(arr.size) { |i| arr[i].as?(Time) })
+        else
+          DateTimeCol.new(name, Array(Time?).new(arr.size) { |i| arr[i].as?(Time) })
+        end
+      when Type(BigDecimal?).of_type?(arr)
+        BigDecimalCol.new(name, Array(BigDecimal?).new(arr.size) { |i| arr[i].as?(BigDecimal) })
       when arr.size == 0
         AnyCol.new(name, [] of Any)
       when Type(DataFrame).of_type?(arr)
@@ -225,24 +241,28 @@ module Crysda
       case arrified_mutation
       when DataCol
         case arrified_mutation
-        when Float64Col then Float64Col.new(name, arrified_mutation.values)
-        when Int32Col   then Int32Col.new(name, arrified_mutation.values)
-        when Int64Col   then Int64Col.new(name, arrified_mutation.values)
-        when StringCol  then StringCol.new(name, arrified_mutation.values)
-        when BoolCol    then BoolCol.new(name, arrified_mutation.values)
-        when AnyCol     then AnyCol.new(name, arrified_mutation.values)
+        when Float64Col    then Float64Col.new(name, arrified_mutation.values)
+        when Int32Col      then Int32Col.new(name, arrified_mutation.values)
+        when Int64Col      then Int64Col.new(name, arrified_mutation.values)
+        when StringCol     then StringCol.new(name, arrified_mutation.values)
+        when BoolCol       then BoolCol.new(name, arrified_mutation.values)
+        when DateTimeCol   then DateTimeCol.new(name, arrified_mutation.values)
+        when TimestampCol  then TimestampCol.new(name, arrified_mutation.values)
+        when BigDecimalCol then BigDecimalCol.new(name, arrified_mutation.values)
+        when AnyCol        then AnyCol.new(name, arrified_mutation.values)
         else
           raise UnSupportedOperationException.new
         end
-      when Array(Float32), Array(Float32?)     then Float64Col.new(name, Array(Float64?).new(arrified_mutation.size) { |i| arrified_mutation[i].try &.to_f64 })
-      when Array(Float64), Array(Float64?)     then Float64Col.new(name, Array(Float64?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
-      when Array(Int32), Array(Int32?)         then Int32Col.new(name, Array(Int32?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
-      when Array(Int64), Array(Int64?)         then Int64Col.new(name, Array(Int64?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
-      when Array(Bool), Array(Bool?)           then BoolCol.new(name, Array(Bool?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
-      when Array(String), Array(String?)       then StringCol.new(name, Array(String?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
-      when Array(Time), Array(Time?)           then DateTimeCol.new(name, Array(Time?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
-      when Array(CustomColumnValue)            then AnyCol.new(name, Array(Any).new(arrified_mutation.size) { |i| arrified_mutation[i] })
-      when Array(DataFrame), Array(DataFrame?) then handle_union(name, arrified_mutation)
+      when Array(Float32), Array(Float32?)       then Float64Col.new(name, Array(Float64?).new(arrified_mutation.size) { |i| arrified_mutation[i].try &.to_f64 })
+      when Array(Float64), Array(Float64?)       then Float64Col.new(name, Array(Float64?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
+      when Array(Int32), Array(Int32?)           then Int32Col.new(name, Array(Int32?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
+      when Array(Int64), Array(Int64?)           then Int64Col.new(name, Array(Int64?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
+      when Array(Bool), Array(Bool?)             then BoolCol.new(name, Array(Bool?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
+      when Array(String), Array(String?)         then StringCol.new(name, Array(String?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
+      when Array(Time), Array(Time?)             then DateTimeCol.new(name, Array(Time?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
+      when Array(BigDecimal), Array(BigDecimal?) then BigDecimalCol.new(name, Array(BigDecimal?).new(arrified_mutation.size) { |i| arrified_mutation[i] })
+      when Array(CustomColumnValue)              then AnyCol.new(name, Array(Any).new(arrified_mutation.size) { |i| arrified_mutation[i] })
+      when Array(DataFrame), Array(DataFrame?)   then handle_union(name, arrified_mutation)
       when Array(Any)
         if arrified_mutation.size == 0
           AnyCol.new(name, [] of Any)
@@ -518,6 +538,23 @@ module Crysda
       return HASH_NULL if val.nil?
       # Use bit representation for consistent hashing
       seed &* 37_i64 &+ val.unsafe_as(Int64)
+    end
+
+    # Hash a single Int128 value (or null)
+    @[AlwaysInline]
+    def self.hash_i128(val : Int128?, seed : Int64 = 17_i64) : Int64
+      return HASH_NULL if val.nil?
+      # XOR the upper and lower 64 bits to produce a 64-bit hash
+      low = val & Int128.new(Int64::MAX)
+      high = (val >> 64) & Int128.new(Int64::MAX)
+      seed &* 37_i64 &+ (low.to_i64 ^ high.to_i64)
+    end
+
+    # Hash a single BigDecimal value (or null)
+    @[AlwaysInline]
+    def self.hash_bd(val : BigDecimal?, seed : Int64 = 17_i64) : Int64
+      return HASH_NULL if val.nil?
+      seed &* 37_i64 &+ val.not_nil!.hash.to_i64
     end
 
     # Hash a single String value (or null)

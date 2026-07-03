@@ -95,15 +95,17 @@ module Crysda
     # Create empty column of same type
     private def empty_col_like(c : DataCol) : DataCol
       case c
-      when Float64Col  then Float64Col.new(c.name, [] of Float64?)
-      when Int32Col    then Int32Col.new(c.name, [] of Int32?)
-      when Int64Col    then Int64Col.new(c.name, [] of Int64?)
-      when StringCol   then StringCol.new(c.name, [] of String?)
-      when BoolCol     then BoolCol.new(c.name, [] of Bool?)
-      when DateTimeCol then DateTimeCol.new(c.name, [] of Time?)
-      when AnyCol      then AnyCol.new(c.name, [] of Any)
-      when DFCol       then DFCol.new(c.name, [] of DataFrame?)
-      else                  raise UnSupportedOperationException.new
+      when Float64Col    then Float64Col.new(c.name, [] of Float64?)
+      when Int32Col      then Int32Col.new(c.name, [] of Int32?)
+      when Int64Col      then Int64Col.new(c.name, [] of Int64?)
+      when StringCol     then StringCol.new(c.name, [] of String?)
+      when BoolCol       then BoolCol.new(c.name, [] of Bool?)
+      when DateTimeCol   then DateTimeCol.new(c.name, [] of Time?)
+      when TimestampCol  then TimestampCol.new(c.name, [] of Time?)
+      when BigDecimalCol then BigDecimalCol.new(c.name, [] of BigDecimal?)
+      when AnyCol        then AnyCol.new(c.name, [] of Any)
+      when DFCol         then DFCol.new(c.name, [] of DataFrame?)
+      else                    raise UnSupportedOperationException.new
       end
     end
 
@@ -172,6 +174,30 @@ module Crysda
           end
         end
         DateTimeCol.new(col.name, new_data, new_bitmap)
+      when TimestampCol
+        new_data = Slice(Int128).new(new_size, Int128.new(0))
+        new_bitmap = NullBitmap.new(new_size)
+        j = 0
+        col.raw_data.size.times do |i|
+          if index.unsafe_fetch(i)
+            new_data[j] = col.raw_data.unsafe_fetch(i)
+            new_bitmap.set(j) if col.bitmap[i]
+            j += 1
+          end
+        end
+        TimestampCol.new(col.name, new_data, new_bitmap)
+      when BigDecimalCol
+        new_data = Slice(BigDecimal).new(new_size, BigDecimal.new(0))
+        new_bitmap = NullBitmap.new(new_size)
+        j = 0
+        col.raw_data.size.times do |i|
+          if index.unsafe_fetch(i)
+            new_data[j] = col.raw_data.unsafe_fetch(i)
+            new_bitmap.set(j) if col.bitmap[i]
+            j += 1
+          end
+        end
+        BigDecimalCol.new(col.name, new_data, new_bitmap)
       when AnyCol
         AnyCol.new(col.name, col.values.select_with_index { |_, i| index[i] })
       when DFCol
@@ -262,6 +288,16 @@ module Crysda
         new_bitmap = NullBitmap.new(perm.size)
         perm.each_with_index { |src, dst| new_bitmap.set(dst) if col.bitmap[src] }
         DateTimeCol.new(col.name, new_data, new_bitmap)
+      when TimestampCol
+        new_data = Slice(Int128).new(perm.size) { |i| col.raw_data.unsafe_fetch(perm.unsafe_fetch(i)).as(Int128) }
+        new_bitmap = NullBitmap.new(perm.size)
+        perm.each_with_index { |src, dst| new_bitmap.set(dst) if col.bitmap[src] }
+        TimestampCol.new(col.name, new_data, new_bitmap)
+      when BigDecimalCol
+        new_data = Slice(BigDecimal).new(perm.size) { |i| col.raw_data.unsafe_fetch(perm.unsafe_fetch(i)) }
+        new_bitmap = NullBitmap.new(perm.size)
+        perm.each_with_index { |src, dst| new_bitmap.set(dst) if col.bitmap[src] }
+        BigDecimalCol.new(col.name, new_data, new_bitmap)
       when AnyCol
         AnyCol.new(col.name, Array(Any?).new(perm.size) { |idx| col.values[perm[idx]] })
       when DFCol
@@ -367,6 +403,24 @@ module Crysda
                 end
             hashes[i] = h
           end
+        when TimestampCol
+          n.times do |i|
+            h = if c.bitmap[i]
+                  HashBuilder::HASH_NULL
+                else
+                  HashBuilder.hash_i128(c.raw_data.unsafe_fetch(i), hashes.unsafe_fetch(i))
+                end
+            hashes[i] = h
+          end
+        when BigDecimalCol
+          n.times do |i|
+            h = if c.bitmap[i]
+                  HashBuilder::HASH_NULL
+                else
+                  HashBuilder.hash_bd(c.raw_data.unsafe_fetch(i), hashes.unsafe_fetch(i))
+                end
+            hashes[i] = h
+          end
         else
           # Fallback for other column types
           hasher = HashBuilder.new
@@ -432,6 +486,16 @@ module Crysda
         new_bitmap = NullBitmap.new(gid.size)
         gid.size.times { |i| new_bitmap.set(i) if c.bitmap[gid[i]] }
         DateTimeCol.new(c.name, new_data, new_bitmap)
+      when TimestampCol
+        new_data = Slice(Int128).new(gid.size) { |i| c.raw_data.unsafe_fetch(gid[i]).as(Int128) }
+        new_bitmap = NullBitmap.new(gid.size)
+        gid.size.times { |i| new_bitmap.set(i) if c.bitmap[gid[i]] }
+        TimestampCol.new(c.name, new_data, new_bitmap)
+      when BigDecimalCol
+        new_data = Slice(BigDecimal).new(gid.size) { |i| c.raw_data.unsafe_fetch(gid[i]) }
+        new_bitmap = NullBitmap.new(gid.size)
+        gid.size.times { |i| new_bitmap.set(i) if c.bitmap[gid[i]] }
+        BigDecimalCol.new(c.name, new_data, new_bitmap)
       when AnyCol
         AnyCol.new(c.name, Array(Any).new(gid.size) { |i| c[gid[i]] })
       else

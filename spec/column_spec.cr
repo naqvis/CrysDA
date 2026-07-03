@@ -336,6 +336,304 @@ module Crysda
         col[0].not_nil!.year.should eq(2023)
         col[2].should be_nil
       end
+
+      it "creates from epoch milliseconds" do
+        epochs = [1672531200000_i64, 1687219200000_i64, nil]
+        col = DateTimeCol.from_epoch_ms("dates", epochs)
+        col[0].not_nil!.year.should eq(2023)
+        col[2].should be_nil
+      end
+
+      it "preserves millisecond precision" do
+        times = [
+          Time.utc(2023, 1, 15, 10, 30, 45, nanosecond: 123_000_000),
+          Time.utc(2023, 6, 20, 14, 45, 30, nanosecond: 987_000_000),
+        ]
+        col = DateTimeCol.new("dates", times)
+        col.millisecond[0].should eq(123)
+        col.millisecond[1].should eq(987)
+      end
+
+      it "parses millisecond format strings" do
+        strings = ["2023-01-15 10:30:45.123", "2023-06-20 14:45:30.987"]
+        col = DateTimeCol.parse("dates", strings)
+        col.millisecond[0].should eq(123)
+        col.millisecond[1].should eq(987)
+      end
+
+      it "supports lead/lag" do
+        times = [Time.utc(2023, 1, 1), Time.utc(2023, 1, 2), Time.utc(2023, 1, 3)]
+        col = DateTimeCol.new("dates", times)
+        col.lead(1)[0].should eq(Time.utc(2023, 1, 2))
+        col.lead(1)[2].should be_nil
+        col.lag(1)[0].should be_nil
+        col.lag(1)[1].should eq(Time.utc(2023, 1, 1))
+      end
+
+      it "supports ffill/bfill" do
+        times = [Time.utc(2023, 1, 1), nil, Time.utc(2023, 1, 3)]
+        col = DateTimeCol.new("dates", times)
+        col.ffill[0].should eq(Time.utc(2023, 1, 1))
+        col.ffill[1].should eq(Time.utc(2023, 1, 1))
+        col.ffill[2].should eq(Time.utc(2023, 1, 3))
+        col.bfill[0].should eq(Time.utc(2023, 1, 1))
+        col.bfill[1].should eq(Time.utc(2023, 1, 3))
+        col.bfill[2].should eq(Time.utc(2023, 1, 3))
+      end
+    end
+
+    # TimestampCol tests
+    describe TimestampCol do
+      it "creates TimestampCol from Time array" do
+        times = [
+          Time.utc(2023, 1, 15, 10, 30, 45, nanosecond: 123_456_789),
+          Time.utc(2023, 6, 20, 14, 45, 30, nanosecond: 987_654_321),
+          nil,
+        ]
+        col = TimestampCol.new("ts", times)
+        col.size.should eq(3)
+        col.has_nulls?.should be_true
+        col[0].should eq(Time.utc(2023, 1, 15, 10, 30, 45, nanosecond: 123_456_789))
+        col[2].should be_nil
+      end
+
+      it "parses nanosecond format strings" do
+        strings = ["2023-01-15 10:30:45.123456789", "2023-06-20 14:45:30.987654321"]
+        col = TimestampCol.parse("ts", strings)
+        col.nanosecond[0].should eq(123456789)
+        col.nanosecond[1].should eq(987654321)
+      end
+
+      it "extracts year, month, day components" do
+        times = [Time.utc(2020, 1, 1), Time.utc(2022, 12, 31)]
+        col = TimestampCol.new("ts", times)
+        col.year[0].should eq(2020)
+        col.year[1].should eq(2022)
+        col.month[1].should eq(12)
+        col.day[1].should eq(31)
+      end
+
+      it "extracts hour, minute, second, millisecond, microsecond, nanosecond" do
+        times = [Time.utc(2023, 1, 1, 10, 30, 45, nanosecond: 123_456_789)]
+        col = TimestampCol.new("ts", times)
+        col.hour[0].should eq(10)
+        col.minute[0].should eq(30)
+        col.second[0].should eq(45)
+        col.millisecond[0].should eq(123)
+        col.microsecond[0].should eq(123456)
+        col.nanosecond[0].should eq(123456789)
+      end
+
+      it "calculates min and max" do
+        times = [Time.utc(2023, 6, 15), Time.utc(2020, 1, 1), Time.utc(2025, 12, 31)]
+        col = TimestampCol.new("ts", times)
+        col.min.should eq(Time.utc(2020, 1, 1))
+        col.max.should eq(Time.utc(2025, 12, 31))
+      end
+
+      it "handles min/max with nulls" do
+        times = [Time.utc(2023, 6, 15), nil, Time.utc(2020, 1, 1)]
+        col = TimestampCol.new("ts", times)
+        expect_raises(MissingValueException) { col.min }
+        col.min(remove_na: true).should eq(Time.utc(2020, 1, 1))
+        col.max(remove_na: true).should eq(Time.utc(2023, 6, 15))
+      end
+
+      it "compares with Time values" do
+        times = [Time.utc(2020, 1, 1), Time.utc(2023, 6, 15), Time.utc(2025, 12, 31)]
+        col = TimestampCol.new("ts", times)
+        threshold = Time.utc(2023, 1, 1)
+        (col > threshold).should eq([false, true, true])
+        (col >= threshold).should eq([false, true, true])
+        (col < threshold).should eq([true, false, false])
+        (col <= threshold).should eq([true, false, false])
+      end
+
+      it "supports lazy iteration" do
+        times = [Time.utc(2023, 1, 1), nil, Time.utc(2023, 12, 31)]
+        col = TimestampCol.new("ts", times)
+        collected = [] of Time?
+        col.each { |v| collected << v }
+        collected.size.should eq(3)
+        collected[1].should be_nil
+        non_null = [] of Time
+        col.each_non_null { |v| non_null << v }
+        non_null.size.should eq(2)
+      end
+
+      it "creates from epoch nanoseconds" do
+        epochs = [1672531200123456789_i128, nil]
+        col = TimestampCol.from_epoch_ns("ts", epochs)
+        col[0].not_nil!.year.should eq(2023)
+        col[0].not_nil!.nanosecond.should eq(123456789)
+        col[1].should be_nil
+      end
+
+      it "formats with strftime" do
+        times = [Time.utc(2023, 1, 15, 10, 30, 45, nanosecond: 123_456_789)]
+        col = TimestampCol.new("ts", times)
+        formatted = col.strftime("%Y-%m-%d %H:%M:%S.%N")
+        formatted[0].should eq("2023-01-15 10:30:45.123456789")
+      end
+
+      it "converts to DateTimeCol" do
+        times = [Time.utc(2023, 1, 15, 10, 30, 45, nanosecond: 123_456_789)]
+        ts = TimestampCol.new("ts", times)
+        dt = ts.to_datetime
+        dt.is_a?(DateTimeCol).should be_true
+        dt[0].not_nil!.year.should eq(2023)
+        dt[0].not_nil!.second.should eq(45)
+      end
+
+      it "supports lead/lag" do
+        times = [Time.utc(2023, 1, 1), Time.utc(2023, 1, 2), Time.utc(2023, 1, 3)]
+        col = TimestampCol.new("ts", times)
+        col.lead(1)[0].should eq(Time.utc(2023, 1, 2))
+        col.lead(1)[2].should be_nil
+        col.lag(1)[0].should be_nil
+        col.lag(1)[1].should eq(Time.utc(2023, 1, 1))
+      end
+
+      it "supports ffill/bfill" do
+        times = [Time.utc(2023, 1, 1), nil, Time.utc(2023, 1, 3)]
+        col = TimestampCol.new("ts", times)
+        col.ffill[0].should eq(Time.utc(2023, 1, 1))
+        col.ffill[1].should eq(Time.utc(2023, 1, 1))
+        col.ffill[2].should eq(Time.utc(2023, 1, 3))
+        col.bfill[0].should eq(Time.utc(2023, 1, 1))
+        col.bfill[1].should eq(Time.utc(2023, 1, 3))
+        col.bfill[2].should eq(Time.utc(2023, 1, 3))
+      end
+    end
+
+    describe "DateTimeCol#to_timestamp" do
+      it "converts to TimestampCol" do
+        times = [Time.utc(2023, 1, 15, 10, 30, 45, nanosecond: 123_000_000)]
+        dt = DateTimeCol.new("dt", times)
+        ts = dt.to_timestamp
+        ts.is_a?(TimestampCol).should be_true
+        ts[0].not_nil!.year.should eq(2023)
+        ts[0].not_nil!.nanosecond.should eq(123000000)
+      end
+    end
+
+    describe "BigDecimalCol" do
+      it "stores and retrieves values" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("10.5"), nil, BigDecimal.new("3.14")])
+        col[0].should eq(BigDecimal.new("10.5"))
+        col[1].should be_nil
+        col[2].should eq(BigDecimal.new("3.14"))
+      end
+
+      it "computes sum" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("1"), BigDecimal.new("2"), BigDecimal.new("3")])
+        col.sum.should eq(BigDecimal.new("6"))
+      end
+
+      it "computes mean" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("2"), BigDecimal.new("4"), BigDecimal.new("6")])
+        col.mean.should eq(BigDecimal.new("4"))
+      end
+
+      it "computes min and max" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("3"), BigDecimal.new("1"), BigDecimal.new("2")])
+        col.min.should eq(BigDecimal.new("1"))
+        col.max.should eq(BigDecimal.new("3"))
+      end
+
+      it "forward fills nulls" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("1.5"), nil, BigDecimal.new("3.0")])
+        result = col.ffill
+        result[0].should eq(BigDecimal.new("1.5"))
+        result[1].should eq(BigDecimal.new("1.5"))
+        result[2].should eq(BigDecimal.new("3.0"))
+      end
+
+      it "backward fills nulls" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("1.5"), nil, BigDecimal.new("3.0")])
+        result = col.bfill
+        result[0].should eq(BigDecimal.new("1.5"))
+        result[1].should eq(BigDecimal.new("3.0"))
+        result[2].should eq(BigDecimal.new("3.0"))
+      end
+
+      it "supports arithmetic" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("10"), BigDecimal.new("20")])
+        (col + 5)[0].should eq(BigDecimal.new("15"))
+        (col - 3)[0].should eq(BigDecimal.new("7"))
+        (col * 2)[0].should eq(BigDecimal.new("20"))
+        (col / 2)[0].should eq(BigDecimal.new("5"))
+      end
+
+      it "works in a DataFrame" do
+        df = Crysda.dataframe_of(
+          BigDecimalCol.new("val", [BigDecimal.new("1.1"), BigDecimal.new("2.2"), BigDecimal.new("3.3")]),
+          StringCol.new("label", ["a", "b", "c"]),
+        )
+        df.num_row.should eq(3)
+        df.num_col.should eq(2)
+        df["val"].is_a?(BigDecimalCol).should be_true
+        df["val"].as(BigDecimalCol).sum.should eq(BigDecimal.new("6.6"))
+      end
+
+      it "detects BigDecimal arrays via handle_union" do
+        arr = [BigDecimal.new("1.5"), BigDecimal.new("2.5"), nil]
+        col = Utils.handle_union("test", arr)
+        col.is_a?(BigDecimalCol).should be_true
+        col[0].should eq(BigDecimal.new("1.5"))
+        col[2].should be_nil
+      end
+
+      it "converts to f64" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("1.5"), BigDecimal.new("2.5")])
+        result = col.as_f64
+        result.should eq([1.5, 2.5])
+      end
+
+      it "converts to_s" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("1.5"), nil, BigDecimal.new("3.0")])
+        result = col.as_s
+        result[0].should eq("1.5")
+        result[1].should be_nil
+        result[2].should eq("3.0")
+      end
+
+      it "supports filter operations" do
+        df = Crysda.dataframe_of(
+          BigDecimalCol.new("bd", [BigDecimal.new("1"), BigDecimal.new("5"), BigDecimal.new("3")]),
+        )
+        filtered = df.filter { |r| r["bd"] > 2 }
+        filtered.num_row.should eq(2)
+      end
+
+      it "supports comparison" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("1"), BigDecimal.new("5"), BigDecimal.new("3")])
+        result = col > 2
+        result.should eq([false, true, true])
+      end
+
+      it "computes median" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("3"), BigDecimal.new("1"), BigDecimal.new("2")])
+        col.median.should eq(BigDecimal.new("2"))
+      end
+
+      it "converts to Float64Col" do
+        col = BigDecimalCol.new("bd", [BigDecimal.new("1.5"), BigDecimal.new("2.5"), nil])
+        f64 = col.to_f64
+        f64.is_a?(Float64Col).should be_true
+        f64[0].should eq(1.5)
+        f64[1].should eq(2.5)
+        f64[2].should be_nil
+      end
+
+      it "converts from Float64Col to BigDecimalCol" do
+        col = Float64Col.new("f64", [1.5, 2.5, nil])
+        bd = col.to_big_decimal
+        bd.is_a?(BigDecimalCol).should be_true
+        bd[0].should eq(BigDecimal.new("1.5"))
+        bd[1].should eq(BigDecimal.new("2.5"))
+        bd[2].should be_nil
+      end
     end
   end
 end

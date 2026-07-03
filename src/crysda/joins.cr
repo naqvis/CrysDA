@@ -169,11 +169,14 @@ module Crysda
     private def self.nil_row(df : DataFrame) : DataFrame
       df.cols.reduce(SimpleDataFrame.empty) do |nil_df, col|
         case col
-        when Int32Col   then Int32Col.new(col.name, Array(Int32?).new(1, nil))
-        when Int64Col   then Int64Col.new(col.name, Array(Int64?).new(1, nil))
-        when Float64Col then Float64Col.new(col.name, Array(Float64?).new(1, nil))
-        when StringCol  then StringCol.new(col.name, Array(String?).new(1, nil))
-        when BoolCol    then BoolCol.new(col.name, Array(Bool?).new(1, nil))
+        when Int32Col      then Int32Col.new(col.name, Array(Int32?).new(1, nil))
+        when Int64Col      then Int64Col.new(col.name, Array(Int64?).new(1, nil))
+        when Float64Col    then Float64Col.new(col.name, Array(Float64?).new(1, nil))
+        when StringCol     then StringCol.new(col.name, Array(String?).new(1, nil))
+        when BoolCol       then BoolCol.new(col.name, Array(Bool?).new(1, nil))
+        when DateTimeCol   then DateTimeCol.new(col.name, Array(Time?).new(1, nil))
+        when TimestampCol  then TimestampCol.new(col.name, Array(Time?).new(1, nil))
+        when BigDecimalCol then BigDecimalCol.new(col.name, Array(BigDecimal?).new(1, nil))
         else
           AnyCol.new(col.name, Array(Any).new(1, nil))
         end.try { |v| nil_df.add_column(v) }
@@ -208,12 +211,15 @@ module Crysda
     protected def self.replicate_by_index(df, rep_index) : DataFrame
       rep_cols = df.cols.map do |v|
         case v
-        when Float64Col then Float64Col.new(v.name, Array(Float64?).new(rep_index.size) { |i| v.values[rep_index[i]] })
-        when Int32Col   then Int32Col.new(v.name, Array(Int32?).new(rep_index.size) { |i| v.values[rep_index[i]] })
-        when Int64Col   then Int64Col.new(v.name, Array(Int64?).new(rep_index.size) { |i| v.values[rep_index[i]] })
-        when StringCol  then StringCol.new(v.name, Array(String?).new(rep_index.size) { |i| v.values[rep_index[i]] })
-        when BoolCol    then BoolCol.new(v.name, Array(Bool?).new(rep_index.size) { |i| v.values[rep_index[i]] })
-        when DFCol      then DFCol.new(v.name, Array(DataFrame?).new(rep_index.size) { |i| v.values[rep_index[i]] })
+        when Float64Col    then Float64Col.new(v.name, Array(Float64?).new(rep_index.size) { |i| v.values[rep_index[i]] })
+        when Int32Col      then Int32Col.new(v.name, Array(Int32?).new(rep_index.size) { |i| v.values[rep_index[i]] })
+        when Int64Col      then Int64Col.new(v.name, Array(Int64?).new(rep_index.size) { |i| v.values[rep_index[i]] })
+        when StringCol     then StringCol.new(v.name, Array(String?).new(rep_index.size) { |i| v.values[rep_index[i]] })
+        when BoolCol       then BoolCol.new(v.name, Array(Bool?).new(rep_index.size) { |i| v.values[rep_index[i]] })
+        when DateTimeCol   then DateTimeCol.new(v.name, Array(Time?).new(rep_index.size) { |i| v.values[rep_index[i]] })
+        when TimestampCol  then TimestampCol.new(v.name, Array(Time?).new(rep_index.size) { |i| v.values[rep_index[i]] })
+        when BigDecimalCol then BigDecimalCol.new(v.name, Array(BigDecimal?).new(rep_index.size) { |i| v.values[rep_index[i]] })
+        when DFCol         then DFCol.new(v.name, Array(DataFrame?).new(rep_index.size) { |i| v.values[rep_index[i]] })
         else
           raise UnSupportedOperationException.new
         end

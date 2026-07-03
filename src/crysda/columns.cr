@@ -1,3 +1,4 @@
+require "big"
 require "./utils"
 
 module Crysda
@@ -540,9 +541,10 @@ module Crysda
 
     def min(remove_na = false)
       case e = self
-      when Int32Col   then e.opt_min(remove_na)
-      when Int64Col   then e.opt_min(remove_na)
-      when Float64Col then e.opt_min(remove_na)
+      when Int32Col      then e.opt_min(remove_na)
+      when Int64Col      then e.opt_min(remove_na)
+      when Float64Col    then e.opt_min(remove_na)
+      when BigDecimalCol then e.opt_min(remove_na)
       else
         raise InvalidColumnOperationException.new
       end
@@ -550,9 +552,10 @@ module Crysda
 
     def max(remove_na = false)
       case e = self
-      when Int32Col   then e.opt_max(remove_na)
-      when Int64Col   then e.opt_max(remove_na)
-      when Float64Col then e.opt_max(remove_na)
+      when Int32Col      then e.opt_max(remove_na)
+      when Int64Col      then e.opt_max(remove_na)
+      when Float64Col    then e.opt_max(remove_na)
+      when BigDecimalCol then e.opt_max(remove_na)
       else
         raise InvalidColumnOperationException.new
       end
@@ -560,9 +563,10 @@ module Crysda
 
     def mean(remove_na = false)
       case e = self
-      when Int32Col   then e.opt_mean(remove_na)
-      when Int64Col   then e.opt_mean(remove_na)
-      when Float64Col then e.opt_mean(remove_na)
+      when Int32Col      then e.opt_mean(remove_na)
+      when Int64Col      then e.opt_mean(remove_na)
+      when Float64Col    then e.opt_mean(remove_na)
+      when BigDecimalCol then e.opt_mean(remove_na)
       else
         raise InvalidColumnOperationException.new
       end
@@ -570,9 +574,10 @@ module Crysda
 
     def sum(remove_na = false)
       case e = self
-      when Int32Col   then e.opt_sum(remove_na)
-      when Int64Col   then e.opt_sum(remove_na)
-      when Float64Col then e.opt_sum(remove_na)
+      when Int32Col      then e.opt_sum(remove_na)
+      when Int64Col      then e.opt_sum(remove_na)
+      when Float64Col    then e.opt_sum(remove_na)
+      when BigDecimalCol then e.opt_sum(remove_na)
       else
         raise InvalidColumnOperationException.new
       end
@@ -580,9 +585,10 @@ module Crysda
 
     def median(remove_na = false)
       case e = self
-      when Int32Col   then e.opt_median(remove_na)
-      when Int64Col   then e.opt_median(remove_na)
-      when Float64Col then e.opt_median(remove_na)
+      when Int32Col      then e.opt_median(remove_na)
+      when Int64Col      then e.opt_median(remove_na)
+      when Float64Col    then e.opt_median(remove_na)
+      when BigDecimalCol then e.opt_median(remove_na)
       else
         raise InvalidColumnOperationException.new
       end
@@ -590,9 +596,10 @@ module Crysda
 
     def sd(remove_na = false)
       case e = self
-      when Int32Col   then e.opt_sd(remove_na)
-      when Int64Col   then e.opt_sd(remove_na)
-      when Float64Col then e.opt_sd(remove_na)
+      when Int32Col      then e.opt_sd(remove_na)
+      when Int64Col      then e.opt_sd(remove_na)
+      when Float64Col    then e.opt_sd(remove_na)
+      when BigDecimalCol then e.opt_sd(remove_na)
       else
         raise InvalidColumnOperationException.new
       end
@@ -635,12 +642,15 @@ module Crysda
 
     def lead(n = 1, default : Any = nil)
       val = case col = self
-            when StringCol  then col.values.lead(n, default.as?(String?))
-            when Float64Col then col.values.lead(n, default.as?(Float64?))
-            when Int32Col   then col.values.lead(n, default.as?(Int32?))
-            when Int64Col   then col.values.lead(n, default.as?(Int64?))
-            when BoolCol    then col.values.lead(n, default.as?(Bool?))
-            when AnyCol     then col.values.lead(n, default)
+            when StringCol     then col.values.lead(n, default.as?(String?))
+            when Float64Col    then col.values.lead(n, default.as?(Float64?))
+            when Int32Col      then col.values.lead(n, default.as?(Int32?))
+            when Int64Col      then col.values.lead(n, default.as?(Int64?))
+            when BoolCol       then col.values.lead(n, default.as?(Bool?))
+            when DateTimeCol   then col.values.lead(n, default.as?(Time?))
+            when TimestampCol  then col.values.lead(n, default.as?(Time?))
+            when BigDecimalCol then col.values.lead(n, default.as?(BigDecimal?))
+            when AnyCol        then col.values.lead(n, default)
             else
               raise InvalidColumnOperationException.new
             end
@@ -649,12 +659,15 @@ module Crysda
 
     def lag(n = 1, default : Any = nil)
       val = case col = self
-            when StringCol  then col.values.lag(n, default.as?(String?))
-            when Float64Col then col.values.lag(n, default.as?(Float64?))
-            when Int32Col   then col.values.lag(n, default.as?(Int32?))
-            when Int64Col   then col.values.lag(n, default.as?(Int64?))
-            when BoolCol    then col.values.lag(n, default.as?(Bool?))
-            when AnyCol     then col.values.lag(n, default)
+            when StringCol     then col.values.lag(n, default.as?(String?))
+            when Float64Col    then col.values.lag(n, default.as?(Float64?))
+            when Int32Col      then col.values.lag(n, default.as?(Int32?))
+            when Int64Col      then col.values.lag(n, default.as?(Int64?))
+            when BoolCol       then col.values.lag(n, default.as?(Bool?))
+            when DateTimeCol   then col.values.lag(n, default.as?(Time?))
+            when TimestampCol  then col.values.lag(n, default.as?(Time?))
+            when BigDecimalCol then col.values.lag(n, default.as?(BigDecimal?))
+            when AnyCol        then col.values.lag(n, default)
             else
               raise InvalidColumnOperationException.new
             end
@@ -809,6 +822,13 @@ module Crysda
           v = col.unsafe_fetch(i)
           v.nil? ? false : (v >= min_i && v <= max_i)
         end
+      when BigDecimalCol
+        min_bd = BigDecimal.new(min_val.to_f64)
+        max_bd = BigDecimal.new(max_val.to_f64)
+        Array(Bool).new(col.values.size) do |i|
+          v = col.unsafe_fetch(i)
+          v.nil? ? false : (v >= min_bd && v <= max_bd)
+        end
       else
         raise InvalidColumnOperationException.new("between requires numeric column, got #{self.class}")
       end
@@ -841,6 +861,14 @@ module Crysda
           v < min_i ? min_i : (v > max_i ? max_i : v)
         end
         Int64Col.new(Crysda.temp_colname, result, col.bitmap)
+      when BigDecimalCol
+        min_bd = BigDecimal.new(min_val.to_f64)
+        max_bd = BigDecimal.new(max_val.to_f64)
+        result = Slice(BigDecimal).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v < min_bd ? min_bd : (v > max_bd ? max_bd : v)
+        end
+        BigDecimalCol.new(Crysda.temp_colname, result, col.bitmap)
       else
         raise InvalidColumnOperationException.new("clip requires numeric column, got #{self.class}")
       end
@@ -870,6 +898,13 @@ module Crysda
           v < min_i ? min_i : v
         end
         Int64Col.new(Crysda.temp_colname, result, col.bitmap)
+      when BigDecimalCol
+        min_bd = BigDecimal.new(min_val.to_f64)
+        result = Slice(BigDecimal).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v < min_bd ? min_bd : v
+        end
+        BigDecimalCol.new(Crysda.temp_colname, result, col.bitmap)
       else
         raise InvalidColumnOperationException.new("clip_lower requires numeric column, got #{self.class}")
       end
@@ -899,6 +934,13 @@ module Crysda
           v > max_i ? max_i : v
         end
         Int64Col.new(Crysda.temp_colname, result, col.bitmap)
+      when BigDecimalCol
+        max_bd = BigDecimal.new(max_val.to_f64)
+        result = Slice(BigDecimal).new(col.values.size) do |i|
+          v = col.raw_data.unsafe_fetch(i)
+          v > max_bd ? max_bd : v
+        end
+        BigDecimalCol.new(Crysda.temp_colname, result, col.bitmap)
       else
         raise InvalidColumnOperationException.new("clip_upper requires numeric column, got #{self.class}")
       end
@@ -975,6 +1017,57 @@ module Crysda
           end
         end
         StringCol.new(Crysda.temp_colname, result, result_bitmap)
+      when DateTimeCol
+        result_dt = Slice(Int64).new(col.values.size, 0_i64)
+        result_bitmap_dt = NullBitmap.new(col.values.size)
+        last_dt : Int64? = nil
+        col.values.size.times do |i|
+          if col.bitmap[i]
+            if lv = last_dt
+              result_dt[i] = lv
+            else
+              result_bitmap_dt.set(i)
+            end
+          else
+            last_dt = col.raw_data.unsafe_fetch(i)
+            result_dt[i] = last_dt.not_nil!
+          end
+        end
+        DateTimeCol.new(Crysda.temp_colname, result_dt, result_bitmap_dt)
+      when TimestampCol
+        result_ts = Slice(Int128).new(col.values.size, Int128.new(0))
+        result_bitmap_ts = NullBitmap.new(col.values.size)
+        last_ts : Int128? = nil
+        col.values.size.times do |i|
+          if col.bitmap[i]
+            if lv = last_ts
+              result_ts[i] = lv
+            else
+              result_bitmap_ts.set(i)
+            end
+          else
+            last_ts = col.raw_data.unsafe_fetch(i)
+            result_ts[i] = last_ts.not_nil!
+          end
+        end
+        TimestampCol.new(Crysda.temp_colname, result_ts, result_bitmap_ts)
+      when BigDecimalCol
+        result_bd = Slice(BigDecimal).new(col.values.size, BigDecimal.new(0))
+        result_bitmap_bd = NullBitmap.new(col.values.size)
+        last_bd : BigDecimal? = nil
+        col.values.size.times do |i|
+          if col.bitmap[i]
+            if lv = last_bd
+              result_bd[i] = lv
+            else
+              result_bitmap_bd.set(i)
+            end
+          else
+            last_bd = col.raw_data.unsafe_fetch(i)
+            result_bd[i] = last_bd.not_nil!
+          end
+        end
+        BigDecimalCol.new(Crysda.temp_colname, result_bd, result_bitmap_bd)
       else
         raise InvalidColumnOperationException.new("ffill not supported for #{self.class}")
       end
@@ -1051,6 +1144,57 @@ module Crysda
           end
         end
         StringCol.new(Crysda.temp_colname, result, result_bitmap)
+      when DateTimeCol
+        result_bdt = Slice(Int64).new(col.values.size, 0_i64)
+        result_bitmap_bdt = NullBitmap.new(col.values.size)
+        next_bdt : Int64? = nil
+        (col.values.size - 1).downto(0) do |i|
+          if col.bitmap[i]
+            if nv = next_bdt
+              result_bdt[i] = nv
+            else
+              result_bitmap_bdt.set(i)
+            end
+          else
+            next_bdt = col.raw_data.unsafe_fetch(i)
+            result_bdt[i] = next_bdt.not_nil!
+          end
+        end
+        DateTimeCol.new(Crysda.temp_colname, result_bdt, result_bitmap_bdt)
+      when TimestampCol
+        result_bts = Slice(Int128).new(col.values.size, Int128.new(0))
+        result_bitmap_bts = NullBitmap.new(col.values.size)
+        next_bts : Int128? = nil
+        (col.values.size - 1).downto(0) do |i|
+          if col.bitmap[i]
+            if nv = next_bts
+              result_bts[i] = nv
+            else
+              result_bitmap_bts.set(i)
+            end
+          else
+            next_bts = col.raw_data.unsafe_fetch(i)
+            result_bts[i] = next_bts.not_nil!
+          end
+        end
+        TimestampCol.new(Crysda.temp_colname, result_bts, result_bitmap_bts)
+      when BigDecimalCol
+        result_bd = Slice(BigDecimal).new(col.values.size, BigDecimal.new(0))
+        result_bitmap_bd = NullBitmap.new(col.values.size)
+        next_bd : BigDecimal? = nil
+        (col.values.size - 1).downto(0) do |i|
+          if col.bitmap[i]
+            if nv = next_bd
+              result_bd[i] = nv
+            else
+              result_bitmap_bd.set(i)
+            end
+          else
+            next_bd = col.raw_data.unsafe_fetch(i)
+            result_bd[i] = next_bd.not_nil!
+          end
+        end
+        BigDecimalCol.new(Crysda.temp_colname, result_bd, result_bitmap_bd)
       else
         raise InvalidColumnOperationException.new("bfill not supported for #{self.class}")
       end
@@ -1157,8 +1301,8 @@ module Crysda
 
     def as_s
       case self
-      when Int32Col, Int64Col, Float64Col, BoolCol, AnyCol
-        Array(String?).new(values.size) { |i| values[i].to_s }
+      when Int32Col, Int64Col, Float64Col, BoolCol, BigDecimalCol, AnyCol
+        Array(String?).new(values.size) { |i| v = values[i]; v.nil? ? nil : v.to_s }
       else
         Cast(StringCol).cast(self).values
       end
@@ -1182,8 +1326,9 @@ module Crysda
 
     def as_f64
       case self
-      when Int32Col then Array(Float64?).new(values.size) { |i| self[i].try &.to_f64 }
-      when Int64Col then Array(Float64?).new(values.size) { |i| self[i].try &.to_f64 }
+      when Int32Col      then Array(Float64?).new(values.size) { |i| self[i].try &.to_f64 }
+      when Int64Col      then Array(Float64?).new(values.size) { |i| self[i].try &.to_f64 }
+      when BigDecimalCol then Array(Float64?).new(values.size) { |i| self[i].try &.to_f64 }
       else
         Cast(Float64Col).cast(self).values
       end
@@ -1767,6 +1912,11 @@ module Crysda
       end
 
       Float64Col.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    def to_big_decimal(name : String = @name) : BigDecimalCol
+      bd_data = Slice(BigDecimal).new(@data.size) { |i| BigDecimal.new(@data.unsafe_fetch(i)) }
+      BigDecimalCol.new(name, bd_data, @null_bitmap)
     end
   end
 
@@ -3201,11 +3351,11 @@ module Crysda
   # DateTime Column - stores Time values with optimized internal storage
   # ===========================================================================
   struct DateTimeCol < DataCol
-    @data : Slice(Int64) # Unix epoch seconds
+    @data : Slice(Int64) # Unix epoch milliseconds
     @null_bitmap : NullBitmap
     @cached_values : Array(Time?)?
 
-    # Common date/time formats for parsing
+    # Second-level date/time formats for parsing
     DATETIME_FORMATS = [
       "%Y-%m-%d %H:%M:%S",
       "%Y-%m-%dT%H:%M:%S",
@@ -3219,6 +3369,15 @@ module Crysda
       "%Y%m%d",
     ]
 
+    # Millisecond-level formats (extends DATETIME_FORMATS with %L)
+    DATETIME_MS_FORMATS = [
+      "%Y-%m-%d %H:%M:%S.%L",
+      "%Y-%m-%dT%H:%M:%S.%L",
+      "%Y-%m-%dT%H:%M:%S.%LZ",
+      "%d/%m/%Y %H:%M:%S.%L",
+      "%m/%d/%Y %H:%M:%S.%L",
+    ]
+
     def initialize(@name : String, val : Array(Time?))
       super(@name)
       @data = Slice(Int64).new(val.size, 0_i64)
@@ -3227,7 +3386,7 @@ module Crysda
         if v.nil?
           @null_bitmap.set(i)
         else
-          @data[i] = v.to_unix
+          @data[i] = v.to_unix_ms
         end
       end
       @cached_values = nil
@@ -3238,8 +3397,22 @@ module Crysda
       @cached_values = nil
     end
 
-    # Create from array of epoch seconds
+    # Create from array of epoch seconds (converts to milliseconds internally)
     def self.from_epoch(name : String, epochs : Array(Int64?)) : DateTimeCol
+      data = Slice(Int64).new(epochs.size, 0_i64)
+      bitmap = NullBitmap.new(epochs.size)
+      epochs.each_with_index do |v, i|
+        if v.nil?
+          bitmap.set(i)
+        else
+          data[i] = v * 1000
+        end
+      end
+      new(name, data, bitmap)
+    end
+
+    # Create from array of epoch milliseconds
+    def self.from_epoch_ms(name : String, epochs : Array(Int64?)) : DateTimeCol
       data = Slice(Int64).new(epochs.size, 0_i64)
       bitmap = NullBitmap.new(epochs.size)
       epochs.each_with_index do |v, i|
@@ -3265,7 +3438,7 @@ module Crysda
           if time.nil?
             bitmap.set(i)
           else
-            data[i] = time.to_unix
+            data[i] = time.to_unix_ms
           end
         end
       end
@@ -3277,6 +3450,14 @@ module Crysda
       if fmt = format
         Time.parse(s, fmt, Time::Location::UTC) rescue nil
       else
+        # Try ms-precision formats first so .123 isn't swallowed by base formats
+        DATETIME_MS_FORMATS.each do |fmt|
+          begin
+            return Time.parse(s, fmt, Time::Location::UTC)
+          rescue
+            next
+          end
+        end
         DATETIME_FORMATS.each do |fmt|
           begin
             return Time.parse(s, fmt, Time::Location::UTC)
@@ -3295,36 +3476,36 @@ module Crysda
 
     def values : Array(Time?)
       @cached_values ||= Array(Time?).new(@data.size) do |i|
-        @null_bitmap[i] ? nil : Time.unix(@data.unsafe_fetch(i))
+        @null_bitmap[i] ? nil : Time.unix_ms(@data.unsafe_fetch(i))
       end
     end
 
     # Lazy iteration
     def each(&) : Nil
       @data.size.times do |i|
-        yield @null_bitmap[i] ? nil : Time.unix(@data.unsafe_fetch(i))
+        yield @null_bitmap[i] ? nil : Time.unix_ms(@data.unsafe_fetch(i))
       end
     end
 
     def each_with_index(&) : Nil
       @data.size.times do |i|
-        yield (@null_bitmap[i] ? nil : Time.unix(@data.unsafe_fetch(i))), i
+        yield (@null_bitmap[i] ? nil : Time.unix_ms(@data.unsafe_fetch(i))), i
       end
     end
 
     def each_non_null(&) : Nil
       unless has_nulls?
-        @data.each { |v| yield Time.unix(v) }
+        @data.each { |v| yield Time.unix_ms(v) }
         return
       end
       @data.size.times do |i|
-        yield Time.unix(@data.unsafe_fetch(i)) unless @null_bitmap[i]
+        yield Time.unix_ms(@data.unsafe_fetch(i)) unless @null_bitmap[i]
       end
     end
 
     @[AlwaysInline]
     def unsafe_fetch(index : Int32) : Time?
-      @null_bitmap[index] ? nil : Time.unix(@data.unsafe_fetch(index))
+      @null_bitmap[index] ? nil : Time.unix_ms(@data.unsafe_fetch(index))
     end
 
     protected def raw_data : Slice(Int64)
@@ -3352,7 +3533,7 @@ module Crysda
     # Comparison operators
     {% for op in %w(> >= < <= ==) %}
     def {{op.id}}(val : Time)
-      epoch = val.to_unix
+      epoch = val.to_unix_ms
       unless has_nulls?
         return Array(Bool).new(@data.size) { |i| @data.unsafe_fetch(i) {{op.id}} epoch }
       end
@@ -3364,7 +3545,7 @@ module Crysda
     def year : Int32Col
       result = Slice(Int32).new(@data.size, 0)
       @data.size.times do |i|
-        result[i] = Time.unix(@data.unsafe_fetch(i)).year unless @null_bitmap[i]
+        result[i] = Time.unix_ms(@data.unsafe_fetch(i)).year unless @null_bitmap[i]
       end
       Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
     end
@@ -3373,7 +3554,7 @@ module Crysda
     def month : Int32Col
       result = Slice(Int32).new(@data.size, 0)
       @data.size.times do |i|
-        result[i] = Time.unix(@data.unsafe_fetch(i)).month unless @null_bitmap[i]
+        result[i] = Time.unix_ms(@data.unsafe_fetch(i)).month unless @null_bitmap[i]
       end
       Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
     end
@@ -3382,7 +3563,7 @@ module Crysda
     def day : Int32Col
       result = Slice(Int32).new(@data.size, 0)
       @data.size.times do |i|
-        result[i] = Time.unix(@data.unsafe_fetch(i)).day unless @null_bitmap[i]
+        result[i] = Time.unix_ms(@data.unsafe_fetch(i)).day unless @null_bitmap[i]
       end
       Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
     end
@@ -3391,7 +3572,7 @@ module Crysda
     def hour : Int32Col
       result = Slice(Int32).new(@data.size, 0)
       @data.size.times do |i|
-        result[i] = Time.unix(@data.unsafe_fetch(i)).hour unless @null_bitmap[i]
+        result[i] = Time.unix_ms(@data.unsafe_fetch(i)).hour unless @null_bitmap[i]
       end
       Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
     end
@@ -3400,7 +3581,7 @@ module Crysda
     def minute : Int32Col
       result = Slice(Int32).new(@data.size, 0)
       @data.size.times do |i|
-        result[i] = Time.unix(@data.unsafe_fetch(i)).minute unless @null_bitmap[i]
+        result[i] = Time.unix_ms(@data.unsafe_fetch(i)).minute unless @null_bitmap[i]
       end
       Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
     end
@@ -3409,7 +3590,16 @@ module Crysda
     def second : Int32Col
       result = Slice(Int32).new(@data.size, 0)
       @data.size.times do |i|
-        result[i] = Time.unix(@data.unsafe_fetch(i)).second unless @null_bitmap[i]
+        result[i] = Time.unix_ms(@data.unsafe_fetch(i)).second unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Extract millisecond component (0-999)
+    def millisecond : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ms(@data.unsafe_fetch(i)).millisecond unless @null_bitmap[i]
       end
       Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
     end
@@ -3418,7 +3608,7 @@ module Crysda
     def day_of_week : Int32Col
       result = Slice(Int32).new(@data.size, 0)
       @data.size.times do |i|
-        result[i] = Time.unix(@data.unsafe_fetch(i)).day_of_week.value unless @null_bitmap[i]
+        result[i] = Time.unix_ms(@data.unsafe_fetch(i)).day_of_week.value unless @null_bitmap[i]
       end
       Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
     end
@@ -3427,7 +3617,7 @@ module Crysda
     def day_of_year : Int32Col
       result = Slice(Int32).new(@data.size, 0)
       @data.size.times do |i|
-        result[i] = Time.unix(@data.unsafe_fetch(i)).day_of_year unless @null_bitmap[i]
+        result[i] = Time.unix_ms(@data.unsafe_fetch(i)).day_of_year unless @null_bitmap[i]
       end
       Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
     end
@@ -3437,7 +3627,7 @@ module Crysda
       unless has_nulls?
         result = @data[0]
         @data.each { |v| result = v if v < result }
-        return Time.unix(result)
+        return Time.unix_ms(result)
       end
       raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
       result = Int64::MAX
@@ -3451,7 +3641,7 @@ module Crysda
           end
         end
       end
-      Time.unix(result)
+      Time.unix_ms(result)
     end
 
     # Get max datetime
@@ -3459,7 +3649,7 @@ module Crysda
       unless has_nulls?
         result = @data[0]
         @data.each { |v| result = v if v > result }
-        return Time.unix(result)
+        return Time.unix_ms(result)
       end
       raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
       result = Int64::MIN
@@ -3473,16 +3663,642 @@ module Crysda
           end
         end
       end
-      Time.unix(result)
+      Time.unix_ms(result)
     end
 
     # Format as strings
     def strftime(format : String) : StringCol
       data = Array(String).new(@data.size, "")
       @data.size.times do |i|
-        data[i] = Time.unix(@data.unsafe_fetch(i)).to_s(format) unless @null_bitmap[i]
+        data[i] = Time.unix_ms(@data.unsafe_fetch(i)).to_s(format) unless @null_bitmap[i]
       end
       StringCol.new(Crysda.temp_colname, data, @null_bitmap)
+    end
+
+    def to_timestamp(name : String = @name) : TimestampCol
+      ns_data = Slice(Int128).new(@data.size) { |i| @data.unsafe_fetch(i).to_i128 * 1_000_000 }
+      TimestampCol.new(name, ns_data, @null_bitmap)
+    end
+  end
+
+  # ===========================================================================
+  # TimestampCol - nanosecond precision time column
+  # Stores Unix epoch nanoseconds as Int128
+  # ===========================================================================
+  struct TimestampCol < DataCol
+    @data : Slice(Int128) # Unix epoch nanoseconds
+    @null_bitmap : NullBitmap
+    @cached_values : Array(Time?)?
+
+    # Nanosecond-level formats for parsing
+    NANO_FORMATS = [
+      "%Y-%m-%d %H:%M:%S.%N",
+      "%Y-%m-%dT%H:%M:%S.%N",
+      "%Y-%m-%dT%H:%M:%S.%NZ",
+      "%d/%m/%Y %H:%M:%S.%N",
+      "%m/%d/%Y %H:%M:%S.%N",
+    ]
+
+    def initialize(@name : String, val : Array(Time?))
+      super(@name)
+      @data = Slice(Int128).new(val.size, Int128.new(0))
+      @null_bitmap = NullBitmap.new(val.size)
+      val.each_with_index do |v, i|
+        if v.nil?
+          @null_bitmap.set(i)
+        else
+          @data[i] = v.to_unix_ns
+        end
+      end
+      @cached_values = nil
+    end
+
+    protected def initialize(@name : String, @data : Slice(Int128), @null_bitmap : NullBitmap)
+      super(@name)
+      @cached_values = nil
+    end
+
+    # Create from array of epoch nanoseconds
+    def self.from_epoch_ns(name : String, epochs : Array(Int128?)) : TimestampCol
+      data = Slice(Int128).new(epochs.size, Int128.new(0))
+      bitmap = NullBitmap.new(epochs.size)
+      epochs.each_with_index do |v, i|
+        if v.nil?
+          bitmap.set(i)
+        else
+          data[i] = v
+        end
+      end
+      new(name, data, bitmap)
+    end
+
+    # Parse strings with nanosecond formats
+    def self.parse(name : String, strings : Array(String?), format : String? = nil) : TimestampCol
+      data = Slice(Int128).new(strings.size, Int128.new(0))
+      bitmap = NullBitmap.new(strings.size)
+
+      strings.each_with_index do |s, i|
+        if s.nil? || s.empty?
+          bitmap.set(i)
+        else
+          time = parse_timestamp(s, format)
+          if time.nil?
+            bitmap.set(i)
+          else
+            data[i] = time.to_unix_ns
+          end
+        end
+      end
+      new(name, data, bitmap)
+    end
+
+    protected def self.parse_timestamp(s : String, format : String? = nil) : Time?
+      if fmt = format
+        Time.parse(s, fmt, Time::Location::UTC) rescue nil
+      else
+        NANO_FORMATS.each do |fmt|
+          begin
+            return Time.parse(s, fmt, Time::Location::UTC)
+          rescue
+            next
+          end
+        end
+        nil
+      end
+    end
+
+    @[AlwaysInline]
+    def has_nulls? : Bool
+      @null_bitmap.any?
+    end
+
+    def values : Array(Time?)
+      @cached_values ||= Array(Time?).new(@data.size) do |i|
+        @null_bitmap[i] ? nil : Time.unix_ns(@data.unsafe_fetch(i))
+      end
+    end
+
+    def each(&) : Nil
+      @data.size.times do |i|
+        yield @null_bitmap[i] ? nil : Time.unix_ns(@data.unsafe_fetch(i))
+      end
+    end
+
+    def each_with_index(&) : Nil
+      @data.size.times do |i|
+        yield (@null_bitmap[i] ? nil : Time.unix_ns(@data.unsafe_fetch(i))), i
+      end
+    end
+
+    def each_non_null(&) : Nil
+      unless has_nulls?
+        @data.each { |v| yield Time.unix_ns(v) }
+        return
+      end
+      @data.size.times do |i|
+        yield Time.unix_ns(@data.unsafe_fetch(i)) unless @null_bitmap[i]
+      end
+    end
+
+    @[AlwaysInline]
+    def unsafe_fetch(index : Int32) : Time?
+      @null_bitmap[index] ? nil : Time.unix_ns(@data.unsafe_fetch(index))
+    end
+
+    protected def raw_data : Slice(Int128)
+      @data
+    end
+
+    protected def bitmap : NullBitmap
+      @null_bitmap
+    end
+
+    def compare(left : Int32, right : Int32, null_last = true) : Int32
+      a_null = @null_bitmap[left]
+      b_null = @null_bitmap[right]
+      a = a_null ? nil : @data.unsafe_fetch(left)
+      b = b_null ? nil : @data.unsafe_fetch(right)
+      case
+      when a == b then 0
+      when a.nil? then null_last ? 1 : -1
+      when b.nil? then null_last ? -1 : 1
+      else
+        a.not_nil! <=> b.not_nil!
+      end
+    end
+
+    # Comparison operators
+    {% for op in %w(> >= < <= ==) %}
+    def {{op.id}}(val : Time)
+      epoch = val.to_unix_ns
+      unless has_nulls?
+        return Array(Bool).new(@data.size) { |i| @data.unsafe_fetch(i) {{op.id}} epoch }
+      end
+      Array(Bool).new(@data.size) { |i| !@null_bitmap[i] && @data.unsafe_fetch(i) {{op.id}} epoch }
+    end
+    {% end %}
+
+    # Extract year component
+    def year : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).year unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def month : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).month unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def day : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).day unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def hour : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).hour unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def minute : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).minute unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def second : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).second unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def millisecond : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).millisecond unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def microsecond : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).nanosecond // 1000 unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def nanosecond : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).nanosecond unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def day_of_week : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).day_of_week.value unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    def day_of_year : Int32Col
+      result = Slice(Int32).new(@data.size, 0)
+      @data.size.times do |i|
+        result[i] = Time.unix_ns(@data.unsafe_fetch(i)).day_of_year unless @null_bitmap[i]
+      end
+      Int32Col.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    # Get min timestamp
+    def min(remove_na = false) : Time
+      unless has_nulls?
+        result = @data[0]
+        @data.each { |v| result = v if v < result }
+        return Time.unix_ns(result)
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      result = Int128::MAX
+      found = false
+      @data.size.times do |i|
+        unless @null_bitmap[i]
+          v = @data.unsafe_fetch(i)
+          if !found || v < result
+            result = v
+            found = true
+          end
+        end
+      end
+      Time.unix_ns(result)
+    end
+
+    # Get max timestamp
+    def max(remove_na = false) : Time
+      unless has_nulls?
+        result = @data[0]
+        @data.each { |v| result = v if v > result }
+        return Time.unix_ns(result)
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      result = Int128::MIN
+      found = false
+      @data.size.times do |i|
+        unless @null_bitmap[i]
+          v = @data.unsafe_fetch(i)
+          if !found || v > result
+            result = v
+            found = true
+          end
+        end
+      end
+      Time.unix_ns(result)
+    end
+
+    # Format as strings
+    def strftime(format : String) : StringCol
+      data = Array(String).new(@data.size, "")
+      @data.size.times do |i|
+        data[i] = Time.unix_ns(@data.unsafe_fetch(i)).to_s(format) unless @null_bitmap[i]
+      end
+      StringCol.new(Crysda.temp_colname, data, @null_bitmap)
+    end
+
+    def to_datetime(name : String = @name) : DateTimeCol
+      ms_data = Slice(Int64).new(@data.size) { |i| (@data.unsafe_fetch(i) / 1_000_000).to_i64 }
+      DateTimeCol.new(name, ms_data, @null_bitmap)
+    end
+  end
+
+  # ===========================================================================
+  # BigDecimal Column - high precision decimal storage
+  # ===========================================================================
+  struct BigDecimalCol < DataCol
+    @data : Slice(BigDecimal)
+    @null_bitmap : NullBitmap
+    @cached_values : Array(BigDecimal?)?
+
+    def initialize(@name : String, val : Array(BigDecimal?))
+      super(@name)
+      @data = Slice(BigDecimal).new(val.size, BigDecimal.new(0))
+      @null_bitmap = NullBitmap.new(val.size)
+      val.each_with_index do |v, i|
+        if v.nil?
+          @null_bitmap.set(i)
+        else
+          @data[i] = v
+        end
+      end
+      @cached_values = nil
+    end
+
+    protected def initialize(@name : String, @data : Slice(BigDecimal), @null_bitmap : NullBitmap)
+      super(@name)
+      @cached_values = nil
+    end
+
+    @[AlwaysInline]
+    def has_nulls? : Bool
+      @null_bitmap.any?
+    end
+
+    def values : Array(BigDecimal?)
+      @cached_values ||= Array(BigDecimal?).new(@data.size) do |i|
+        @null_bitmap[i] ? nil : @data.unsafe_fetch(i)
+      end
+    end
+
+    def each(&) : Nil
+      @data.size.times do |i|
+        yield @null_bitmap[i] ? nil : @data.unsafe_fetch(i)
+      end
+    end
+
+    def each_with_index(&) : Nil
+      @data.size.times do |i|
+        yield (@null_bitmap[i] ? nil : @data.unsafe_fetch(i)), i
+      end
+    end
+
+    def each_non_null(&) : Nil
+      unless has_nulls?
+        @data.each { |v| yield v }
+        return
+      end
+      @data.size.times do |i|
+        yield @data.unsafe_fetch(i) unless @null_bitmap[i]
+      end
+    end
+
+    @[AlwaysInline]
+    def unsafe_fetch(index : Int32) : BigDecimal?
+      @null_bitmap[index] ? nil : @data.unsafe_fetch(index)
+    end
+
+    protected def raw_data : Slice(BigDecimal)
+      @data
+    end
+
+    protected def bitmap : NullBitmap
+      @null_bitmap
+    end
+
+    def compare(left : Int32, right : Int32, null_last = true) : Int32
+      a_null = @null_bitmap[left]
+      b_null = @null_bitmap[right]
+      a = a_null ? nil : @data.unsafe_fetch(left)
+      b = b_null ? nil : @data.unsafe_fetch(right)
+      case
+      when a == b then 0
+      when a.nil? then null_last ? 1 : -1
+      when b.nil? then null_last ? -1 : 1
+      else
+        a.not_nil! <=> b.not_nil! || (null_last ? -1 : 1)
+      end
+    end
+
+    def opt_sum(remove_na = false) : BigDecimal
+      unless has_nulls?
+        total = BigDecimal.new(0)
+        @data.each { |v| total += v }
+        return total
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      total = BigDecimal.new(0)
+      @data.size.times { |i| total += @data.unsafe_fetch(i) unless @null_bitmap[i] }
+      total
+    end
+
+    def opt_mean(remove_na = false) : BigDecimal
+      unless has_nulls?
+        total = BigDecimal.new(0)
+        @data.each { |v| total += v }
+        return total / @data.size
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      total = BigDecimal.new(0)
+      count = 0
+      @data.size.times do |i|
+        unless @null_bitmap[i]
+          total += @data.unsafe_fetch(i)
+          count += 1
+        end
+      end
+      total / count
+    end
+
+    def opt_min(remove_na = false) : BigDecimal
+      unless has_nulls?
+        result = @data[0]
+        @data.each { |v| result = v if v < result }
+        return result
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      found = false
+      result = BigDecimal.new(0)
+      @data.size.times do |i|
+        unless @null_bitmap[i]
+          v = @data.unsafe_fetch(i)
+          if !found || v < result
+            result = v
+            found = true
+          end
+        end
+      end
+      result
+    end
+
+    def opt_max(remove_na = false) : BigDecimal
+      unless has_nulls?
+        result = @data[0]
+        @data.each { |v| result = v if v > result }
+        return result
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      found = false
+      result = BigDecimal.new(0)
+      @data.size.times do |i|
+        unless @null_bitmap[i]
+          v = @data.unsafe_fetch(i)
+          if !found || v > result
+            result = v
+            found = true
+          end
+        end
+      end
+      result
+    end
+
+    def opt_median(remove_na = false) : BigDecimal
+      unless has_nulls?
+        sorted = @data.to_a.sort!
+        mid = sorted.size // 2
+        return sorted.size.odd? ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      arr = Array(BigDecimal).new(@data.size - @null_bitmap.count)
+      @data.size.times { |i| arr << @data.unsafe_fetch(i) unless @null_bitmap[i] }
+      arr.sort!
+      mid = arr.size // 2
+      arr.size.odd? ? arr[mid] : (arr[mid - 1] + arr[mid]) / 2
+    end
+
+    def opt_sd(remove_na = false) : BigDecimal
+      m = opt_mean(remove_na)
+      unless has_nulls?
+        sum_sq = BigDecimal.new(0)
+        @data.each { |v| sum_sq += (v - m) ** 2 }
+        return BigDecimal.new(Math.sqrt(sum_sq.to_f64 / (@data.size - 1)))
+      end
+      raise MissingValueException.new("Missing values in data. Consider to use `remove_na` argument") unless remove_na
+      sum_sq = BigDecimal.new(0)
+      count = 0
+      @data.size.times do |i|
+        unless @null_bitmap[i]
+          sum_sq += (@data.unsafe_fetch(i) - m) ** 2
+          count += 1
+        end
+      end
+      BigDecimal.new(Math.sqrt(sum_sq.to_f64 / (count - 1)))
+    end
+
+    def plus(val)
+      case val
+      when BigDecimalCol then add_col(val)
+      when Number
+        add_scalar(BigDecimal.new(val.to_f64))
+      else
+        raise UnSupportedOperationException.new
+      end
+    end
+
+    def minus(val)
+      case val
+      when BigDecimalCol then sub_col(val)
+      when Number
+        sub_scalar(BigDecimal.new(val.to_f64))
+      else
+        raise UnSupportedOperationException.new
+      end
+    end
+
+    def div(val)
+      case val
+      when BigDecimalCol then div_col(val)
+      when Number
+        div_scalar(BigDecimal.new(val.to_f64))
+      else
+        raise UnSupportedOperationException.new
+      end
+    end
+
+    def times(val)
+      case val
+      when BigDecimalCol then mul_col(val)
+      when Number
+        mul_scalar(BigDecimal.new(val.to_f64))
+      else
+        raise UnSupportedOperationException.new
+      end
+    end
+
+    private def add_col(other : BigDecimalCol) : BigDecimalCol
+      unless has_nulls? || other.has_nulls?
+        result = Slice(BigDecimal).new(@data.size) { |i| @data.unsafe_fetch(i) + other.raw_data.unsafe_fetch(i) }
+        return BigDecimalCol.new(Crysda.temp_colname, result, NullBitmap.none(@data.size))
+      end
+      result_bitmap = @null_bitmap | other.bitmap
+      result = Slice(BigDecimal).new(@data.size) { |i| result_bitmap[i] ? BigDecimal.new(0) : @data.unsafe_fetch(i) + other.raw_data.unsafe_fetch(i) }
+      BigDecimalCol.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    private def sub_col(other : BigDecimalCol) : BigDecimalCol
+      unless has_nulls? || other.has_nulls?
+        result = Slice(BigDecimal).new(@data.size) { |i| @data.unsafe_fetch(i) - other.raw_data.unsafe_fetch(i) }
+        return BigDecimalCol.new(Crysda.temp_colname, result, NullBitmap.none(@data.size))
+      end
+      result_bitmap = @null_bitmap | other.bitmap
+      result = Slice(BigDecimal).new(@data.size) { |i| result_bitmap[i] ? BigDecimal.new(0) : @data.unsafe_fetch(i) - other.raw_data.unsafe_fetch(i) }
+      BigDecimalCol.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    private def mul_col(other : BigDecimalCol) : BigDecimalCol
+      unless has_nulls? || other.has_nulls?
+        result = Slice(BigDecimal).new(@data.size) { |i| @data.unsafe_fetch(i) * other.raw_data.unsafe_fetch(i) }
+        return BigDecimalCol.new(Crysda.temp_colname, result, NullBitmap.none(@data.size))
+      end
+      result_bitmap = @null_bitmap | other.bitmap
+      result = Slice(BigDecimal).new(@data.size) { |i| result_bitmap[i] ? BigDecimal.new(0) : @data.unsafe_fetch(i) * other.raw_data.unsafe_fetch(i) }
+      BigDecimalCol.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    private def div_col(other : BigDecimalCol) : BigDecimalCol
+      unless has_nulls? || other.has_nulls?
+        result = Slice(BigDecimal).new(@data.size) { |i| @data.unsafe_fetch(i) / other.raw_data.unsafe_fetch(i) }
+        return BigDecimalCol.new(Crysda.temp_colname, result, NullBitmap.none(@data.size))
+      end
+      result_bitmap = @null_bitmap | other.bitmap
+      result = Slice(BigDecimal).new(@data.size) { |i| result_bitmap[i] ? BigDecimal.new(0) : @data.unsafe_fetch(i) / other.raw_data.unsafe_fetch(i) }
+      BigDecimalCol.new(Crysda.temp_colname, result, result_bitmap)
+    end
+
+    private def add_scalar(scalar : BigDecimal) : BigDecimalCol
+      result = Slice(BigDecimal).new(@data.size) { |i| @data.unsafe_fetch(i) + scalar }
+      BigDecimalCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    private def sub_scalar(scalar : BigDecimal) : BigDecimalCol
+      result = Slice(BigDecimal).new(@data.size) { |i| @data.unsafe_fetch(i) - scalar }
+      BigDecimalCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    private def mul_scalar(scalar : BigDecimal) : BigDecimalCol
+      result = Slice(BigDecimal).new(@data.size) { |i| @data.unsafe_fetch(i) * scalar }
+      BigDecimalCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    private def div_scalar(scalar : BigDecimal) : BigDecimalCol
+      result = Slice(BigDecimal).new(@data.size) { |i| @data.unsafe_fetch(i) / scalar }
+      BigDecimalCol.new(Crysda.temp_colname, result, @null_bitmap)
+    end
+
+    {% for op in %w(> >= < <= ==) %}
+    def {{op.id}}(val : Number)
+      unless has_nulls?
+        return Array(Bool).new(@data.size) { |i| @data.unsafe_fetch(i) {{op.id}} BigDecimal.new(val.to_f64) }
+      end
+      Array(Bool).new(@data.size) { |i| !@null_bitmap[i] && @data.unsafe_fetch(i) {{op.id}} BigDecimal.new(val.to_f64) }
+    end
+
+    def {{op.id}}(val : BigDecimalCol)
+      unless has_nulls? || val.has_nulls?
+        return Array(Bool).new(@data.size) { |i| @data.unsafe_fetch(i) {{op.id}} val.raw_data.unsafe_fetch(i) }
+      end
+      Array(Bool).new(@data.size) do |i|
+        !@null_bitmap[i] && !val.bitmap[i] && @data.unsafe_fetch(i) {{op.id}} val.raw_data.unsafe_fetch(i)
+      end
+    end
+    {% end %}
+
+    def to_f64(name : String = @name) : Float64Col
+      f64_data = Slice(Float64).new(@data.size) { |i| @data.unsafe_fetch(i).to_f64 }
+      Float64Col.new(name, f64_data, @null_bitmap)
     end
   end
 end

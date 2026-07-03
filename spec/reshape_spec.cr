@@ -268,4 +268,14 @@ ERR
     df.filter { |f| f["Col1"] == "Row4" }["Col2"].values.should eq([4])
     df.print
   end
+
+  it "gather with DateTimeCol columns" do
+    df = dataframe_of("id", "a", "b").values(
+      1, Time.utc(2023, 1, 1), Time.utc(2023, 6, 15),
+      2, Time.utc(2023, 2, 1), Time.utc(2023, 7, 1),
+    )
+    gathered = df.gather("key", "value", ["a", "b"])
+    gathered["value"].is_a?(DateTimeCol).should be_true
+    gathered.num_row.should eq(4)
+  end
 end

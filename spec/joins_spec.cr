@@ -193,5 +193,22 @@ module Crysda
         d.names.should eq(["foo", "bar"])
       end
     end
+
+    it "left_join with DateTimeCol columns" do
+      left = dataframe_of("id", "date").values(
+        1, Time.utc(2023, 1, 1),
+        2, Time.utc(2023, 6, 15),
+        3, nil,
+      )
+      right = dataframe_of("id", "val").values(
+        1, 100,
+        3, 200,
+        4, 300,
+      )
+      result = left.left_join(right, "id")
+      result["date"][1].should eq(Time.utc(2023, 6, 15))
+      result["date"][2].should be_nil
+      result["val"][2].should eq(200)
+    end
   end
 end

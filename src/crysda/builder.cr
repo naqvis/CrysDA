@@ -8,14 +8,16 @@ module Crysda
   # :nodoc:
   def self.get_col_type(col : DataCol, wrap_squares = false)
     val = case col
-          when Int32Col    then "Int32"
-          when Int64Col    then "Int64"
-          when Float64Col  then "Float64"
-          when StringCol   then "String"
-          when BoolCol     then "Bool"
-          when DateTimeCol then "DateTime"
-          when DFCol       then "DataFrame"
-          when AnyCol      then guess_any_type(col)
+          when Int32Col      then "Int32"
+          when Int64Col      then "Int64"
+          when Float64Col    then "Float64"
+          when StringCol     then "String"
+          when BoolCol       then "Bool"
+          when DateTimeCol   then "DateTime"
+          when TimestampCol  then "Timestamp"
+          when BigDecimalCol then "BigDecimal"
+          when DFCol         then "DataFrame"
+          when AnyCol        then guess_any_type(col)
           else
             raise CrysdaException.new("Unknown type #{typeof(col)}")
           end
@@ -37,6 +39,19 @@ module Crysda
   def self.column_types(df : DataFrame) : Array(ColSpec)
     return column_types(df.ungroup) if df.is_a?(GroupedDataFrame)
     df.cols.map_with_index { |col, idx| ColSpec.new(idx, col.name, get_col_type(col)) }
+  end
+
+  # Converter registry for DB driver types not in Crysda::Any
+  # Register a converter that receives the value as String and returns Any:
+  #   Crysda.register_converter("PG::Numeric") { |s| s.to_f64 }
+  @@converters = {} of String => Proc(String, Any)
+
+  def self.register_converter(type_name : String, &block : String -> Any)
+    @@converters[type_name] = block
+  end
+
+  def self.converter_for(type_name : String) : Proc(String, Any)?
+    @@converters[type_name]?
   end
 
   private module DataLoader
@@ -99,7 +114,10 @@ module Crysda
       f_vals = false_values.map(&.upcase)
 
       # Try to build optimized columns directly
-      if int32col_samples?(samples)
+      if precision = epoch_samples?(samples)
+        build_epoch_col(name, records, col_idx, na_value, precision) ||
+          build_string_col_direct(name, records, col_idx, na_value)
+      elsif int32col_samples?(samples)
         build_int32_col_direct(name, records, col_idx, na_value) ||
           build_int64_col_direct(name, records, col_idx, na_value) ||
           build_float64_col_direct(name, records, col_idx, na_value) ||
@@ -109,13 +127,25 @@ module Crysda
           build_float64_col_direct(name, records, col_idx, na_value) ||
           build_string_col_direct(name, records, col_idx, na_value)
       elsif float64col_samples?(samples)
-        build_float64_col_direct(name, records, col_idx, na_value) ||
-          build_string_col_direct(name, records, col_idx, na_value)
+        if big_decimal_samples?(samples)
+          build_big_decimal_col_direct(name, records, col_idx, na_value) ||
+            build_float64_col_direct(name, records, col_idx, na_value) ||
+            build_string_col_direct(name, records, col_idx, na_value)
+        else
+          build_float64_col_direct(name, records, col_idx, na_value) ||
+            build_string_col_direct(name, records, col_idx, na_value)
+        end
       elsif boolcol_samples?(samples, t_vals, f_vals)
         build_bool_col_direct(name, records, col_idx, na_value, t_vals, f_vals)
       elsif datetime_samples?(samples)
-        build_datetime_col_direct(name, records, col_idx, na_value) ||
-          build_string_col_direct(name, records, col_idx, na_value)
+        prec = datetime_precision(samples)
+        if prec.in?(:microseconds, :nanoseconds)
+          build_timestamp_col_direct(name, records, col_idx, na_value) ||
+            build_string_col_direct(name, records, col_idx, na_value)
+        else
+          build_datetime_col_direct(name, records, col_idx, na_value) ||
+            build_string_col_direct(name, records, col_idx, na_value)
+        end
       else
         build_string_col_direct(name, records, col_idx, na_value)
       end
@@ -189,6 +219,29 @@ module Crysda
       Float64Col.new(name, data, bitmap)
     end
 
+    # Build BigDecimalCol directly with Slice + NullBitmap
+    private def build_big_decimal_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : BigDecimalCol?
+      num_rows = records.size
+      data = Slice(BigDecimal).new(num_rows, BigDecimal.new(0))
+      bitmap = NullBitmap.new(num_rows)
+
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        if val == na_value || val.empty?
+          bitmap.set(i)
+        else
+          begin
+            clean_val = val.gsub(',', "")
+            data[i] = BigDecimal.new(clean_val)
+          rescue
+            return nil
+          end
+        end
+      end
+
+      BigDecimalCol.new(name, data, bitmap)
+    end
+
     # Build StringCol directly with Array + NullBitmap
     # Uses string interning for categorical data (low cardinality)
     private def build_string_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : StringCol
@@ -251,6 +304,20 @@ module Crysda
       samples.all? { |v| v.nil? || v.try { |s| s.gsub(',', "").to_f64 } rescue false }
     end
 
+    # Detect if samples lose precision as Float64 (BigDecimal round-trip check)
+    private def big_decimal_samples?(samples)
+      samples.any? do |v|
+        next false if v.nil?
+        f64 = v.gsub(',', "").to_f64?
+        next false if f64.nil?
+        begin
+          BigDecimal.new(v) != BigDecimal.new(f64.to_s)
+        rescue
+          false
+        end
+      end
+    end
+
     private def boolcol_samples?(samples, t_vals, f_vals)
       samples.all? do |v|
         next true if v.nil?
@@ -267,6 +334,13 @@ module Crysda
     end
 
     private def parse_datetime_sample(s : String) : Time?
+      DateTimeCol::DATETIME_MS_FORMATS.each do |fmt|
+        begin
+          return Time.parse(s, fmt, Time::Location::UTC)
+        rescue
+          next
+        end
+      end
       DateTimeCol::DATETIME_FORMATS.each do |fmt|
         begin
           return Time.parse(s, fmt, Time::Location::UTC)
@@ -277,18 +351,108 @@ module Crysda
       nil
     end
 
-    # Build DateTimeCol directly with Slice + NullBitmap
-    private def build_datetime_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : DateTimeCol?
+    # Detect datetime precision from fractional digit count
+    private def datetime_precision(samples : Array(String?)) : Symbol
+      max = :seconds
+      samples.each do |v|
+        next if v.nil?
+        if m = v.match(/\.(\d+)/)
+          case m[1].size
+          when 1..3 then max = :milliseconds if max == :seconds
+          when 4..6 then max = :microseconds
+          when 7..9 then max = :nanoseconds
+          end
+        end
+      end
+      max
+    end
+
+    EPOCH_DIGITS = {10 => :seconds, 13 => :milliseconds, 16 => :microseconds, 19 => :nanoseconds}
+
+    # Detect if samples are integer epoch timestamps
+    private def epoch_samples?(samples : Array(String?)) : Symbol?
+      precisions = Set(Symbol).new
+      samples.each do |v|
+        next if v.nil?
+        int = v.to_i64?
+        return nil if int.nil?
+        digits = v.size
+        digits -= 1 if v.starts_with?('-')
+        if prec = EPOCH_DIGITS[digits]?
+          precisions << prec
+        else
+          return nil
+        end
+      end
+      return nil if precisions.empty?
+      # Return highest precision present (mixed → use most precise)
+      precisions.max
+    end
+
+    # Build DateTimeCol or TimestampCol from integer epoch values
+    private def build_epoch_col(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String, precision : Symbol) : DataCol?
       num_rows = records.size
-      data = Slice(Int64).new(num_rows, 0_i64)
       bitmap = NullBitmap.new(num_rows)
 
-      # Detect format from first non-null value
+      case precision
+      when :seconds
+        data = Slice(Int64).new(num_rows, 0_i64)
+        num_rows.times do |i|
+          val = records[i][col_idx]
+          if val == na_value || val.empty?
+            bitmap.set(i)
+          else
+            data[i] = val.to_i64 * 1000
+          end
+        end
+        DateTimeCol.new(name, data, bitmap)
+      when :milliseconds
+        data = Slice(Int64).new(num_rows, 0_i64)
+        num_rows.times do |i|
+          val = records[i][col_idx]
+          if val == na_value || val.empty?
+            bitmap.set(i)
+          else
+            data[i] = val.to_i64
+          end
+        end
+        DateTimeCol.new(name, data, bitmap)
+      when :microseconds
+        data = Slice(Int128).new(num_rows, Int128.new(0))
+        num_rows.times do |i|
+          val = records[i][col_idx]
+          if val == na_value || val.empty?
+            bitmap.set(i)
+          else
+            data[i] = val.to_i128 * 1000_i128
+          end
+        end
+        TimestampCol.new(name, data, bitmap)
+      when :nanoseconds
+        data = Slice(Int128).new(num_rows, Int128.new(0))
+        num_rows.times do |i|
+          val = records[i][col_idx]
+          if val == na_value || val.empty?
+            bitmap.set(i)
+          else
+            data[i] = val.to_i128
+          end
+        end
+        TimestampCol.new(name, data, bitmap)
+      end
+    end
+
+    # Build TimestampCol from nanosecond-precision ISO strings
+    private def build_timestamp_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : TimestampCol?
+      num_rows = records.size
+      data = Slice(Int128).new(num_rows, Int128.new(0))
+      bitmap = NullBitmap.new(num_rows)
+
       detected_format : String? = nil
       num_rows.times do |i|
         val = records[i][col_idx]
         next if val == na_value || val.empty?
-        DateTimeCol::DATETIME_FORMATS.each do |fmt|
+        TimestampCol::NANO_FORMATS.each do |fmt|
           begin
             Time.parse(val, fmt, Time::Location::UTC)
             detected_format = fmt
@@ -309,7 +473,60 @@ module Crysda
         else
           begin
             time = Time.parse(val, detected_format, Time::Location::UTC)
-            data[i] = time.to_unix
+            data[i] = time.to_unix_ns
+          rescue
+            return nil
+          end
+        end
+      end
+
+      TimestampCol.new(name, data, bitmap)
+    end
+
+    # Build DateTimeCol directly with Slice + NullBitmap
+    private def build_datetime_col_direct(name : String, records : Array(Array(String)), col_idx : Int32, na_value : String) : DateTimeCol?
+      num_rows = records.size
+      data = Slice(Int64).new(num_rows, 0_i64)
+      bitmap = NullBitmap.new(num_rows)
+
+      # Detect format from first non-null value
+      detected_format : String? = nil
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        next if val == na_value || val.empty?
+        DateTimeCol::DATETIME_MS_FORMATS.each do |fmt|
+          begin
+            Time.parse(val, fmt, Time::Location::UTC)
+            detected_format = fmt
+            break
+          rescue
+            next
+          end
+        end
+        unless detected_format
+          DateTimeCol::DATETIME_FORMATS.each do |fmt|
+            begin
+              Time.parse(val, fmt, Time::Location::UTC)
+              detected_format = fmt
+              break
+            rescue
+              next
+            end
+          end
+        end
+        break if detected_format
+      end
+
+      return nil unless detected_format
+
+      num_rows.times do |i|
+        val = records[i][col_idx]
+        if val == na_value || val.empty?
+          bitmap.set(i)
+        else
+          begin
+            time = Time.parse(val, detected_format, Time::Location::UTC)
+            data[i] = time.to_unix_ms
           rescue
             return nil # Fall back to string
           end
@@ -328,7 +545,18 @@ module Crysda
           case val = rs.read
           when Slice(UInt8) then data[name] << String.new(val)
           when Any          then data[name] << val
-          else                   raise CrysdaException.new("uknown column type : #{val.class}")
+          else
+            type_name = typeof(val).name
+            repr = if val.responds_to?(:to_json)
+                     val.to_json
+                   else
+                     val.to_s
+                   end
+            if converter = Crysda.converter_for(type_name)
+              data[name] << converter.call(repr)
+            else
+              data[name] << repr
+            end
           end
         end
       end

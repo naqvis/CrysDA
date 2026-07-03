@@ -1,5 +1,6 @@
 require "uuid"
 require "json"
+require "big"
 
 module Crysda
   # Row predicate `Proc` used in `filter` block.
@@ -51,7 +52,7 @@ module Crysda
     abstract def hashcode : Int64
   end
 
-  alias Any = String | Int32 | Int64 | Float32 | Float64 | Bool | UUID | Time | Nil | CustomColumnValue | JSON::Any
+  alias Any = String | Int32 | Int64 | Float32 | Float64 | Bool | UUID | Time | Nil | CustomColumnValue | JSON::Any | BigDecimal
 
   class CrysdaException < Exception
   end

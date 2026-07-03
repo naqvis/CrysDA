@@ -798,6 +798,12 @@ module Crysda
       when DateTimeCol
         fill_val = value.is_a?(Time) ? value : Time.utc
         DateTimeCol.new(c.name, c.values.map { |v| v.nil? ? fill_val : v })
+      when TimestampCol
+        fill_val = value.is_a?(Time) ? value : Time.utc
+        TimestampCol.new(c.name, c.values.map { |v| v.nil? ? fill_val : v })
+      when BigDecimalCol
+        fill_val = value.is_a?(BigDecimal) ? value : BigDecimal.new(value.to_s)
+        BigDecimalCol.new(c.name, c.values.map { |v| v.nil? ? fill_val : v })
       else
         col # Return unchanged for unsupported types
       end
@@ -810,7 +816,7 @@ module Crysda
     # Random sample of rows
     def sample(n : Int32, seed : Int32? = nil) : DataFrame
       return self if n >= num_row
-      rng = seed ? Random.new(seed) : Random::DEFAULT
+      rng = seed ? Random.new(seed) : Random.new
       indices = (0...num_row).to_a.sample(n, rng)
       filter { |_| Array(Bool).new(num_row) { |i| indices.includes?(i) } }
     end
@@ -828,7 +834,7 @@ module Crysda
 
     # Describe numeric columns with summary statistics
     def describe : DataFrame
-      numeric_cols = cols.select { |c| c.is_a?(Float64Col) || c.is_a?(Int32Col) || c.is_a?(Int64Col) }
+      numeric_cols = cols.select { |c| c.is_a?(Float64Col) || c.is_a?(Int32Col) || c.is_a?(Int64Col) || c.is_a?(BigDecimalCol) }
       return DataFrame.empty if numeric_cols.empty?
 
       stats = ["count", "mean", "std", "min", "25%", "50%", "75%", "max"]
@@ -838,10 +844,11 @@ module Crysda
 
       numeric_cols.each do |col|
         vals = case c = col
-               when Float64Col then c.values.compact
-               when Int32Col   then c.values.compact.map(&.to_f64)
-               when Int64Col   then c.values.compact.map(&.to_f64)
-               else                 [] of Float64
+               when Float64Col    then c.values.compact
+               when Int32Col      then c.values.compact.map(&.to_f64)
+               when Int64Col      then c.values.compact.map(&.to_f64)
+               when BigDecimalCol then c.values.compact.map(&.to_f64)
+               else                    [] of Float64
                end
 
         sorted = vals.sort
@@ -907,7 +914,7 @@ module Crysda
 
     # Shuffle rows randomly
     def shuffle(seed : Int32? = nil) : DataFrame
-      rng = seed ? Random.new(seed) : Random::DEFAULT
+      rng = seed ? Random.new(seed) : Random.new
       indices = (0...num_row).to_a.shuffle(rng)
       # Use sort_by with the shuffled indices
       add_column("_shuffle_idx_") { |_| indices }
