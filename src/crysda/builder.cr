@@ -547,11 +547,7 @@ module Crysda
           when Any          then data[name] << val
           else
             type_name = typeof(val).name
-            repr = if val.responds_to?(:to_json)
-                     val.to_json
-                   else
-                     val.to_s
-                   end
+            repr = val.to_s
             if converter = Crysda.converter_for(type_name)
               data[name] << converter.call(repr)
             else
