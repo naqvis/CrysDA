@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Crystal Docs 1.17.1">
+<meta name="generator" content="Crystal Docs 1.19.1">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="crysda">
 
@@ -84,6 +84,11 @@
   
   <li class=" " data-id="crysda/Crysda/AnyVal" data-name="crysda::anyval">
       <a href="../Crysda/AnyVal.html">AnyVal</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/BigDecimalCol" data-name="crysda::bigdecimalcol">
+      <a href="../Crysda/BigDecimalCol.html">BigDecimalCol</a>
       
     </li>
   
@@ -267,6 +272,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/TimestampCol" data-name="crysda::timestampcol">
+      <a href="../Crysda/TimestampCol.html">TimestampCol</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/UnSupportedOperationException" data-name="crysda::unsupportedoperationexception">
       <a href="../Crysda/UnSupportedOperationException.html">UnSupportedOperationException</a>
       
@@ -338,7 +348,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3203" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3353" target="_blank">
         crysda/columns.cr
       </a>
     
@@ -364,7 +374,16 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       </dt>
       
       <dd class="entry-const-doc">
-        <p>Common date/time formats for parsing</p>
+        <p>Second-level date/time formats for parsing</p>
+      </dd>
+      
+    
+      <dt class="entry-const" id="DATETIME_MS_FORMATS">
+        <strong>DATETIME_MS_FORMATS</strong> = <code>[<span class="s">&quot;%Y-%m-%d %H:%M:%S.%L&quot;</span>, <span class="s">&quot;%Y-%m-%dT%H:%M:%S.%L&quot;</span>, <span class="s">&quot;%Y-%m-%dT%H:%M:%S.%LZ&quot;</span>, <span class="s">&quot;%d/%m/%Y %H:%M:%S.%L&quot;</span>, <span class="s">&quot;%m/%d/%Y %H:%M:%S.%L&quot;</span>]</code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>Millisecond-level formats (extends DATETIME_FORMATS with %L)</p>
       </dd>
       
     
@@ -386,7 +405,14 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <li class="entry-summary">
         <a href="#from_epoch%28name%3AString%2Cepochs%3AArray%28Int64%7CNil%29%29%3ADateTimeCol-class-method" class="signature"><strong>.from_epoch</strong>(name : String, epochs : Array(Int64 | Nil)) : DateTimeCol</a>
         
-          <div class="summary"><p>Create from array of epoch seconds</p></div>
+          <div class="summary"><p>Create from array of epoch seconds (converts to milliseconds internally)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#from_epoch_ms%28name%3AString%2Cepochs%3AArray%28Int64%7CNil%29%29%3ADateTimeCol-class-method" class="signature"><strong>.from_epoch_ms</strong>(name : String, epochs : Array(Int64 | Nil)) : DateTimeCol</a>
+        
+          <div class="summary"><p>Create from array of epoch milliseconds</p></div>
         
       </li>
     
@@ -508,6 +534,13 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       </li>
     
       <li class="entry-summary">
+        <a href="#millisecond%3AInt32Col-instance-method" class="signature"><strong>#millisecond</strong> : Int32Col</a>
+        
+          <div class="summary"><p>Extract millisecond component (0-999)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#min%28remove_na%3Dfalse%29%3ATime-instance-method" class="signature"><strong>#min</strong>(remove_na = <span class="n">false</span>) : Time</a>
         
           <div class="summary"><p>Get min datetime</p></div>
@@ -539,6 +572,11 @@ DateTime Column - stores Time values with optimized internal storage</h1>
         <a href="#strftime%28format%3AString%29%3AStringCol-instance-method" class="signature"><strong>#strftime</strong>(format : String) : StringCol</a>
         
           <div class="summary"><p>Format as strings</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_timestamp%28name%3AString%3D%40name%29%3ATimestampCol-instance-method" class="signature"><strong>#to_timestamp</strong>(name : String = @name) : TimestampCol</a>
         
       </li>
     
@@ -1007,13 +1045,34 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       
         <div class="doc">
           
-          <p>Create from array of epoch seconds</p>
+          <p>Create from array of epoch seconds (converts to milliseconds internally)</p>
         </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3242" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3401" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="from_epoch_ms(name:String,epochs:Array(Int64|Nil)):DateTimeCol-class-method">
+      <div class="signature">
+        
+        def self.<strong>from_epoch_ms</strong>(name : String, epochs : Array(Int64 | Nil)) : <a href="../Crysda/DateTimeCol.html">DateTimeCol</a>
+
+        <a class="method-permalink" href="#from_epoch_ms%28name%3AString%2Cepochs%3AArray%28Int64%7CNil%29%29%3ADateTimeCol-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create from array of epoch milliseconds</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3415" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1029,7 +1088,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3222" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3381" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1050,7 +1109,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3256" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3429" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1082,7 +1141,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3353" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3534" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1098,7 +1157,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3353" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3534" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1114,7 +1173,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3353" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3534" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1130,7 +1189,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3353" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3534" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1146,7 +1205,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3353" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3534" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1162,7 +1221,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3338" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3519" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1183,7 +1242,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3382" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3563" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1204,7 +1263,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3418" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3608" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1225,7 +1284,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3427" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3617" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1246,7 +1305,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3303" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3484" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1262,7 +1321,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3315" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3496" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1278,7 +1337,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3309" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3490" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1294,7 +1353,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3292" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3473" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1315,7 +1374,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3391" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3572" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1336,7 +1395,28 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3458" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3648" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="millisecond:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>millisecond</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#millisecond%3AInt32Col-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Extract millisecond component (0-999)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3599" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1357,7 +1437,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3436" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3626" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1378,7 +1458,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3400" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3581" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1399,7 +1479,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3373" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3554" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1420,7 +1500,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3409" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3590" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1441,7 +1521,23 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3480" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3670" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_timestamp(name:String=@name):TimestampCol-instance-method">
+      <div class="signature">
+        
+        def <strong>to_timestamp</strong>(name : String = @name) : <a href="../Crysda/TimestampCol.html">TimestampCol</a>
+
+        <a class="method-permalink" href="#to_timestamp%28name%3AString%3D%40name%29%3ATimestampCol-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3678" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1457,7 +1553,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3326" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3507" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1473,7 +1569,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3296" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3477" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -1494,7 +1590,7 @@ DateTime Column - stores Time values with optimized internal storage</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/columns.cr#L3364" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3545" target="_blank">View source</a>]
         
       </div>
     </div>

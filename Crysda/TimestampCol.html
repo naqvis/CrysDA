@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="crysda">
-  <title>Crysda::AnyCol - crysda master</title>
+  <title>Crysda::TimestampCol - crysda master</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -77,7 +77,7 @@
       
     </li>
   
-  <li class=" current" data-id="crysda/Crysda/AnyCol" data-name="crysda::anycol">
+  <li class=" " data-id="crysda/Crysda/AnyCol" data-name="crysda::anycol">
       <a href="../Crysda/AnyCol.html">AnyCol</a>
       
     </li>
@@ -272,7 +272,7 @@
       
     </li>
   
-  <li class=" " data-id="crysda/Crysda/TimestampCol" data-name="crysda::timestampcol">
+  <li class=" current" data-id="crysda/Crysda/TimestampCol" data-name="crysda::timestampcol">
       <a href="../Crysda/TimestampCol.html">TimestampCol</a>
       
     </li>
@@ -298,12 +298,12 @@
 
   <span class="kind">
     struct
-  </span> Crysda::<wbr>AnyCol
+  </span> Crysda::<wbr>TimestampCol
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Crysda/AnyCol.html">Crysda::AnyCol</a></li><li class="superclass"><a href="../Crysda/DataCol.html">Crysda::DataCol</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Crysda/TimestampCol.html">Crysda::TimestampCol</a></li><li class="superclass"><a href="../Crysda/DataCol.html">Crysda::DataCol</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
 
 
 
@@ -317,11 +317,12 @@
     Overview
   </h2>
 
-  <h1><a id="any-column" class="anchor" href="#any-column">  <svg class="octicon-link" aria-hidden="true">
+  <h1><a id="timestamp-col-nanosecond-precision-time-column-stores-unix-epoch-nanoseconds-as-int128" class="anchor" href="#timestamp-col-nanosecond-precision-time-column-stores-unix-epoch-nanoseconds-as-int128">  <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>===========================================================================
-Any Column</h1>
+TimestampCol - nanosecond precision time column
+Stores Unix epoch nanoseconds as Int128</h1>
 
 
 
@@ -348,7 +349,7 @@ Any Column</h1>
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3293" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3688" target="_blank">
         crysda/columns.cr
       </a>
     
@@ -356,6 +357,29 @@ Any Column</h1>
   
 
 
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="NANO_FORMATS">
+        <strong>NANO_FORMATS</strong> = <code>[<span class="s">&quot;%Y-%m-%d %H:%M:%S.%N&quot;</span>, <span class="s">&quot;%Y-%m-%dT%H:%M:%S.%N&quot;</span>, <span class="s">&quot;%Y-%m-%dT%H:%M:%S.%NZ&quot;</span>, <span class="s">&quot;%d/%m/%Y %H:%M:%S.%N&quot;</span>, <span class="s">&quot;%m/%d/%Y %H:%M:%S.%N&quot;</span>]</code>
+      </dt>
+      
+      <dd class="entry-const-doc">
+        <p>Nanosecond-level formats for parsing</p>
+      </dd>
+      
+    
+  </dl>
 
 
 
@@ -371,7 +395,21 @@ Any Column</h1>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28name%3AString%2Cval%3AArray%28Any%29%29-class-method" class="signature"><strong>.new</strong>(name : String, val : Array(Any))</a>
+        <a href="#from_epoch_ns%28name%3AString%2Cepochs%3AArray%28Int128%7CNil%29%29%3ATimestampCol-class-method" class="signature"><strong>.from_epoch_ns</strong>(name : String, epochs : Array(Int128 | Nil)) : TimestampCol</a>
+        
+          <div class="summary"><p>Create from array of epoch nanoseconds</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#new%28name%3AString%2Cval%3AArray%28Time%7CNil%29%29-class-method" class="signature"><strong>.new</strong>(name : String, val : Array(Time | Nil))</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#parse%28name%3AString%2Cstrings%3AArray%28String%7CNil%29%2Cformat%3AString%7CNil%3Dnil%29%3ATimestampCol-class-method" class="signature"><strong>.parse</strong>(name : String, strings : Array(String | Nil), format : String | Nil = <span class="n">nil</span>) : TimestampCol</a>
+        
+          <div class="summary"><p>Parse strings with nanosecond formats</p></div>
         
       </li>
     
@@ -394,7 +432,62 @@ Any Column</h1>
   <ul class="list-summary">
     
       <li class="entry-summary">
+        <a href="#%3C%28val%3ATime%29-instance-method" class="signature"><strong>#<</strong>(val : Time)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3C%3D%28val%3ATime%29-instance-method" class="signature"><strong>#<=</strong>(val : Time)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28val%3ATime%29-instance-method" class="signature"><strong>#==</strong>(val : Time)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3E%28val%3ATime%29-instance-method" class="signature"><strong>#></strong>(val : Time)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3E%3D%28val%3ATime%29-instance-method" class="signature"><strong>#>=</strong>(val : Time)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="signature"><strong>#compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#day%3AInt32Col-instance-method" class="signature"><strong>#day</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#day_of_week%3AInt32Col-instance-method" class="signature"><strong>#day_of_week</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#day_of_year%3AInt32Col-instance-method" class="signature"><strong>#day_of_year</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#each%28%26%29%3ANil-instance-method" class="signature"><strong>#each</strong>(&) : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#each_non_null%28%26%29%3ANil-instance-method" class="signature"><strong>#each_non_null</strong>(&) : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#each_with_index%28%26%29%3ANil-instance-method" class="signature"><strong>#each_with_index</strong>(&) : Nil</a>
         
       </li>
     
@@ -404,7 +497,80 @@ Any Column</h1>
       </li>
     
       <li class="entry-summary">
-        <a href="#values%3AArray%28Any%29-instance-method" class="signature"><strong>#values</strong> : Array(Any)</a>
+        <a href="#hour%3AInt32Col-instance-method" class="signature"><strong>#hour</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max%28remove_na%3Dfalse%29%3ATime-instance-method" class="signature"><strong>#max</strong>(remove_na = <span class="n">false</span>) : Time</a>
+        
+          <div class="summary"><p>Get max timestamp</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#microsecond%3AInt32Col-instance-method" class="signature"><strong>#microsecond</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#millisecond%3AInt32Col-instance-method" class="signature"><strong>#millisecond</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#min%28remove_na%3Dfalse%29%3ATime-instance-method" class="signature"><strong>#min</strong>(remove_na = <span class="n">false</span>) : Time</a>
+        
+          <div class="summary"><p>Get min timestamp</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#minute%3AInt32Col-instance-method" class="signature"><strong>#minute</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#month%3AInt32Col-instance-method" class="signature"><strong>#month</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#nanosecond%3AInt32Col-instance-method" class="signature"><strong>#nanosecond</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#second%3AInt32Col-instance-method" class="signature"><strong>#second</strong> : Int32Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#strftime%28format%3AString%29%3AStringCol-instance-method" class="signature"><strong>#strftime</strong>(format : String) : StringCol</a>
+        
+          <div class="summary"><p>Format as strings</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_datetime%28name%3AString%3D%40name%29%3ADateTimeCol-instance-method" class="signature"><strong>#to_datetime</strong>(name : String = @name) : DateTimeCol</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unsafe_fetch%28index%3AInt32%29%3ATime%7CNil-instance-method" class="signature"><strong>#unsafe_fetch</strong>(index : Int32) : Time | Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#values%3AArray%28Time%7CNil%29-instance-method" class="signature"><strong>#values</strong> : Array(Time | Nil)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#year%3AInt32Col-instance-method" class="signature"><strong>#year</strong> : Int32Col</a>
+        
+          <div class="summary"><p>Extract year component</p></div>
         
       </li>
     
@@ -846,18 +1012,60 @@ Any Column</h1>
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(name:String,val:Array(Any))-class-method">
+    <div class="entry-detail" id="from_epoch_ns(name:String,epochs:Array(Int128|Nil)):TimestampCol-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(name : String, val : Array(<a href="../Crysda/Any.html">Any</a>))
+        def self.<strong>from_epoch_ns</strong>(name : String, epochs : Array(Int128 | Nil)) : <a href="../Crysda/TimestampCol.html">TimestampCol</a>
 
-        <a class="method-permalink" href="#new%28name%3AString%2Cval%3AArray%28Any%29%29-class-method">#</a>
+        <a class="method-permalink" href="#from_epoch_ns%28name%3AString%2Cepochs%3AArray%28Int128%7CNil%29%29%3ATimestampCol-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Create from array of epoch nanoseconds</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3722" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="new(name:String,val:Array(Time|Nil))-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(name : String, val : Array(Time | Nil))
+
+        <a class="method-permalink" href="#new%28name%3AString%2Cval%3AArray%28Time%7CNil%29%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3294" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3702" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="parse(name:String,strings:Array(String|Nil),format:String|Nil=nil):TimestampCol-class-method">
+      <div class="signature">
+        
+        def self.<strong>parse</strong>(name : String, strings : Array(String | Nil), format : String | Nil = <span class="n">nil</span>) : <a href="../Crysda/TimestampCol.html">TimestampCol</a>
+
+        <a class="method-permalink" href="#parse%28name%3AString%2Cstrings%3AArray%28String%7CNil%29%2Cformat%3AString%7CNil%3Dnil%29%3ATimestampCol-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Parse strings with nanosecond formats</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3736" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -878,6 +1086,86 @@ Any Column</h1>
     Instance Method Detail
   </h2>
   
+    <div class="entry-detail" id="&lt;(val:Time)-instance-method">
+      <div class="signature">
+        
+        def <strong><</strong>(val : Time)
+
+        <a class="method-permalink" href="#%3C%28val%3ATime%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3831" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&lt;=(val:Time)-instance-method">
+      <div class="signature">
+        
+        def <strong><=</strong>(val : Time)
+
+        <a class="method-permalink" href="#%3C%3D%28val%3ATime%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3831" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(val:Time)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(val : Time)
+
+        <a class="method-permalink" href="#%3D%3D%28val%3ATime%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3831" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&gt;(val:Time)-instance-method">
+      <div class="signature">
+        
+        def <strong>></strong>(val : Time)
+
+        <a class="method-permalink" href="#%3E%28val%3ATime%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3831" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&gt;=(val:Time)-instance-method">
+      <div class="signature">
+        
+        def <strong>>=</strong>(val : Time)
+
+        <a class="method-permalink" href="#%3E%3D%28val%3ATime%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3831" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="compare(left:Int32,right:Int32,null_last=true):Int32-instance-method">
       <div class="signature">
         
@@ -889,7 +1177,103 @@ Any Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3307" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3816" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="day:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>day</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#day%3AInt32Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3858" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="day_of_week:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>day_of_week</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#day_of_week%3AInt32Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3914" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="day_of_year:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>day_of_year</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#day_of_year%3AInt32Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3922" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="each(&amp;):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>each</strong>(&) : Nil
+
+        <a class="method-permalink" href="#each%28%26%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3781" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="each_non_null(&amp;):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>each_non_null</strong>(&) : Nil
+
+        <a class="method-permalink" href="#each_non_null%28%26%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3793" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="each_with_index(&amp;):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>each_with_index</strong>(&) : Nil
+
+        <a class="method-permalink" href="#each_with_index%28%26%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3787" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -905,23 +1289,251 @@ Any Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3303" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3771" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="values:Array(Any)-instance-method">
+    <div class="entry-detail" id="hour:Int32Col-instance-method">
       <div class="signature">
         
-        def <strong>values</strong> : Array(<a href="../Crysda/Any.html">Any</a>)
+        def <strong>hour</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
 
-        <a class="method-permalink" href="#values%3AArray%28Any%29-instance-method">#</a>
+        <a class="method-permalink" href="#hour%3AInt32Col-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3299" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3866" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="max(remove_na=false):Time-instance-method">
+      <div class="signature">
+        
+        def <strong>max</strong>(remove_na = <span class="n">false</span>) : Time
+
+        <a class="method-permalink" href="#max%28remove_na%3Dfalse%29%3ATime-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get max timestamp</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3953" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="microsecond:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>microsecond</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#microsecond%3AInt32Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3898" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="millisecond:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>millisecond</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#millisecond%3AInt32Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3890" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="min(remove_na=false):Time-instance-method">
+      <div class="signature">
+        
+        def <strong>min</strong>(remove_na = <span class="n">false</span>) : Time
+
+        <a class="method-permalink" href="#min%28remove_na%3Dfalse%29%3ATime-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Get min timestamp</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3931" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="minute:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>minute</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#minute%3AInt32Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3874" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="month:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>month</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#month%3AInt32Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3850" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="nanosecond:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>nanosecond</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#nanosecond%3AInt32Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3906" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="second:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>second</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#second%3AInt32Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3882" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="strftime(format:String):StringCol-instance-method">
+      <div class="signature">
+        
+        def <strong>strftime</strong>(format : String) : <a href="../Crysda/StringCol.html">StringCol</a>
+
+        <a class="method-permalink" href="#strftime%28format%3AString%29%3AStringCol-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Format as strings</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3975" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_datetime(name:String=@name):DateTimeCol-instance-method">
+      <div class="signature">
+        
+        def <strong>to_datetime</strong>(name : String = @name) : <a href="../Crysda/DateTimeCol.html">DateTimeCol</a>
+
+        <a class="method-permalink" href="#to_datetime%28name%3AString%3D%40name%29%3ADateTimeCol-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3983" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="unsafe_fetch(index:Int32):Time|Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>unsafe_fetch</strong>(index : Int32) : Time | Nil
+
+        <a class="method-permalink" href="#unsafe_fetch%28index%3AInt32%29%3ATime%7CNil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3804" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="values:Array(Time|Nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>values</strong> : Array(Time | Nil)
+
+        <a class="method-permalink" href="#values%3AArray%28Time%7CNil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3775" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="year:Int32Col-instance-method">
+      <div class="signature">
+        
+        def <strong>year</strong> : <a href="../Crysda/Int32Col.html">Int32Col</a>
+
+        <a class="method-permalink" href="#year%3AInt32Col-instance-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Extract year component</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3842" target="_blank">View source</a>]
         
       </div>
     </div>

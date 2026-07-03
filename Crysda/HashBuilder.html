@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Crystal Docs 1.17.1">
+<meta name="generator" content="Crystal Docs 1.19.1">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="crysda">
 
@@ -84,6 +84,11 @@
   
   <li class=" " data-id="crysda/Crysda/AnyVal" data-name="crysda::anyval">
       <a href="../Crysda/AnyVal.html">AnyVal</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/BigDecimalCol" data-name="crysda::bigdecimalcol">
+      <a href="../Crysda/BigDecimalCol.html">BigDecimalCol</a>
       
     </li>
   
@@ -267,6 +272,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/TimestampCol" data-name="crysda::timestampcol">
+      <a href="../Crysda/TimestampCol.html">TimestampCol</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/UnSupportedOperationException" data-name="crysda::unsupportedoperationexception">
       <a href="../Crysda/UnSupportedOperationException.html">UnSupportedOperationException</a>
       
@@ -336,7 +346,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L376" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L396" target="_blank">
         crysda/utils.cr
       </a>
     
@@ -404,9 +414,23 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       </li>
     
       <li class="entry-summary">
+        <a href="#hash_bd%28val%3ABigDecimal%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method" class="signature"><strong>.hash_bd</strong>(val : BigDecimal | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64</a>
+        
+          <div class="summary"><p>Hash a single BigDecimal value (or null)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#hash_f64%28val%3AFloat64%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method" class="signature"><strong>.hash_f64</strong>(val : Float64 | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64</a>
         
           <div class="summary"><p>Hash a single Float64 value (or null) - fast path using bit representation</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#hash_i128%28val%3AInt128%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method" class="signature"><strong>.hash_i128</strong>(val : Int128 | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64</a>
+        
+          <div class="summary"><p>Hash a single Int128 value (or null)</p></div>
         
       </li>
     
@@ -590,7 +614,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L385" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L405" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -623,7 +647,28 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L533" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L570" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hash_bd(val:BigDecimal|Nil,seed:Int64=17_i64):Int64-class-method">
+      <div class="signature">
+        
+        def self.<strong>hash_bd</strong>(val : BigDecimal | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64
+
+        <a class="method-permalink" href="#hash_bd%28val%3ABigDecimal%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Hash a single BigDecimal value (or null)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L555" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -644,7 +689,28 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L517" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L537" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="hash_i128(val:Int128|Nil,seed:Int64=17_i64):Int64-class-method">
+      <div class="signature">
+        
+        def self.<strong>hash_i128</strong>(val : Int128 | Nil, seed : Int64 = <span class="n">17_i64</span>) : Int64
+
+        <a class="method-permalink" href="#hash_i128%28val%3AInt128%7CNil%2Cseed%3AInt64%3D17_i64%29%3AInt64-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Hash a single Int128 value (or null)</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L545" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -665,7 +731,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L503" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L523" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -686,7 +752,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L510" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L530" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -707,7 +773,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L524" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L561" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -737,7 +803,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L390" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L410" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -753,7 +819,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L395" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L415" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -769,7 +835,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L399" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L419" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -785,7 +851,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L403" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L423" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -801,7 +867,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L407" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L427" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -817,7 +883,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L412" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L432" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -833,7 +899,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L419" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L439" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -849,7 +915,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L439" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L459" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -865,7 +931,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L460" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L480" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -881,7 +947,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L477" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L497" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -897,7 +963,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L468" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L488" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -913,7 +979,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L472" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L492" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -929,7 +995,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L482" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L502" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -945,7 +1011,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L490" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L510" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -961,7 +1027,7 @@ Refer to <code><a href="../Crysda/CustomColumnValue.html">CustomColumnValue</a><
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/5345203c47fdcd14512c2419ddea6b3df83caf2a/src/crysda/utils.cr#L486" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/utils.cr#L506" target="_blank">View source</a>]
         
       </div>
     </div>

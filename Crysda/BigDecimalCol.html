@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="crysda">
-  <title>Crysda::AnyCol - crysda master</title>
+  <title>Crysda::BigDecimalCol - crysda master</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -77,7 +77,7 @@
       
     </li>
   
-  <li class=" current" data-id="crysda/Crysda/AnyCol" data-name="crysda::anycol">
+  <li class=" " data-id="crysda/Crysda/AnyCol" data-name="crysda::anycol">
       <a href="../Crysda/AnyCol.html">AnyCol</a>
       
     </li>
@@ -87,7 +87,7 @@
       
     </li>
   
-  <li class=" " data-id="crysda/Crysda/BigDecimalCol" data-name="crysda::bigdecimalcol">
+  <li class=" current" data-id="crysda/Crysda/BigDecimalCol" data-name="crysda::bigdecimalcol">
       <a href="../Crysda/BigDecimalCol.html">BigDecimalCol</a>
       
     </li>
@@ -298,12 +298,12 @@
 
   <span class="kind">
     struct
-  </span> Crysda::<wbr>AnyCol
+  </span> Crysda::<wbr>BigDecimalCol
 
 </h1>
 
 
-  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Crysda/AnyCol.html">Crysda::AnyCol</a></li><li class="superclass"><a href="../Crysda/DataCol.html">Crysda::DataCol</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../Crysda/BigDecimalCol.html">Crysda::BigDecimalCol</a></li><li class="superclass"><a href="../Crysda/DataCol.html">Crysda::DataCol</a></li><li class="superclass">Struct</li><li class="superclass">Value</li><li class="superclass">Object</li></ul>
 
 
 
@@ -317,11 +317,11 @@
     Overview
   </h2>
 
-  <h1><a id="any-column" class="anchor" href="#any-column">  <svg class="octicon-link" aria-hidden="true">
+  <h1><a id="big-decimal-column-high-precision-decimal-storage" class="anchor" href="#big-decimal-column-high-precision-decimal-storage">  <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
 </a>===========================================================================
-Any Column</h1>
+BigDecimal Column - high precision decimal storage</h1>
 
 
 
@@ -348,7 +348,7 @@ Any Column</h1>
   </h2>
   
     
-      <a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3293" target="_blank">
+      <a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3992" target="_blank">
         crysda/columns.cr
       </a>
     
@@ -371,7 +371,7 @@ Any Column</h1>
   <ul class="list-summary">
     
       <li class="entry-summary">
-        <a href="#new%28name%3AString%2Cval%3AArray%28Any%29%29-class-method" class="signature"><strong>.new</strong>(name : String, val : Array(Any))</a>
+        <a href="#new%28name%3AString%2Cval%3AArray%28BigDecimal%7CNil%29%29-class-method" class="signature"><strong>.new</strong>(name : String, val : Array(BigDecimal | Nil))</a>
         
       </li>
     
@@ -394,7 +394,77 @@ Any Column</h1>
   <ul class="list-summary">
     
       <li class="entry-summary">
+        <a href="#%3C%28val%3ANumber%29-instance-method" class="signature"><strong>#<</strong>(val : Number)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3C%28val%3ABigDecimalCol%29-instance-method" class="signature"><strong>#<</strong>(val : BigDecimalCol)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3C%3D%28val%3ANumber%29-instance-method" class="signature"><strong>#<=</strong>(val : Number)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3C%3D%28val%3ABigDecimalCol%29-instance-method" class="signature"><strong>#<=</strong>(val : BigDecimalCol)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28val%3ANumber%29-instance-method" class="signature"><strong>#==</strong>(val : Number)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3D%3D%28val%3ABigDecimalCol%29-instance-method" class="signature"><strong>#==</strong>(val : BigDecimalCol)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3E%28val%3ANumber%29-instance-method" class="signature"><strong>#></strong>(val : Number)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3E%28val%3ABigDecimalCol%29-instance-method" class="signature"><strong>#></strong>(val : BigDecimalCol)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3E%3D%28val%3ANumber%29-instance-method" class="signature"><strong>#>=</strong>(val : Number)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#%3E%3D%28val%3ABigDecimalCol%29-instance-method" class="signature"><strong>#>=</strong>(val : BigDecimalCol)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#compare%28left%3AInt32%2Cright%3AInt32%2Cnull_last%3Dtrue%29%3AInt32-instance-method" class="signature"><strong>#compare</strong>(left : Int32, right : Int32, null_last = <span class="n">true</span>) : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#div%28val%29-instance-method" class="signature"><strong>#div</strong>(val)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#each%28%26%29%3ANil-instance-method" class="signature"><strong>#each</strong>(&) : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#each_non_null%28%26%29%3ANil-instance-method" class="signature"><strong>#each_non_null</strong>(&) : Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#each_with_index%28%26%29%3ANil-instance-method" class="signature"><strong>#each_with_index</strong>(&) : Nil</a>
         
       </li>
     
@@ -404,7 +474,62 @@ Any Column</h1>
       </li>
     
       <li class="entry-summary">
-        <a href="#values%3AArray%28Any%29-instance-method" class="signature"><strong>#values</strong> : Array(Any)</a>
+        <a href="#minus%28val%29-instance-method" class="signature"><strong>#minus</strong>(val)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#opt_max%28remove_na%3Dfalse%29%3ABigDecimal-instance-method" class="signature"><strong>#opt_max</strong>(remove_na = <span class="n">false</span>) : BigDecimal</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#opt_mean%28remove_na%3Dfalse%29%3ABigDecimal-instance-method" class="signature"><strong>#opt_mean</strong>(remove_na = <span class="n">false</span>) : BigDecimal</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#opt_median%28remove_na%3Dfalse%29%3ABigDecimal-instance-method" class="signature"><strong>#opt_median</strong>(remove_na = <span class="n">false</span>) : BigDecimal</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#opt_min%28remove_na%3Dfalse%29%3ABigDecimal-instance-method" class="signature"><strong>#opt_min</strong>(remove_na = <span class="n">false</span>) : BigDecimal</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#opt_sd%28remove_na%3Dfalse%29%3ABigDecimal-instance-method" class="signature"><strong>#opt_sd</strong>(remove_na = <span class="n">false</span>) : BigDecimal</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#opt_sum%28remove_na%3Dfalse%29%3ABigDecimal-instance-method" class="signature"><strong>#opt_sum</strong>(remove_na = <span class="n">false</span>) : BigDecimal</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#plus%28val%29-instance-method" class="signature"><strong>#plus</strong>(val)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#times%28val%29-instance-method" class="signature"><strong>#times</strong>(val)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#to_f64%28name%3AString%3D%40name%29%3AFloat64Col-instance-method" class="signature"><strong>#to_f64</strong>(name : String = @name) : Float64Col</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#unsafe_fetch%28index%3AInt32%29%3ABigDecimal%7CNil-instance-method" class="signature"><strong>#unsafe_fetch</strong>(index : Int32) : BigDecimal | Nil</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#values%3AArray%28BigDecimal%7CNil%29-instance-method" class="signature"><strong>#values</strong> : Array(BigDecimal | Nil)</a>
         
       </li>
     
@@ -846,18 +971,18 @@ Any Column</h1>
     Constructor Detail
   </h2>
   
-    <div class="entry-detail" id="new(name:String,val:Array(Any))-class-method">
+    <div class="entry-detail" id="new(name:String,val:Array(BigDecimal|Nil))-class-method">
       <div class="signature">
         
-        def self.<strong>new</strong>(name : String, val : Array(<a href="../Crysda/Any.html">Any</a>))
+        def self.<strong>new</strong>(name : String, val : Array(BigDecimal | Nil))
 
-        <a class="method-permalink" href="#new%28name%3AString%2Cval%3AArray%28Any%29%29-class-method">#</a>
+        <a class="method-permalink" href="#new%28name%3AString%2Cval%3AArray%28BigDecimal%7CNil%29%29-class-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3294" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3997" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -878,6 +1003,166 @@ Any Column</h1>
     Instance Method Detail
   </h2>
   
+    <div class="entry-detail" id="&lt;(val:Number)-instance-method">
+      <div class="signature">
+        
+        def <strong><</strong>(val : Number)
+
+        <a class="method-permalink" href="#%3C%28val%3ANumber%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&lt;(val:BigDecimalCol)-instance-method">
+      <div class="signature">
+        
+        def <strong><</strong>(val : <a href="../Crysda/BigDecimalCol.html">BigDecimalCol</a>)
+
+        <a class="method-permalink" href="#%3C%28val%3ABigDecimalCol%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&lt;=(val:Number)-instance-method">
+      <div class="signature">
+        
+        def <strong><=</strong>(val : Number)
+
+        <a class="method-permalink" href="#%3C%3D%28val%3ANumber%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&lt;=(val:BigDecimalCol)-instance-method">
+      <div class="signature">
+        
+        def <strong><=</strong>(val : <a href="../Crysda/BigDecimalCol.html">BigDecimalCol</a>)
+
+        <a class="method-permalink" href="#%3C%3D%28val%3ABigDecimalCol%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(val:Number)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(val : Number)
+
+        <a class="method-permalink" href="#%3D%3D%28val%3ANumber%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="==(val:BigDecimalCol)-instance-method">
+      <div class="signature">
+        
+        def <strong>==</strong>(val : <a href="../Crysda/BigDecimalCol.html">BigDecimalCol</a>)
+
+        <a class="method-permalink" href="#%3D%3D%28val%3ABigDecimalCol%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&gt;(val:Number)-instance-method">
+      <div class="signature">
+        
+        def <strong>></strong>(val : Number)
+
+        <a class="method-permalink" href="#%3E%28val%3ANumber%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&gt;(val:BigDecimalCol)-instance-method">
+      <div class="signature">
+        
+        def <strong>></strong>(val : <a href="../Crysda/BigDecimalCol.html">BigDecimalCol</a>)
+
+        <a class="method-permalink" href="#%3E%28val%3ABigDecimalCol%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&gt;=(val:Number)-instance-method">
+      <div class="signature">
+        
+        def <strong>>=</strong>(val : Number)
+
+        <a class="method-permalink" href="#%3E%3D%28val%3ANumber%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="&gt;=(val:BigDecimalCol)-instance-method">
+      <div class="signature">
+        
+        def <strong>>=</strong>(val : <a href="../Crysda/BigDecimalCol.html">BigDecimalCol</a>)
+
+        <a class="method-permalink" href="#%3E%3D%28val%3ABigDecimalCol%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4281" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
     <div class="entry-detail" id="compare(left:Int32,right:Int32,null_last=true):Int32-instance-method">
       <div class="signature">
         
@@ -889,7 +1174,71 @@ Any Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3307" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4062" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="div(val)-instance-method">
+      <div class="signature">
+        
+        def <strong>div</strong>(val)
+
+        <a class="method-permalink" href="#div%28val%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4201" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="each(&amp;):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>each</strong>(&) : Nil
+
+        <a class="method-permalink" href="#each%28%26%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4027" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="each_non_null(&amp;):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>each_non_null</strong>(&) : Nil
+
+        <a class="method-permalink" href="#each_non_null%28%26%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4039" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="each_with_index(&amp;):Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>each_with_index</strong>(&) : Nil
+
+        <a class="method-permalink" href="#each_with_index%28%26%29%3ANil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4033" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -905,23 +1254,199 @@ Any Column</h1>
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3303" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4017" target="_blank">View source</a>]
         
       </div>
     </div>
   
-    <div class="entry-detail" id="values:Array(Any)-instance-method">
+    <div class="entry-detail" id="minus(val)-instance-method">
       <div class="signature">
         
-        def <strong>values</strong> : Array(<a href="../Crysda/Any.html">Any</a>)
+        def <strong>minus</strong>(val)
 
-        <a class="method-permalink" href="#values%3AArray%28Any%29-instance-method">#</a>
+        <a class="method-permalink" href="#minus%28val%29-instance-method">#</a>
       </div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L3299" target="_blank">View source</a>]
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4191" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="opt_max(remove_na=false):BigDecimal-instance-method">
+      <div class="signature">
+        
+        def <strong>opt_max</strong>(remove_na = <span class="n">false</span>) : BigDecimal
+
+        <a class="method-permalink" href="#opt_max%28remove_na%3Dfalse%29%3ABigDecimal-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4127" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="opt_mean(remove_na=false):BigDecimal-instance-method">
+      <div class="signature">
+        
+        def <strong>opt_mean</strong>(remove_na = <span class="n">false</span>) : BigDecimal
+
+        <a class="method-permalink" href="#opt_mean%28remove_na%3Dfalse%29%3ABigDecimal-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4088" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="opt_median(remove_na=false):BigDecimal-instance-method">
+      <div class="signature">
+        
+        def <strong>opt_median</strong>(remove_na = <span class="n">false</span>) : BigDecimal
+
+        <a class="method-permalink" href="#opt_median%28remove_na%3Dfalse%29%3ABigDecimal-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4148" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="opt_min(remove_na=false):BigDecimal-instance-method">
+      <div class="signature">
+        
+        def <strong>opt_min</strong>(remove_na = <span class="n">false</span>) : BigDecimal
+
+        <a class="method-permalink" href="#opt_min%28remove_na%3Dfalse%29%3ABigDecimal-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4106" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="opt_sd(remove_na=false):BigDecimal-instance-method">
+      <div class="signature">
+        
+        def <strong>opt_sd</strong>(remove_na = <span class="n">false</span>) : BigDecimal
+
+        <a class="method-permalink" href="#opt_sd%28remove_na%3Dfalse%29%3ABigDecimal-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4162" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="opt_sum(remove_na=false):BigDecimal-instance-method">
+      <div class="signature">
+        
+        def <strong>opt_sum</strong>(remove_na = <span class="n">false</span>) : BigDecimal
+
+        <a class="method-permalink" href="#opt_sum%28remove_na%3Dfalse%29%3ABigDecimal-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4076" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="plus(val)-instance-method">
+      <div class="signature">
+        
+        def <strong>plus</strong>(val)
+
+        <a class="method-permalink" href="#plus%28val%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4181" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="times(val)-instance-method">
+      <div class="signature">
+        
+        def <strong>times</strong>(val)
+
+        <a class="method-permalink" href="#times%28val%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4211" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="to_f64(name:String=@name):Float64Col-instance-method">
+      <div class="signature">
+        
+        def <strong>to_f64</strong>(name : String = @name) : <a href="../Crysda/Float64Col.html">Float64Col</a>
+
+        <a class="method-permalink" href="#to_f64%28name%3AString%3D%40name%29%3AFloat64Col-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4299" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="unsafe_fetch(index:Int32):BigDecimal|Nil-instance-method">
+      <div class="signature">
+        
+        def <strong>unsafe_fetch</strong>(index : Int32) : BigDecimal | Nil
+
+        <a class="method-permalink" href="#unsafe_fetch%28index%3AInt32%29%3ABigDecimal%7CNil-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4050" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="values:Array(BigDecimal|Nil)-instance-method">
+      <div class="signature">
+        
+        def <strong>values</strong> : Array(BigDecimal | Nil)
+
+        <a class="method-permalink" href="#values%3AArray%28BigDecimal%7CNil%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/naqvis/CrysDA/blob/205ea2181cab0dc11b454b32b62febe6cc37cb49/src/crysda/columns.cr#L4021" target="_blank">View source</a>]
         
       </div>
     </div>

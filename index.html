@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Crystal Docs 1.17.1">
+<meta name="generator" content="Crystal Docs 1.19.1">
 <meta name="crystal_docs.project_version" content="master">
 <meta name="crystal_docs.project_name" content="crysda">
 
@@ -84,6 +84,11 @@
   
   <li class=" " data-id="crysda/Crysda/AnyVal" data-name="crysda::anyval">
       <a href="Crysda/AnyVal.html">AnyVal</a>
+      
+    </li>
+  
+  <li class=" " data-id="crysda/Crysda/BigDecimalCol" data-name="crysda::bigdecimalcol">
+      <a href="Crysda/BigDecimalCol.html">BigDecimalCol</a>
       
     </li>
   
@@ -267,6 +272,11 @@
       
     </li>
   
+  <li class=" " data-id="crysda/Crysda/TimestampCol" data-name="crysda::timestampcol">
+      <a href="Crysda/TimestampCol.html">TimestampCol</a>
+      
+    </li>
+  
   <li class=" " data-id="crysda/Crysda/UnSupportedOperationException" data-name="crysda::unsupportedoperationexception">
       <a href="Crysda/UnSupportedOperationException.html">UnSupportedOperationException</a>
       
@@ -346,7 +356,7 @@ flights
 <ul>
 <li><strong>CSV/TSV</strong> - Plain or compressed (gzip), local or remote URLs</li>
 <li><strong>JSON</strong> - Array of objects format</li>
-<li><strong>Database</strong> - Direct SQL query results to DataFrame</li>
+<li><strong>Database</strong> - Direct SQL query results to DataFrame (with extension API for custom DB types)</li>
 </ul>
 <h3><a id="column-types" class="anchor" href="#column-types">
   <svg class="octicon-link" aria-hidden="true">
@@ -354,11 +364,18 @@ flights
   </svg>
 </a>Column Types</h3>
 <ul>
-<li>Numeric: <code>Int32Col</code>, <code>Int64Col</code>, <code>Float64Col</code></li>
+<li>Numeric: <code>Int32Col</code>, <code>Int64Col</code>, <code>Float64Col</code>, <code>BigDecimalCol</code></li>
 <li>Text: <code>StringCol</code> with automatic interning for categorical data</li>
 <li>Boolean: <code>BoolCol</code></li>
-<li>DateTime: <code>DateTimeCol</code> with component extraction and formatting</li>
+<li>DateTime: <code>DateTimeCol</code> (millisecond precision) with component extraction and formatting</li>
+<li>Timestamp: <code>TimestampCol</code> (nanosecond precision) for high-resolution time data</li>
 <li>Nested: <code>DFCol</code> for hierarchical data</li>
+</ul>
+<p>Numeric types are auto-detected on CSV import:</p>
+<ul>
+<li>Integer values → <code>Int32Col</code> or <code>Int64Col</code></li>
+<li>Decimal values → <code>Float64Col</code> (unless Float64 loses precision, then <code>BigDecimalCol</code>)</li>
+<li><code>BigDecimalCol</code> preserves arbitrary-precision decimal values from CSV or DB sources</li>
 </ul>
 <h3><a id="missing-data" class="anchor" href="#missing-data">
   <svg class="octicon-link" aria-hidden="true">
@@ -374,23 +391,23 @@ df.fillna({<span class="s">&quot;age&quot;</span> <span class="o">=&gt;</span> <
     <use href="#octicon-link"/>
   </svg>
 </a>String Operations</h3>
-<pre><code class="language-crystal"># No casting needed - use str_ prefix methods
-df[&quot;name&quot;].str_contains(&quot;john&quot;)        # Check substring
-df[&quot;name&quot;].str_contains(/\d+/)         # Regex match
-df[&quot;name&quot;].str_starts_with(&quot;Dr.&quot;)      # Prefix check
-df[&quot;name&quot;].str_ends_with(&quot;Jr.&quot;)        # Suffix check
-df[&quot;name&quot;].str_extract(/(\d+)/)        # Extract regex groups
-df[&quot;name&quot;].str_replace(&quot;old&quot;, &quot;new&quot;)   # Substitute patterns
-df[&quot;name&quot;].str_upcase                  # Convert to uppercase
-df[&quot;name&quot;].str_downcase                # Convert to lowercase
-df[&quot;name&quot;].str_strip                   # Trim whitespace
-df[&quot;name&quot;].str_len                     # String lengths
+<pre><code class="language-crystal"><span class="c"># No casting needed - use str_ prefix methods</span>
+df[<span class="s">&quot;name&quot;</span>].str_contains(<span class="s">&quot;john&quot;</span>)        <span class="c"># Check substring</span>
+df[<span class="s">&quot;name&quot;</span>].str_contains(<span class="s">/\d+/</span>)         <span class="c"># Regex match</span>
+df[<span class="s">&quot;name&quot;</span>].str_starts_with(<span class="s">&quot;Dr.&quot;</span>)      <span class="c"># Prefix check</span>
+df[<span class="s">&quot;name&quot;</span>].str_ends_with(<span class="s">&quot;Jr.&quot;</span>)        <span class="c"># Suffix check</span>
+df[<span class="s">&quot;name&quot;</span>].str_extract(<span class="s">/(\d+)/</span>)        <span class="c"># Extract regex groups</span>
+df[<span class="s">&quot;name&quot;</span>].str_replace(<span class="s">&quot;old&quot;</span>, <span class="s">&quot;new&quot;</span>)   <span class="c"># Substitute patterns</span>
+df[<span class="s">&quot;name&quot;</span>].str_upcase                  <span class="c"># Convert to uppercase</span>
+df[<span class="s">&quot;name&quot;</span>].str_downcase                <span class="c"># Convert to lowercase</span>
+df[<span class="s">&quot;name&quot;</span>].str_strip                   <span class="c"># Trim whitespace</span>
+df[<span class="s">&quot;name&quot;</span>].str_len                     <span class="c"># String lengths</span>
 
-# Use in filters
-df.filter { |e| e[&quot;email&quot;].str_contains(&quot;@gmail.com&quot;) }
+<span class="c"># Use in filters</span>
+df.filter { <span class="o">|</span>e<span class="o">|</span> e[<span class="s">&quot;email&quot;</span>].str_contains(<span class="s">&quot;@gmail.com&quot;</span>) }
 
-# Or use the block-based matching for simple cases
-df.filter { |e| e[&quot;name&quot;].matching { |s| s.starts_with?(&quot;A&quot;) } }</code></pre>
+<span class="c"># Or use the block-based matching for simple cases</span>
+df.filter { <span class="o">|</span>e<span class="o">|</span> e[<span class="s">&quot;name&quot;</span>].matching { <span class="o">|</span>s<span class="o">|</span> s.starts_with?(<span class="s">&quot;A&quot;</span>) } }</code></pre>
 <h3><a id="window-functions" class="anchor" href="#window-functions">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -478,12 +495,33 @@ df <span class="o">=</span> <span class="t">Crysda</span>.read_csv(<span class="
 df <span class="o">=</span> <span class="t">Crysda</span>.read_csv(<span class="s">&quot;http://example.com/data.csv&quot;</span>)  <span class="c"># from URL</span>
 df <span class="o">=</span> <span class="t">Crysda</span>.read_csv(<span class="s">&quot;data.tsv.gz&quot;</span>, separator: <span class="s">&#39;\t&#39;</span>) <span class="c"># compressed TSV</span>
 
+<span class="c"># From DB result set</span>
+<span class="t">DB</span>.open <span class="s">&quot;postgres://localhost/mydb&quot;</span> <span class="k">do</span> <span class="o">|</span>db<span class="o">|</span>
+  db.query <span class="s">&quot;SELECT * FROM events&quot;</span> <span class="k">do</span> <span class="o">|</span>rs<span class="o">|</span>
+    df <span class="o">=</span> <span class="t">Crysda</span>.from(rs)
+  <span class="k">end</span>
+<span class="k">end</span>
+
 <span class="c"># From code</span>
 df <span class="o">=</span> <span class="t">Crysda</span>.dataframe_of(<span class="s">&quot;name&quot;</span>, <span class="s">&quot;age&quot;</span>, <span class="s">&quot;score&quot;</span>).values(
   <span class="s">&quot;Alice&quot;</span>, <span class="n">30</span>, <span class="n">95.5</span>,
   <span class="s">&quot;Bob&quot;</span>,   <span class="n">25</span>, <span class="n">87.0</span>,
   <span class="s">&quot;Carol&quot;</span>, <span class="n">35</span>, <span class="n">92.3</span>
 )</code></pre>
+<h4><a id="custom-db-types-converter-registry" class="anchor" href="#custom-db-types-converter-registry">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Custom DB Types (Converter Registry)</h4>
+<p>DB drivers may return types not in CrysDA's <code>Any</code> union (e.g., <code>PG::Numeric</code>). Register a converter to handle them:</p>
+<pre><code class="language-crystal"><span class="t">Crysda</span>.register_converter(<span class="s">&quot;PG::Numeric&quot;</span>) { <span class="o">|</span>s<span class="o">|</span> s.to_f64 }
+
+<span class="t">DB</span>.open <span class="s">&quot;postgres://localhost/mydb&quot;</span> <span class="k">do</span> <span class="o">|</span>db<span class="o">|</span>
+  db.query <span class="s">&quot;SELECT amount FROM transactions&quot;</span> <span class="k">do</span> <span class="o">|</span>rs<span class="o">|</span>
+    df <span class="o">=</span> <span class="t">Crysda</span>.from(rs)
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
+<p>The converter receives the value's string representation (<code>to_json</code> if available, fallback <code>to_s</code>). Unregistered types auto-convert to <code>StringCol</code>.</p>
 <h3><a id="inspecting-data" class="anchor" href="#inspecting-data">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
