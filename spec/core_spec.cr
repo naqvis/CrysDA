@@ -1228,6 +1228,17 @@ STR
       dups.should eq([false, false, true, false, true])
     end
 
+    it "duplicated considers all specified columns" do
+      df = dataframe_of("a", "b", "c").values(
+        1, 10, 100,
+        1, 20, 200,
+        2, 10, 100,
+        1, 10, 100
+      )
+      dups = df.duplicated("a", "b", "c")
+      dups.should eq([false, false, false, true])
+    end
+
     it "drop_duplicates removes duplicate rows" do
       df = dataframe_of("a", "b").values(
         1, "x",

@@ -931,7 +931,7 @@ module Crysda
       Array(Bool).new(num_row) do |i|
         hash = 17_i64
         check_cols.each do |col_name|
-          hash = hasher.hashcode(AnyVal[self[col_name][i]])
+          hash = HashBuilder.combine(hash, hasher.hashcode(AnyVal[self[col_name][i]]))
         end
         if seen.includes?(hash)
           true
