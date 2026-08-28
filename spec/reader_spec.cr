@@ -254,4 +254,29 @@ JS
       Crysda.converter_for("Baz::Qux").should_not be_nil
     end
   end
+
+  describe "CSV writing" do
+    it "writes a dataframe as CSV and round-trips it back" do
+      original = read_csv(IO::Memory.new("a,b,c\n1,2,3\n4,5,6\n7,8,9\n"))
+
+      io = IO::Memory.new
+      original.write_csv(io)
+      io.to_s.should eq("a,b,c\n1,2,3\n4,5,6\n7,8,9\n")
+
+      round = read_csv(IO::Memory.new(io.to_s))
+      round.num_row.should eq(3)
+      round.names.should eq(["a", "b", "c"])
+      round["a"][0].should eq(original["a"][0])
+      round["a"][1].should eq(original["a"][1])
+      round["b"][2].should eq(original["b"][2])
+      round["c"][2].should eq(original["c"][2])
+    end
+
+    it "writes a custom separator" do
+      original = read_csv(IO::Memory.new("a;b\n1;2\n3;4\n"), separator: ';')
+      io = IO::Memory.new
+      original.write_csv(io, separator: ';')
+      io.to_s.should eq("a;b\n1;2\n3;4\n")
+    end
+  end
 end

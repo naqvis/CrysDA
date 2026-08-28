@@ -680,7 +680,7 @@ module Crysda
 
     def write_csv(io : IO, separator : Char = ',', quote_char : Char = '"') : Nil
       io.puts names.join("#{separator}")
-      CSV.build(io, separator, quote_char) do |csv|
+      CSV2::Writer.build(io, separator, quote_char) do |csv|
         row_data.each.each do |drow|
           csv.row do |r|
             drow.each do |v|

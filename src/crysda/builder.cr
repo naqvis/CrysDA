@@ -1,4 +1,4 @@
-require "csv"
+require "csv2"
 require "http/client"
 require "compress/gzip"
 require "json"
@@ -73,7 +73,7 @@ module Crysda
                  skip_blank_lines : Bool = true, skip : Int32 = 0, comment : Char? = '#', header : Int32? = 0,
                  na_value : String = MISSING_VALUE, true_values = ["T", "TRUE"],
                  false_values = ["F", "FALSE"])
-      records = CSV.parse(io, separator, quote_char)
+      records = CSV2::Reader.parse(io, separator, quote_char)
       records = records.reject(&.empty?) if skip_blank_lines
       records = records[skip..]
       if chr = comment

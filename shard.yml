@@ -1,5 +1,5 @@
 name: crysda
-version: 0.5.1
+version: 0.5.2
 
 authors:
   - Ali Naqvi <syed.alinaqvi@gmail.com>
@@ -13,6 +13,8 @@ crystal: ~> 1.0
 dependencies:
   db:
     github: crystal-lang/crystal-db
+  csv2:
+    github: naqvis/csv2
 
 development_dependencies:
   sqlite3:
